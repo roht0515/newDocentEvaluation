@@ -1,5 +1,7 @@
 @extends('layouts.adminLayout')
+@section('meta')
 
+@endsection
 @section('content')
 <!-- datatable con docentes boton de registro -->
 <div class="container-fluid">

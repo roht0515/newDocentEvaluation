@@ -1,5 +1,7 @@
 @extends('layouts.adminLayout')
+@section('meta')
 
+@endsection
 @section('content')
 <!-- datatable con categorias boton de registro -->
 <div class="container-fluid">
@@ -102,24 +104,6 @@
 @endsection
 @section('script')
 <script>
-  $(function()
-        {
-            $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': '{{csrf_token()}}'
-          }
-            }); 
-        var categorytable=$('.dataTable').DataTable({
-            serverside:true,
-            processing:true,
-            ajax:"{{route('category.list')}}",
-            columns:[
-                {data:'name',name:'name'},
-                {data:'year',name:'year'},
-                {data:'DT_RowId',name:'DT_RowId',visible:false}
-            ]
-        });
-        })
 </script>
 
 @endsection

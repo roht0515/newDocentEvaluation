@@ -1,5 +1,7 @@
 @extends('layouts.adminLayout')
+@section('meta')
 
+@endsection
 @section('content')
 <!-- datatable con todos los diplomas -->
 <div class="container-fluid">

@@ -1,4 +1,7 @@
 @extends('layouts.adminLayout')
+@section('meta')
+
+@endsection
 @section('content')
 <div class="container-fluid">
   <div class="row p-3">

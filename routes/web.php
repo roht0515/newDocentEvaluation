@@ -51,3 +51,7 @@ Route::post('admin/store', 'UserController@store')->name('users.store');
 Route::get('/admin/register', function () {
     return view('admin.adminRegister');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

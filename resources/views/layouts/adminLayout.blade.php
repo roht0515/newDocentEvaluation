@@ -136,7 +136,11 @@
                   </a>
                   <a href="{{ url('admin/docentes-Estudiantes') }}" class="nav-link">
                     <i class="fas fa-user-friends nav-icon"></i>
-                    <p>Docentes estudiantes</p>
+                    <p>Docentes</p>
+                  </a>
+                  <a href="{{ url('admin/docentes-Estudiantes') }}" class="nav-link">
+                    <i class="fas fa-user-friends nav-icon"></i>
+                    <p>Estudiantes</p>
                   </a>
                 </li>
               </ul>

@@ -41,14 +41,13 @@
         serverside:true,
         processing:true,
         ajax:"{{route('certificates.indexdiplomat')}}",
-        columns:
-        [
-            {data:'idTrained',name:'idTrained'},
-            {data:'name',name:'name'},
-            {data:'reason',name:'reason'},
-            {data:'delivered',namE:'delivered'},
-            {data:'DT_RowId',name:'DT_RowId',visible:false}
-        ]        
+        columns: [
+                {data:'fullname',name:'fullname'},  
+                {data:'Nombrecito',name:'certificate.name'},
+                {data:'reason',name:'certificate.reason'},
+                {data:'delivered',name:'certificate.delivered'},
+                {data:'idc',name:'certificate.id',visible:false}
+            ]       
     });
 })
 </script>

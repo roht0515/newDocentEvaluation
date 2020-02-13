@@ -37,6 +37,7 @@ Route::get('certificate/list', 'CertificatesController@list')->name('certificate
 Route::get('certificate/indexCertificate', 'CertificatesController@indexCertificate')->name('certificates.indexcertificate'); //obtener los datos de certificados
 Route::get('certificate/register', 'CertificatesController@createCertificate')->name('certificates.register');
 Route::post('certificate/store', 'CertificatesController@storeCertificate')->name('certificates.store');
+Route::get('certificate/listDiplomat', 'CertificatesController@listDiplomat')->name('certificates.listdiplomat');
 Route::get('certificate/indexDiplomat', 'CertificatesController@indexDiplomat')->name('certificates.indexdiplomat');
 Route::get('certificate/registerDiplomat', 'CertificatesController@createDiplomat')->name('certificates.registerdiplomat');
 Route::post('certificate/registerDiplomat', 'CertificatesController@storeDiplomat')->name('certificates.storediplomat');

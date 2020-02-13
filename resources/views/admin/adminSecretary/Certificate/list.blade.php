@@ -42,7 +42,7 @@
         processing:true,
         ajax:"{{route('certificates.indexcertificate')}}",
         columns: [
-                {data:'name',name:'trained.name'},  
+                {data:'fullname',name:'fullname'},  
                 {data:'Nombrecito',name:'certificate.name'},
                 {data:'reason',name:'certificate.reason'},
                 {data:'delivered',name:'certificate.delivered'},

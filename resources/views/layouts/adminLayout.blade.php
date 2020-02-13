@@ -197,7 +197,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{route('certificates.indexdiplomat')}}" class="nav-link">
+                  <a href="{{route('certificates.listdiplomat')}}" class="nav-link">
                     <i class="nav-icon fas fa-book"></i>
                     <p>
                       Diplomados

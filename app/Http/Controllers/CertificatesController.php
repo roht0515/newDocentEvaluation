@@ -30,11 +30,17 @@ class CertificatesController extends Controller
     {
         //
         $data = DB::table('certificate')->join('trained', 'certificate.idTrained', '=', 'trained.id')
-            ->select(['trained.name', 'certificate.name as Nombrecito', 'certificate.reason', 'certificate.delivered', 'certificate.id as idc']);
+            ->select([DB::raw('CONCAT(trained.name," ",trained.lastname) as fullname'), 'certificate.name as Nombrecito', 'certificate.reason', 'certificate.delivered', 'certificate.id as idc'])
+            ->where('type', 'certificado');
         return DataTables::of($data)->make(true);
     }
     public function indexDiplomat()
-    { }
+    {
+        $data = DB::table('certificate')->join('trained', 'certificate.idTrained', '=', 'trained.id')
+            ->select([DB::raw('CONCAT(trained.name," ",trained.lastname) as fullname'), 'certificate.name as Nombrecito', 'certificate.reason', 'certificate.delivered', 'certificate.id as idc'])
+            ->where('type', 'diploma');
+        return DataTables::of($data)->make(true);
+    }
 
     /**
      * Show the form for creating a new resource.

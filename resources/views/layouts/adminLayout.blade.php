@@ -124,21 +124,21 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{route('diplomat.list')}}" class="nav-link">
+                  <a href="{{route('diplomats.list')}}" class="nav-link">
                     <i class="fas fa-align-left nav-icon"></i>
                     <p>Lista</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ url('admin/register') }}" class="nav-link">
+                  <a href="" class="nav-link">
                     <i class="fas fa-plus nav-icon"></i>
                     <p>Registrar</p>
                   </a>
-                  <a href="{{ url('admin/docentes-Estudiantes') }}" class="nav-link">
+                  <a href="{{route('professors.list')}}" class="nav-link">
                     <i class="fas fa-user-friends nav-icon"></i>
                     <p>Docentes</p>
                   </a>
-                  <a href="{{ url('admin/docentes-Estudiantes') }}" class="nav-link">
+                  <a href="{{route('students.list')}}" class="nav-link">
                     <i class="fas fa-user-friends nav-icon"></i>
                     <p>Estudiantes</p>
                   </a>
@@ -156,13 +156,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ url('admin/evaluations') }}" class="nav-link">
+                  <a href="{{route('evaluations.list')}}" class="nav-link">
                     <i class="fas fa-file nav-icon"></i>
                     <p>Evaluacion</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{route('category.list')}}" class="nav-link">
+                  <a href="{{route('categories.list')}}" class="nav-link">
                     <i class="fas fa-clone nav-icon"></i>
                     <p>Categorias</p>
                   </a>
@@ -171,7 +171,7 @@
             </li>
 
             <li class="nav-item">
-              <a href="{{ url('admin/history') }}" class="nav-link">
+              <a href="" class="nav-link">
                 <i class="nav-icon fas fa-database"></i>
                 <p>
                   Historial
@@ -179,22 +179,32 @@
               </a>
             </li>
             <!-- /.Secretario Gral -->
-            <li class="nav-item">
-              <a href="{{ route('certificate.list') }}" class="nav-link">
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
                 <p>
-                  Certificados
+                  Secretaria
+                  <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
-            </li>
-
-            <li class="nav-item">
-              <a href="{{ route('certificate.list') }}" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Diplomados
-                </p>
-              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('certificates.list')}}" class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>
+                      Certificados
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('certificates.indexdiplomat')}}" class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>
+                      Diplomados
+                    </p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <!-- /.Administrador -->
             <li class="nav-item">

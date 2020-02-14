@@ -103,6 +103,19 @@
         });
     })
 
+      //click de la tabla
+      $('#diplomatTable').on('click', 'tr', function () {
+        var id = table.row(this).id();
+        if (id)
+        {
+            console.log(id);
+            var url = '{{ route("diplomats.get","") }}';
+            url+=`/${id}`;
+            window.location.href=url;
+        }
+        
+    });
+
 
 //final del document ready
 })

@@ -105,4 +105,20 @@ class DiplomatsController extends Controller
     {
         //
     }
+
+    public function createModel(){
+
+
+
+    }
+
+    public function get($id){
+
+        $category = DB::table('diplomat')->where('id', '=', $id)->first();
+        return view('admin.adminEvaluation.Module.list')->with([
+            'id' => $category->id,
+            'name' => $category->name
+        ]);
+
+    }
 }

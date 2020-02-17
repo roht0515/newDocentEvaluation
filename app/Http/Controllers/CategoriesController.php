@@ -31,7 +31,6 @@ class CategoriesController extends Controller
         }
         return view('admin.adminEvaluation.Categories.list');
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -70,7 +69,6 @@ class CategoriesController extends Controller
             'name' => $category->name
         ]);
     }
-
     /**
      * Display the specified resource.
      *

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Evaluation;
+use App\EvaluationCategory;
 use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,28 +12,31 @@ use DateTime;
 use Validator;
 use DB;
 
-class EvaluationsController extends Controller
+class EvaluationCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
-        //obtener los datos
+        //
         if ($request->ajax()) {
-            $data = Evaluation::latest()->get();
+            $data = DB::table('evaluationcategory')
+                ->join('category', 'evaluationcategory.idCategory', '=', 'category.id')
+                ->join('evaluation', 'evaluationcategory.idEvaluation', '=', 'evaluation.id')
+                ->select(['category.name as nameCategory'])
+                ->where('evaluationcategory.idEvaluation', '=', $id);
             return DataTables::of($data)
-                ->addColumn('DT_RowId', function ($row) {
-                    $row = $row->id;
-                    return $row;
-                })
                 ->make(true);
         }
-        return view('admin.adminEvaluation.Evaluation.list');
     }
-
+    public function listQuestion($id)
+    {
+        $data = Question::where('idCategory', '=', $id)->get();
+        return response()->json($data);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -54,24 +57,12 @@ class EvaluationsController extends Controller
     {
         //
         if ($request->ajax()) {
-            $evaluation = new Evaluation();
-            //obetener los valors
-            $evaluation->name = $request->name;
-            $evaluation->version = $request->version;
-            $evaluation->startDate = $request->startDate;
-            $evaluation->endDate = $request->endDate;
-            $evaluation->saveOrFail();
-            return response()->json(["sucess" => 'Evaluacion Registrada']);
+            $evaluationcategory = new EvaluationCategory();
+            $evaluationcategory->idEvaluation = $request->idEvaluation;
+            $evaluationcategory->idCategory = $request->idCategory;
+            $evaluationcategory->saveOrFail();
+            return response()->json(['success', 'Se asigno correctamente la categoria']);
         }
-    }
-    public function get($id)
-    {
-        $evaluation = Evaluation::where('id', '=', $id)->first();
-        $categories = Category::all();
-        return view('admin.adminEvaluation.EvaluationCategory.list', compact('categories'))->with([
-            'id' => $evaluation->id,
-            'name' => $evaluation->name,
-        ]);
     }
 
     /**

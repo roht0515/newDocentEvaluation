@@ -67,8 +67,6 @@
                                     Administrador de Secretaria</option>
                                 <option id="role" name="Adminstrador Evaluacion" value="Administrador de Evaluacion">
                                     Administrador de Evaluacion</option>
-                                <option id="role" name="Docente" value="Docente">Docente</option>
-                                <option id="role" name="Estudiante" value="Estudiante">Estudiante</option>
                             </select>
                         </div>
                     </div>

@@ -5,17 +5,6 @@
 @section('content')
 <form id="professorForm" name="professorForm" action="{{route('professors.store')}}" method="POST">
     @csrf
-    <h3>Datos para Usuario</h3>
-    <div class="form-group">
-        <label for="username">Nombre de Usuario: </label>
-        <input type="text" class="form-control" name="username" id="username" aria-describedby="helpId"
-            placeholder="Ingrese un nombre usuario">
-    </div>
-    <div class="form-group">
-        <label for="password">Contraseña: </label>
-        <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId"
-            placeholder="Ingrese contraseña">
-    </div>
     <h3>Datos Personales del Docente</h3>
     <div class="form-group">
         <label for="ci">Carnet de Identidad: </label>

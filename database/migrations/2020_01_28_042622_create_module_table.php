@@ -22,8 +22,8 @@ class CreateModuleTable extends Migration
             $table->string('turn');
             $table->date('startDate');
             $table->date('endDate');
-            $table->dateTime('startTime');
-            $table->dateTime('endTime');
+            $table->time('startTime');
+            $table->time('endTime');
             $table->timestamps();
             $table->foreign('idProfessor')->references('id')->on('professor');
             $table->foreign('idDiplomat')->references('id')->on('diplomat');

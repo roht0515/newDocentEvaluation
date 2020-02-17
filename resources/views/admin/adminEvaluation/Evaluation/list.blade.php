@@ -40,6 +40,10 @@
     </div>
   </div>
 </div>
+{{-- Registrar solo Evaluations --}}
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalevaluation">
+  Registrar Evaluaciones
+</button>
 <!-- Modal -->
 <div class="modal fade" id="modalevaluation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
@@ -124,7 +128,18 @@
         }
       });
     })
-
+    //registrar Categorias 
+    $('#evaluationTable').on('click', 'tr', function () {
+        var id = table.row(this).id();
+        if (id)
+        {
+            console.log(id);
+            var url = '{{ route("evaluations.get","") }}';
+            url+=`/${id}`;
+            window.location.href=url;
+        }
+        
+    });
 
 //final del document ready
 })

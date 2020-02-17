@@ -56,8 +56,15 @@ class ProfessorsController extends Controller
         if ($request->ajax()) {
             $user = new User();
             //guardar el usuario
-            $user->username = $request->username;
-            $user->password = $request->password;
+            $pos = strpos($request->name, " "); //obtener si existe un espacio y obtener la posicion de ese espacio
+            if ($pos != 0) {
+                $username = substr($request->name, 0, $pos) . strtoupper(substr($request->lastname, 0, 1)); //obteneer la primera letra de su apellido
+            } else {
+                $username = $request->name . strtoupper(substr($request->lastname, 0, 1)); // si no tiene mas de dos nombres
+            }
+            $password = strtoupper(substr($request->name, 0, 1)) . substr(strval($request->ci), 0, 3) . substr($request->lastname, 0, 2); //crear contraseña
+            $user->username = $username;
+            $user->password = $password;
             $user->role = 'Docente';
             $user->email = $request->email;
             $user->email_verified_at = $now;

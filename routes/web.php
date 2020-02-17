@@ -30,8 +30,9 @@ Route::get('users/list', 'UsersController@index')->name('users.list'); //ver lis
 Route::post('users/store', 'UsersController@store')->name('users.store'); //registrar registors
 //Rutas de Administrador Evaluacion
 //Evaluations
-Route::get('evaluation/index', 'EvaluationsController@index')->name('evaluations.list');
-Route::post('evaluation/store', 'EvaluationsController@store')->name('evaluations.store');
+Route::get('evaluation/index', 'EvaluationsController@index')->name('evaluations.list'); //obtener las tabla de evaluacion
+Route::post('evaluation/store', 'EvaluationsController@store')->name('evaluations.store'); //guardar datos de la evaluacion
+Route::Get('evaluation/{id}', 'EvaluationsController@get')->name('evaluations.get');
 //Certificates
 Route::get('certificate/list', 'CertificatesController@list')->name('certificates.list');
 Route::get('certificate/indexCertificate', 'CertificatesController@indexCertificate')->name('certificates.indexcertificate'); //obtener los datos de certificados
@@ -44,7 +45,7 @@ Route::post('certificate/registerDiplomat', 'CertificatesController@storeDiploma
 //Diplomados
 Route::get('diplomat/index', 'DiplomatsController@index')->name('diplomats.list');
 Route::post('diplomat/store', 'DiplomatsController@store')->name('diplomats.store');
-Route::get('diplomat/{id}','DiplomatsController@get')->name('diplomats.get');
+Route::get('diplomat/{id}', 'DiplomatsController@get')->name('diplomats.get');
 //Professors
 Route::get('professor/index', 'ProfessorsController@index')->name('professors.list'); //obtener los datos
 Route::get('professor/register', 'ProfessorsController@create')->name('professors.create'); //mandar al formulario de registro
@@ -57,15 +58,17 @@ Route::post('students/store', 'StudentsController@store')->name('students.store'
 Route::get('categories/list', 'CategoriesController@index')->name('categories.list'); //ver los registros
 Route::post('categories/store', 'CategoriesController@store')->name('categories.store'); //registrar registors
 Route::get('categories/{id}', 'CategoriesController@get')->name('categories.get'); //obtener id para registrar preguntas
+Route::get('categories/name', 'CategoriesController@getName')->name('categories.getName');
 //Questions
-Route::get('question/index', 'QuestionsController@index')->name('questions.list'); //obtener los datos
+Route::get('question/index/{id}', 'QuestionsController@index')->name('questions.list'); //obtener los datos
 Route::post('question/store', 'QuestionsController@store')->name('questions.store'); //agregar datos
 Route::get('question/get', 'QuestionsController@get')->name('questions.get'); //obtener los datos para mandar al modal
 Route::post('question/edit', 'QuestionsController@edit')->name('questions.update'); //actualizar los datos
-
-
-
-
+Route::delete('question/{id}', 'QuestionsController@destroy')->name('questions.delete'); //eliminar preguntas 
+//Categorias asignadas a evaluaciones
+Route::get('evaluationCategory/index/{id}', 'EvaluationCategoryController@index')->name('evaluationcategories.list');
+Route::get('evaluationCategory/{id}', 'EvaluationCategoryController@listQuestion')->name('evaluationcategories.listQuestion');
+Route::post('evaluationCategory/store', 'EvaluationCategoryController@store')->name('evaluationcategories.store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

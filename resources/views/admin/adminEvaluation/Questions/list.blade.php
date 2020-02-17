@@ -7,12 +7,13 @@
     <div class="col-12">
         <div class="card">
             <h3>Categoria: {{$name}}</h3>
+            <input type="hidden" id="idCategory" name="{{$id}}" value="{{$id}}">
             <div class="card-body table-responsive">
                 <table class="dataTable table table-bordered table-hover" id="questionTable">
                     <thead>
                         <tr>
                             <th>Texto</th>
-                            <th name="id">N°</th>
+                            <th>N°</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,6 +75,9 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#tabUserEdit">Editar</a>
                     </li>
+                    <li class="nav-item">
+                        <a id="deleteQuestion" class="btn btn-danger text-white">Eliminar</a>
+                    </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane show vivify flipInX active" id="tabQuestionDetail">
@@ -94,7 +98,7 @@
                             <form id="updateQuestion" name="updateQuestion" action="{{route('questions.update')}}"
                                 method="POST" autocomplete="off">
                                 @csrf
-                                <input type="hidden" name="id" id="id">
+                                <input type="hidden" name="id" id="id" value="id">
                                 <div class="form-group">
                                     <label for="text">Texto: </label>
                                     <input type="text" class="form-control" name="text" aria-describedby="helpId">
@@ -119,11 +123,14 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    var idCategory=document.getElementById('idCategory').value;
+    var url = '{{ route("questions.list","") }}';
+        url+=`/${idCategory}`;
     //ver los datos de las preguntas
     var table=$('.dataTable').DataTable({
         serverside:true,
         processing:true,
-        ajax:"{{route('questions.list')}}",
+        ajax:url,
         columns:[
             {data:'text',name:'text'},
             {data:'DT_RowId',name:'DT_RowId',visible:false}
@@ -150,6 +157,34 @@
           }
       });
     })
+    //eliminar pregunta
+    $('#deleteQuestion').click(function (e)
+    {
+        e.preventDefault();
+        let id = document.getElementById('questionId');
+        id = id.value;
+        if (id)
+        {
+            console.log(id);
+            var url = '{{ route("questions.delete","") }}';
+            url+=`/${id}`;
+            $.ajax({
+                type: "DELETE",
+                url: url,
+                dataType: "JSON",
+                success: function () {
+                    console.log("Pregunta Eliminada");
+                    $('#modalquestion').modal('hide');
+                    table.ajax.reload();
+                }
+            });
+        }
+        else
+        {
+            console.log("No se logro eliminar la pregunta");
+        }
+        
+    });
     //Ver detalles de modal de la pregunta
     $('#questionTable').on('click', 'tr', function () {
         var id = table.row(this).id();
@@ -160,12 +195,12 @@
         
     });
     function CargarQuestion(id) {
-            var attr = $('#btnQuestionDelete').attr('id');
+            var attr = $('#deleteQuestion').attr('id');
 
             if (typeof attr !== typeof undefined && attr !== false) {
-                $('#btnQuestionDelete').data('id', id);//envia un valor
+                $('#deleteQuestion').data('id', id);//envia un valor
             } else {
-                $('#btnQuestionDelete').attr('data-id', id);
+                $('#deleteQuestion').attr('data-id', id);
             }
 
             $.ajax({
@@ -194,6 +229,7 @@
             });
 
         }
+        //actualizar pregunta
     $('#updateQuestionBtn').click(function (e)
     {
         e.preventDefault();

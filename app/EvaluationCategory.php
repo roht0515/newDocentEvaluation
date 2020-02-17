@@ -4,19 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Category;
-use App\QuestionStudent;
+use App\Evaluation;
 
-class Question extends Model
+class EvaluationCategory extends Model
 {
     //
-    protected $table = 'question';
+    protected $table = 'evaluationcategory';
 
     public function Category()
     {
         return $this->belongsTo(Category::class, 'idCategory', 'id');
     }
-    public function QuestionStudent()
+    public function Evaluation()
     {
-        return $this->hasMany(QuestionStudent::class, 'idQuestion', 'id');
+        return $this->belongsTo(Evaluation::class, 'idEvaluation', 'id');
     }
 }

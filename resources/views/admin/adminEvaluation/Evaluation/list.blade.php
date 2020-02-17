@@ -8,6 +8,21 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body table-responsive">
+        <div class="row">
+          <div class="col-8">
+              <h1 class="m-0 text-dark">Evaluaciones</h1>
+          </div>
+          <div class="col-4">
+              {{-- Registrar solo Evaluations --}}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalevaluation">
+              Registrar Evaluaciones
+            </button>
+            <a href="" id="assingCategory" type="button" class="btn btn-primary">
+              Asignar Categorias
+            </a>
+          </div>
+      </div>
+      <br>
         <table class="dataTable table table-bordered table-hover" id="evaluationTable">
           <thead>
             <tr>
@@ -29,9 +44,6 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalevaluation">
   Registrar Evaluaciones
 </button>
-<a href="" id="assingCategory" type="button" class="btn btn-primary">
-  Asignar Categorias
-</a>
 <!-- Modal -->
 <div class="modal fade" id="modalevaluation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
@@ -116,7 +128,18 @@
         }
       });
     })
-
+    //registrar Categorias 
+    $('#evaluationTable').on('click', 'tr', function () {
+        var id = table.row(this).id();
+        if (id)
+        {
+            console.log(id);
+            var url = '{{ route("evaluations.get","") }}';
+            url+=`/${id}`;
+            window.location.href=url;
+        }
+        
+    });
 
 //final del document ready
 })

@@ -17,11 +17,11 @@ class QuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
         //
         if ($request->ajax()) {
-            $data = Question::latest()->get();
+            $data = Question::where('idCategory', '=', $id)->latest()->get();
             return DataTables::of($data)
                 ->addColumn('DT_RowId', function ($row) {
                     $row = $row->id;
@@ -30,6 +30,7 @@ class QuestionsController extends Controller
             return view('admin.adminEvaluation.Questions.list');
         }
     }
+
 
 
     /**
@@ -118,6 +119,9 @@ class QuestionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //eliminar
+        $question = Question::find($id);
+        $question->delete();
+        return response()->json(['Success' => 'Pregunta Eliminada']);
     }
 }

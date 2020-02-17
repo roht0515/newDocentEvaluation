@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Professor;
 use App\Student;
+use App\Secretary;
 
 class User extends Authenticatable
 {
@@ -45,5 +46,9 @@ class User extends Authenticatable
     public function Student()
     {
         return $this->hasOne(Student::class, 'idUser', 'id');
+    }
+    public function Secretary()
+    {
+        return $this->hasOne(Secretary::class, 'idUser', 'id');
     }
 }

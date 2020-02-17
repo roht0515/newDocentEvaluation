@@ -7,6 +7,17 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body table-responsive">
+                <div class="row">
+                    <div class="col-10">
+                        <h1 class="m-0 text-dark">Estudiantes</h1>
+                    </div>
+                    <div class="col-2">
+                        {{-- Registrar Estidiante --}}
+                        <a class="btn btn-primary" href="{{route('students.register')}}" role="button">Registrar Estudiante</a>
+
+                    </div>
+                </div>
+                <br>
                 <table class="dataTable table table-bordered table-hover" id="questionTable">
                     <thead>
                         <tr>
@@ -25,7 +36,6 @@
         </div>
     </div>
 </div>
-<a href="{{route('students.register')}}">Registrar Estudiante</a>
 
 @endsection
 @section('script')

@@ -7,6 +7,16 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body table-responsive">
+        <div class="row">
+          <div class="col-10">
+              <h1 class="m-0 text-dark">Docentes</h1>
+          </div>
+          <div class="col-2">
+              {{-- Registrar Docente --}}
+              <a class="btn btn-primary" href="{{route('professors.create')}}" role="button">Registrar Docente</a>
+          </div>
+        </div>
+        <br>
         <table class="dataTable table table-bordered table-hover" id="usertable">
           <thead>
             <tr>
@@ -26,7 +36,7 @@
 </div>
 <div class="row">
   <div class="col-12">
-    <a href="{{route('professors.create')}}">Registrar Professor</a>
+   
   </div>
 </div>
 @endsection

@@ -5,6 +5,9 @@
 @section('content')
 <form id="professorForm" name="professorForm" action="{{route('professors.store')}}" method="POST">
     @csrf
+    <div class="col-12">
+        <div class="card">
+          <div class="card-body table-responsive">
     <h3>Datos para Usuario</h3>
     <div class="form-group">
         <label for="username">Nombre de Usuario: </label>
@@ -66,6 +69,9 @@
         </select>
     </div>
     <button id="saveDate" type="submit" class="btn btn-primary">Registrar Docente</button>
+          </div>
+        </div>
+    </div>
 </form>
 @endsection
 @section('script')

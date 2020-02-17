@@ -8,6 +8,19 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body table-responsive">
+        <div class="row">
+          <div class="col-10">
+              <h1 class="m-0 text-dark">categorias</h1>
+          </div>
+          <div class="col-2">
+              {{-- Registrar solo Categorias --}}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalcategory">
+                 Registrar Categorias
+            </button>
+
+          </div>
+      </div>
+      <br>
         <table class="dataTable table table-bordered table-hover" id="categoryTable">
           <thead>
             <tr>
@@ -23,10 +36,7 @@
     </div>
   </div>
 </div>
-{{-- Registrar solo Categorias --}}
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalcategory">
-  Registrar Categorias
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="modalcategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

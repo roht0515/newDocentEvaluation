@@ -127,13 +127,7 @@
                   <a href="{{route('diplomats.list')}}" class="nav-link">
                     <i class="fas fa-align-left nav-icon"></i>
                     <p>Lista</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link">
-                    <i class="fas fa-plus nav-icon"></i>
-                    <p>Registrar</p>
-                  </a>
+                  </a>       
                   <a href="{{route('professors.list')}}" class="nav-link">
                     <i class="fas fa-user-friends nav-icon"></i>
                     <p>Docentes</p>

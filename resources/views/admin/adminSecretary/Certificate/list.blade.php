@@ -7,6 +7,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body table-responsive">
+                <div class="row">
+                    <div class="col-9">
+                        <h1 class="m-0 text-dark">Certificados</h1>
+                    </div>
+                    <div class="col-3">
+                        <a href="{{route('certificates.register')}}" class="btn btn-primary">Registrar Estudiante Capacitado</a>
+                    </div>
+                </div>
+                <br>
                 <table class="dataTable table table-bordered table-hover" id="certificateTable">
                     <thead>
                         <tr>
@@ -24,7 +33,7 @@
         </div>
     </div>
 </div>
-<a href="{{route('certificates.register')}}" class="btn btn-primary">Registrar Estudiante Capacitado</a>
+
 @endsection
 <!--SECCION PÁRA CODIGO JS--->
 @section('script')

@@ -126,8 +126,8 @@ aria-hidden="true">
           dataType: 'json',
           success: function (data) {
             console.log('Success:', data);
-              
-            
+            $('#moduleRegister').trigger("reset");
+              $('#modalmodule').modal('hide');
 
           },
           error: function (data) {

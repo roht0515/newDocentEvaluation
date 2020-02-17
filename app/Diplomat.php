@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Module;
 
+
+
 class Diplomat extends Model
 {
     //
@@ -13,4 +15,6 @@ class Diplomat extends Model
 
         return $this->hasOne(Module::class,'idDiplomat','id');
     }
+
+
 }

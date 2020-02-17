@@ -2,35 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Diplomat;
-use App\Professor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use DataTables;
-use DateTime;
-use Validator;
-use DB;
+use App\Module;
 
-class DiplomatsController extends Controller
+
+class ModuleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         //
-        if ($request->ajax()) {
-            $data = Diplomat::latest()->get();
-            return DataTables::of($data)
-                ->addColumn('DT_RowId', function ($row) {
-                    $row = $row->id;
-                    return $row;
-                })
-                ->make(true);
-        }
-        return view('admin.adminEvaluation.Diplomats.list');
     }
 
     /**
@@ -52,14 +37,6 @@ class DiplomatsController extends Controller
     public function store(Request $request)
     {
         //
-        if ($request->ajax()) {
-            $diplomat = new Diplomat();
-            $diplomat->name = $request->name;
-            $diplomat->version = $request->version;
-            $diplomat->startDate = $request->startDate;
-            $diplomat->saveOrFail();
-            return response()->json(['sucess' => 'Diplomado Registrado']);
-        }
     }
 
     /**
@@ -107,21 +84,25 @@ class DiplomatsController extends Controller
         //
     }
 
-    public function createModel(){
+    public function createModule(Request $request){
+
+        if ($request->ajax()) {
+         dd($request->all());
 
 
+         $moduleData = $request->moduleData;
 
-    }
-
-    public function get($id){
-
-        $diplomats = Diplomat::all();
-        $professors = Professor::all();
-        $category = DB::table('diplomat')->where('id', '=', $id)->first();
-        return view('admin.adminEvaluation.Module.list',compact('diplomats'), compact('professors'))->with([
-            'id' => $category->id,
-            'name' => $category->name
-        ]);
-
+        $module = new Module;
+        $module->idProfessor = $moduleData["docente"];
+        $module->idDiplomat = $moduleData["diplomat"];
+        $module->name = $moduleData["moduleName"];
+        $module->number = $moduleData["moduleNumber"];
+        $module->turn = $moduleData["turn"];
+        $module->startDate = $moduleData["startDate"];
+        $module->endDate = $moduleData["endDate"];
+        $module->saveOrFail();
+         return response()->json(['sucess' => 'Pregunta registrada']);
+        }
+     
     }
 }

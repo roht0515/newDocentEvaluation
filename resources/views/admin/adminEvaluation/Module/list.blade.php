@@ -75,8 +75,13 @@ aria-hidden="true">
               </div>
               <div class="form-group col-md-4">
                 <label for="turn">turno</label>
-                <input type="text" id="turn" name="moduleData[turn]" class="form-control" id="inputTurn">
-              </div>
+                <select id="turn" name="moduleData[turn]" class="custom-select">
+                  <option selected>Seleccione el horario</option>
+                    <option value="mañana">mañana</option>
+                    <option value="tarde">tarde</option>
+                    <option value="noche">noche</option>
+                </select>
+               </div>
 
               <div class="form-group col-md-6">
              

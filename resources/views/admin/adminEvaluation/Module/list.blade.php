@@ -100,22 +100,21 @@
               <div class="form-group col-md-6">
 
                 <label for="StartDate">fecha de inicio</label>
-                <input type="date" id="startDate" name="moduleData[startDate]" class="form-control" name="fecha">
+                <input type="date" id="startDate" name="moduleData[startDate]" class="form-control" >
 
               </div>
               <div class="form-group col-md-6">
                 <label for="endDate">fecha de finalizacion</label>
-                <input type="date" id="endDate" name="moduleData[endDate]" class="form-control" name="fecha">
+                <input type="date" id="endDate" name="moduleData[endDate]" class="form-control" >
 
               </div>
               <div class="form-group col-md-6">
                 <label for="group">Grupo: </label>
-                <input type="text" id="group" name="moduleData[group]" class="form-control" name="grupo">
+                <input type="text" id="group" name="moduleData[group]" class="form-control" >
               </div>
               <div class="form-group col-md-6">
                 <label for="classroomNumber">Aula: </label>
-                <input type="text" id="classroomNumber" name="moduleData[classroomNumber]" class="form-control"
-                  name="numeroaula">
+                <input type="text" id="classroomNumber" name="moduleData[classroomNumber]" class="form-control">
               </div>
             </div>
           </div>
@@ -139,7 +138,7 @@
 
 
 
-    var idCategory=document.getElementById('idCategory').value;
+  /*  var idCategory=document.getElementById('idCategory').value;
     var url = '{{ route("questions.list","") }}';
         url+=`/${idCategory}`;
     //ver los datos de las preguntas
@@ -152,7 +151,7 @@
             {data:'DT_RowId',name:'DT_RowId',visible:false}
         ]
     });
-
+*/
     
   
     $('#saveModule').click(function (e)

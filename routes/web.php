@@ -72,6 +72,10 @@ Route::delete('question/{id}', 'QuestionsController@destroy')->name('questions.d
 Route::get('evaluationCategory/index/{id}', 'EvaluationCategoryController@index')->name('evaluationcategories.list');
 Route::get('evaluationCategory/{id}', 'EvaluationCategoryController@listQuestion')->name('evaluationcategories.listQuestion');
 Route::post('evaluationCategory/store', 'EvaluationCategoryController@store')->name('evaluationcategories.store');
+//modulos
+Route::get('module/listDiplomat', 'ModuleController@listDiplomat')->name('modules.listDiplomat');
+Route::get('moduel/index', 'ModuleController@index')->name('modules.index');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

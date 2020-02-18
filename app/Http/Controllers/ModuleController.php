@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Module;
+<<<<<<< HEAD
 use App\EvaluationModule;
 
+=======
+use App\Diplomat;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use DataTables;
+use DateTime;
+use Validator;
+use DB;
+use PhpParser\Node\Expr\AssignOp\Mod;
+>>>>>>> dbeba083165d6308188e904e8fee61b7015457de
 
 class ModuleController extends Controller
 {
@@ -16,15 +26,24 @@ class ModuleController extends Controller
      */
     public function index(Request $request,$id)
     {
-        
+        //
+        return view('admin.adminEvaluation.Module.listmd');
+    }
+    public function listDiplomat(Request $request)
+    {
         if ($request->ajax()) {
-            $data = Module::where('idDiplomat', '=', $id)->latest()->get();
+            $data = DB::table('module')->join('diplomat', 'module.idDiplomat', '=', 'diplomat.id')
+                ->select(['module.number', 'module.name', 'diplomat.name as nameD', 'module.startDate', 'diplomat.id as idD', 'module.id as idM']);
             return DataTables::of($data)
-                ->addColumn('DT_RowId', function ($row) {
-                    $row = $row->id;
+                ->addColumn('DT_RowIdDiplomat', function ($row) {
+                    $row = $row->idD;
                     return $row;
-                })->make(true);
-           
+                })
+                ->addColumn('DT_RowIdModule', function ($row) {
+                    $row = $row->idM;
+                    return $row;
+                })
+                ->make(true);
         }
     }
 
@@ -94,14 +113,16 @@ class ModuleController extends Controller
         //
     }
 
-    public function createModule(Request $request){
+    public function createModule(Request $request)
+    {
 
         if ($request->ajax()) {
-       //  dd($request->all());
+            //  dd($request->all());
 
 
-         $moduleData = $request->moduleData;
+            $moduleData = $request->moduleData;
 
+<<<<<<< HEAD
         $module = new Module;
         $evaluationModule = new EvaluationModule;
         $module->idProfessor = $moduleData["docente"];
@@ -136,7 +157,29 @@ class ModuleController extends Controller
         $evaluationModule->saveOrFail();
         
          return response()->json(['sucess' => 'modulo registrado']);
+=======
+            $module = new Module;
+            $module->idProfessor = $moduleData["docente"];
+            $module->idDiplomat = $moduleData["diplomat"];
+            $module->name = $moduleData["moduleName"];
+            $module->number = $moduleData["moduleNumber"];
+            $module->turn = $moduleData["turn"];
+            $module->startDate = $moduleData["startDate"];
+            $module->endDate = $moduleData["endDate"];
+            $turn = $moduleData["turn"];
+            if ($turn == "mañana") {
+                $module->startTime = "08:45:00";
+                $module->endTime =  "12:15:00";
+            } else if ($turn == "tarde") {
+                $module->startTime = '15:15:00';
+                $module->endTime = '18:15:00';
+            } else if ($turn == "noche") {
+                $module->startTime = '19:00:00';
+                $module->endTime = '22:00:00';
+            }
+            $module->saveOrFail();
+            return response()->json(['sucess' => 'Pregunta registrada']);
+>>>>>>> dbeba083165d6308188e904e8fee61b7015457de
         }
-     
     }
 }

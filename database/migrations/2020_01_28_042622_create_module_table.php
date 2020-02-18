@@ -19,6 +19,8 @@ class CreateModuleTable extends Migration
             $table->bigInteger('idDiplomat')->unsigned();
             $table->string('name');
             $table->integer('number');
+            $table->string('group');
+            $table->string('classroomNumber');
             $table->string('turn');
             $table->date('startDate');
             $table->date('endDate');

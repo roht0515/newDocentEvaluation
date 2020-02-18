@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Module;
 use App\Diplomat;
+use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 use DateTime;
 use Validator;
 use DB;
-use PhpParser\Node\Expr\AssignOp\Mod;
 
 class ModuleController extends Controller
 {
@@ -19,23 +19,22 @@ class ModuleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $id)
+    public function index()
     {
         //
-        return view('admin.adminEvaluation.Module.listmd');
+        $students = Student::all();
+        return view('admin.adminEvaluation.Module.listmd', compact('students'));
     }
     public function listDiplomat(Request $request)
     {
         if ($request->ajax()) {
+
             $data = DB::table('module')->join('diplomat', 'module.idDiplomat', '=', 'diplomat.id')
-                ->select(['module.number', 'module.name', 'diplomat.name as nameD', 'module.startDate', 'diplomat.id as idD', 'module.id as idM']);
+                ->select(['module.id', 'module.number', 'module.name', 'diplomat.name as nameD', 'module.startDate'])
+                ->get();
             return DataTables::of($data)
-                ->addColumn('DT_RowIdDiplomat', function ($row) {
-                    $row = $row->idD;
-                    return $row;
-                })
-                ->addColumn('DT_RowIdModule', function ($row) {
-                    $row = $row->idM;
+                ->addColumn('DT_RowId', function ($row) {
+                    $row = $row->id;
                     return $row;
                 })
                 ->make(true);
@@ -125,6 +124,8 @@ class ModuleController extends Controller
             $module->turn = $moduleData["turn"];
             $module->startDate = $moduleData["startDate"];
             $module->endDate = $moduleData["endDate"];
+            $module->group = $moduleData["group"];
+            $module->classroomNumber = $moduleData["classroomNumber"];
             $turn = $moduleData["turn"];
             if ($turn == "mañana") {
                 $module->startTime = "08:45:00";
@@ -137,7 +138,7 @@ class ModuleController extends Controller
                 $module->endTime = '22:00:00';
             }
             $module->saveOrFail();
-            return response()->json(['sucess' => 'Pregunta registrada']);
+            return response()->json(['sucess' => 'Modulo Registrado']);
         }
     }
 }

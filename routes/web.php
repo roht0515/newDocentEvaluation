@@ -45,10 +45,10 @@ Route::post('certificate/registerDiplomat', 'CertificatesController@storeDiploma
 //Diplomados
 Route::get('diplomat/index', 'DiplomatsController@index')->name('diplomats.list');
 Route::post('diplomat/store', 'DiplomatsController@store')->name('diplomats.store');
-Route::get('diplomat/{id}','DiplomatsController@get')->name('diplomats.get');
+Route::get('diplomat/{id}', 'DiplomatsController@get')->name('diplomats.get');
 
 Route::get('diplomat/list', 'ModuleController@index')->name('modules.list');
-Route::post('diplomat/module','ModuleController@createModule')->name('diplomatModule');
+Route::post('diplomat/module', 'ModuleController@createModule')->name('diplomatModule');
 //Professors
 Route::get('professor/index', 'ProfessorsController@index')->name('professors.list'); //obtener los datos
 Route::get('professor/register', 'ProfessorsController@create')->name('professors.create'); //mandar al formulario de registro
@@ -74,7 +74,7 @@ Route::get('evaluationCategory/{id}', 'EvaluationCategoryController@listQuestion
 Route::post('evaluationCategory/store', 'EvaluationCategoryController@store')->name('evaluationcategories.store');
 //modulos
 Route::get('module/listDiplomat', 'ModuleController@listDiplomat')->name('modules.listDiplomat');
-Route::get('moduel/index', 'ModuleController@index')->name('modules.index');
+Route::get('module/index', 'ModuleController@index')->name('modules.index');
 
 Auth::routes();
 

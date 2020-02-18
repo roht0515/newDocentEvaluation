@@ -3,10 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Module;
-<<<<<<< HEAD
-use App\EvaluationModule;
-
-=======
 use App\Diplomat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +11,6 @@ use DateTime;
 use Validator;
 use DB;
 use PhpParser\Node\Expr\AssignOp\Mod;
->>>>>>> dbeba083165d6308188e904e8fee61b7015457de
 
 class ModuleController extends Controller
 {
@@ -24,7 +19,7 @@ class ModuleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request,$id)
+    public function index(Request $request, $id)
     {
         //
         return view('admin.adminEvaluation.Module.listmd');

@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Module;
-
+use App\Diplomat;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use DataTables;
+use DateTime;
+use Validator;
+use DB;
+use PhpParser\Node\Expr\AssignOp\Mod;
 
 class ModuleController extends Controller
 {
@@ -16,6 +22,24 @@ class ModuleController extends Controller
     public function index()
     {
         //
+        return view('admin.adminEvaluation.Module.listmd');
+    }
+    public function listDiplomat(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = DB::table('module')->join('diplomat', 'module.idDiplomat', '=', 'diplomat.id')
+                ->select(['module.number', 'module.name', 'diplomat.name as nameD', 'module.startDate', 'diplomat.id as idD', 'module.id as idM']);
+            return DataTables::of($data)
+                ->addColumn('DT_RowIdDiplomat', function ($row) {
+                    $row = $row->idD;
+                    return $row;
+                })
+                ->addColumn('DT_RowIdModule', function ($row) {
+                    $row = $row->idM;
+                    return $row;
+                })
+                ->make(true);
+        }
     }
 
     /**
@@ -84,40 +108,36 @@ class ModuleController extends Controller
         //
     }
 
-    public function createModule(Request $request){
+    public function createModule(Request $request)
+    {
 
         if ($request->ajax()) {
-       //  dd($request->all());
+            //  dd($request->all());
 
 
-         $moduleData = $request->moduleData;
+            $moduleData = $request->moduleData;
 
-        $module = new Module;
-        $module->idProfessor = $moduleData["docente"];
-        $module->idDiplomat = $moduleData["diplomat"];
-        $module->name = $moduleData["moduleName"];
-        $module->number = $moduleData["moduleNumber"];
-        $module->turn = $moduleData["turn"];
-        $module->startDate = $moduleData["startDate"];
-        $module->endDate = $moduleData["endDate"];
-        $turn =$moduleData["turn"];
-        if($turn =="mañana")
-        {
-            $module->startTime ="2020-02-17 08:45:00";
-            $module->endTime =  "2020-02-17 12:15:00";
+            $module = new Module;
+            $module->idProfessor = $moduleData["docente"];
+            $module->idDiplomat = $moduleData["diplomat"];
+            $module->name = $moduleData["moduleName"];
+            $module->number = $moduleData["moduleNumber"];
+            $module->turn = $moduleData["turn"];
+            $module->startDate = $moduleData["startDate"];
+            $module->endDate = $moduleData["endDate"];
+            $turn = $moduleData["turn"];
+            if ($turn == "mañana") {
+                $module->startTime = "2020-02-17 08:45:00";
+                $module->endTime =  "2020-02-17 12:15:00";
+            } else if ($turn == "tarde") {
+                $module->startTime = '2020-02-17 15:15:00';
+                $module->endTime = '2020-02-17 18:15:00';
+            } else if ($turn == "noche") {
+                $module->startTime = '2020-02-17 19:00:00';
+                $module->endTime = '2020-02-17 22:00:00';
+            }
+            $module->saveOrFail();
+            return response()->json(['sucess' => 'Pregunta registrada']);
         }
-        else if($turn =="tarde")
-        {
-            $module->startTime ='2020-02-17 15:15:00';
-            $module->endTime ='2020-02-17 18:15:00';
-        }
-        else if($turn =="noche"){
-            $module->startTime = '2020-02-17 19:00:00';
-            $module->endTime ='2020-02-17 22:00:00';
-        }
-        $module->saveOrFail();
-         return response()->json(['sucess' => 'Pregunta registrada']);
-        }
-     
     }
 }

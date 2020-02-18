@@ -127,7 +127,11 @@
                   <a href="{{route('diplomats.list')}}" class="nav-link">
                     <i class="fas fa-align-left nav-icon"></i>
                     <p>Lista</p>
-                  </a>       
+                  </a>
+                  <a href="{{route('modules.index')}}" class="nav-link">
+                    <i class="fas fa-align-left nav-icon"></i>
+                    <p>Modulos</p>
+                  </a>
                   <a href="{{route('professors.list')}}" class="nav-link">
                     <i class="fas fa-user-friends nav-icon"></i>
                     <p>Docentes</p>

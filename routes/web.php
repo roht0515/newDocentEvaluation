@@ -75,7 +75,8 @@ Route::post('evaluationCategory/store', 'EvaluationCategoryController@store')->n
 //modulos
 Route::get('module/listDiplomat', 'ModuleController@listDiplomat')->name('modules.listDiplomat');
 Route::get('module/index', 'ModuleController@index')->name('modules.index');
-
+//Modulos en Estudaintes
+Route::post('moduleStudent/Register/{id}', 'ModuleStudentController@store')->name('moduleStudent.store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Student;
 use App\Module;
+use App\ModuleStudent;
 use DB;
 use DateTime;
 use Validator;
@@ -40,7 +41,14 @@ class ModuleStudentController extends Controller
     public function store(Request $request, $idModulo)
     {
         //
-        if ($request->ajax()) { }
+        if ($request->ajax()) {
+            $data = Module::where('id', '=', $idModulo)->first();
+            $modulestudent = new ModuleStudent();
+            $modulestudent->idModule = $idModulo;
+            $modulestudent->idStudent = $request->idStudent;
+            $modulestudent->saveOrFail();
+            return response()->json(['success' => 'Estudiante registrado en el modulo']);
+        }
     }
 
     /**

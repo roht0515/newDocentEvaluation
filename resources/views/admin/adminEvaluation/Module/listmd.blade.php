@@ -35,10 +35,11 @@
                 </button>
             </div>
             <div class="modal-body">
+
                 <div class="form-group">
                     <label for="name">Estudiantes: </label>
                     <div class="col-sm-12">
-                        <select name="name" id="name">
+                        <select name="idStudent" id="idStudent">
                             <option value="0">Seleccione Estudiante</option>
                             @foreach ($students as $student)
                             <option name="{{$student->name}} {{$student->lastname}}" id="{{$student->id}}"
@@ -47,6 +48,7 @@
                         </select>
                     </div>
                 </div>
+
             </div>
             <div class="modal-footer">
                 <button id="SaveStudent" class="btn btn-primary" type="submit">Registrar Estudiante</button>
@@ -89,7 +91,25 @@
     //guardar los datos de ModuleStudent y Diplomat Student
     $('#SaveStudent').click(function (e)
     {
-       
+            e.preventDefault();
+            //registrar Modulo Estudainte
+            var idStudent=document.getElementById('idStudent').value;
+            var url = '{{ route("moduleStudent.store","") }}';
+                    url+=`/${id}`;
+            $.ajax({
+                type: "POST",
+                url: url,
+                data:
+                {idStudent:idStudent},
+                dataType: "JSON",
+                success: function (response) {
+                    $('#modalModuleStudent').modal("hide");
+                },
+                error:function (response)
+                {
+                    console.log("No se logro registrar");
+                }
+            });
     })
     
 

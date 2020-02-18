@@ -127,14 +127,14 @@ class ModuleController extends Controller
             $module->endDate = $moduleData["endDate"];
             $turn = $moduleData["turn"];
             if ($turn == "mañana") {
-                $module->startTime = "2020-02-17 08:45:00";
-                $module->endTime =  "2020-02-17 12:15:00";
+                $module->startTime = "08:45:00";
+                $module->endTime =  "12:15:00";
             } else if ($turn == "tarde") {
-                $module->startTime = '2020-02-17 15:15:00';
-                $module->endTime = '2020-02-17 18:15:00';
+                $module->startTime = '15:15:00';
+                $module->endTime = '18:15:00';
             } else if ($turn == "noche") {
-                $module->startTime = '2020-02-17 19:00:00';
-                $module->endTime = '2020-02-17 22:00:00';
+                $module->startTime = '19:00:00';
+                $module->endTime = '22:00:00';
             }
             $module->saveOrFail();
             return response()->json(['sucess' => 'Pregunta registrada']);

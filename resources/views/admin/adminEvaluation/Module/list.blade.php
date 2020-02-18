@@ -9,11 +9,14 @@
         <div class="card">
             <h3>Diplomado: {{$name}}</h3>
             <div class="card-body table-responsive">
-                <table class="dataTable table table-bordered table-hover" id="questionTable">
+                <table class="dataTable table table-bordered table-hover" id="moduleTable">
                     <thead>
                         <tr>
-                            <th>Texto</th>
-                            <th name="id">N°</th>
+                            <th name="number">Numero Modulo</th>
+                            <th name="idProfessor">nombre docente</th>
+                            <th name="idDiplomat">Nombre Diplomado</th>
+                            <th name="idModule">Nombre modulo</th>
+                            <th name="turn">Turno</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,6 +85,16 @@ aria-hidden="true">
                     <option value="noche">noche</option>
                 </select>
                </div>
+               <div class="form-group col-md-12">
+                <label for="evaluation">Evaluacion</label>
+                <select id="evaluation" name="moduleData[evaluation]" class="custom-select">
+                  <option selected>Seleccione la evaluacion</option>
+                  @foreach ($evaluations as $diplomat)
+                  <option value="{{ $diplomat['id'] }}">{{ $diplomat['name'] }}</option>
+                  @endforeach
+                
+                </select>
+               </div>
 
               <div class="form-group col-md-6">
              
@@ -115,6 +128,24 @@ aria-hidden="true">
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+
+
+    var idCategory=document.getElementById('idCategory').value;
+    var url = '{{ route("questions.list","") }}';
+        url+=`/${idCategory}`;
+    //ver los datos de las preguntas
+    var table=$('.dataTable').DataTable({
+        serverside:true,
+        processing:true,
+        ajax:url,
+        columns:[
+            {data:'text',name:'text'},
+            {data:'DT_RowId',name:'DT_RowId',visible:false}
+        ]
+    });
+
+    
   
     $('#saveModule').click(function (e)
     {

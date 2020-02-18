@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Module;
+use App\EvaluationModule;
 
 
 class ModuleController extends Controller
@@ -13,9 +14,18 @@ class ModuleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request,$id)
     {
-        //
+        
+        if ($request->ajax()) {
+            $data = Module::where('idDiplomat', '=', $id)->latest()->get();
+            return DataTables::of($data)
+                ->addColumn('DT_RowId', function ($row) {
+                    $row = $row->id;
+                    return $row;
+                })->make(true);
+           
+        }
     }
 
     /**
@@ -93,6 +103,7 @@ class ModuleController extends Controller
          $moduleData = $request->moduleData;
 
         $module = new Module;
+        $evaluationModule = new EvaluationModule;
         $module->idProfessor = $moduleData["docente"];
         $module->idDiplomat = $moduleData["diplomat"];
         $module->name = $moduleData["moduleName"];
@@ -116,7 +127,15 @@ class ModuleController extends Controller
             $module->endTime ='22:00:00';
         }
         $module->saveOrFail();
-         return response()->json(['sucess' => 'Pregunta registrada']);
+
+
+        $modules= Module::all();
+        $modules =$modules->last()->id;
+        $evaluationModule->idEvaluation = $moduleData['evaluation'];     
+        $evaluationModule->idModule = $modules;
+        $evaluationModule->saveOrFail();
+        
+         return response()->json(['sucess' => 'modulo registrado']);
         }
      
     }

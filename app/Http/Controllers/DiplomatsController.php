@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Diplomat;
 use App\Professor;
+use App\Evaluation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
@@ -117,8 +118,9 @@ class DiplomatsController extends Controller
 
         $diplomats = Diplomat::all();
         $professors = Professor::all();
+        $evaluations = Evaluation::all();
         $category = DB::table('diplomat')->where('id', '=', $id)->first();
-        return view('admin.adminEvaluation.Module.list',compact('diplomats'), compact('professors'))->with([
+        return view('admin.adminEvaluation.Module.list',compact('diplomats','professors','evaluations'))->with([
             'id' => $category->id,
             'name' => $category->name
         ]);

@@ -46,6 +46,8 @@ Route::post('certificate/registerDiplomat', 'CertificatesController@storeDiploma
 Route::get('diplomat/index', 'DiplomatsController@index')->name('diplomats.list');
 Route::post('diplomat/store', 'DiplomatsController@store')->name('diplomats.store');
 Route::get('diplomat/{id}','DiplomatsController@get')->name('diplomats.get');
+
+Route::get('diplomat/list', 'ModuleController@index')->name('modules.list');
 Route::post('diplomat/module','ModuleController@createModule')->name('diplomatModule');
 //Professors
 Route::get('professor/index', 'ProfessorsController@index')->name('professors.list'); //obtener los datos

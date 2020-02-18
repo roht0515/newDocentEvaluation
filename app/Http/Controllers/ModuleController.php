@@ -122,42 +122,6 @@ class ModuleController extends Controller
 
             $moduleData = $request->moduleData;
 
-<<<<<<< HEAD
-        $module = new Module;
-        $evaluationModule = new EvaluationModule;
-        $module->idProfessor = $moduleData["docente"];
-        $module->idDiplomat = $moduleData["diplomat"];
-        $module->name = $moduleData["moduleName"];
-        $module->number = $moduleData["moduleNumber"];
-        $module->turn = $moduleData["turn"];
-        $module->startDate = $moduleData["startDate"];
-        $module->endDate = $moduleData["endDate"];
-        $turn =$moduleData["turn"];
-        if($turn =="mañana")
-        {
-            $module->startTime ="08:45:00";
-            $module->endTime =  "12:15:00";
-        }
-        else if($turn =="tarde")
-        {
-            $module->startTime ='15:15:00';
-            $module->endTime ='18:15:00';
-        }
-        else if($turn =="noche"){
-            $module->startTime = '19:00:00';
-            $module->endTime ='22:00:00';
-        }
-        $module->saveOrFail();
-
-
-        $modules= Module::all();
-        $modules =$modules->last()->id;
-        $evaluationModule->idEvaluation = $moduleData['evaluation'];     
-        $evaluationModule->idModule = $modules;
-        $evaluationModule->saveOrFail();
-        
-         return response()->json(['sucess' => 'modulo registrado']);
-=======
             $module = new Module;
             $module->idProfessor = $moduleData["docente"];
             $module->idDiplomat = $moduleData["diplomat"];
@@ -179,7 +143,6 @@ class ModuleController extends Controller
             }
             $module->saveOrFail();
             return response()->json(['sucess' => 'Pregunta registrada']);
->>>>>>> dbeba083165d6308188e904e8fee61b7015457de
         }
     }
 }

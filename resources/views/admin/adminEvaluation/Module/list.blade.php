@@ -64,8 +64,8 @@
                   @endforeach
                 </select>
               </div>
-                <input type="hidden" value="{{$id}}" name="moduleData[diplomat]">
-              
+              <input type="hidden" value="{{$id}}" name="moduleData[diplomat]">
+
               <div class="form-group col-md-6">
                 <label for="moduleName">nombre modulo</label>
                 <input type="text" id="moduleName" name="moduleData[moduleName]" class="form-control" id="inputName">

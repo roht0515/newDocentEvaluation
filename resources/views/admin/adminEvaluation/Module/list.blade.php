@@ -17,7 +17,7 @@
               <th name="idProfessor">nombre docente</th>
               <th name="idDiplomat">Nombre Diplomado</th>
               <th name="idModule">Nombre modulo</th>
-              <th name="turn">Turno</th>
+              
               <th name="group">Grupo</th>
               <th name="classRoom">Aula</th>
               <th name="startDate">Fecha de inicio</th>
@@ -75,15 +75,7 @@
                 <input type="text" id="number" name="moduleData[moduleNumber]" class="form-control"
                   id="inputModuleNumber">
               </div>
-              <div class="form-group col-md-6">
-                <label for="turn">turno</label>
-                <select id="turn" name="moduleData[turn]" class="custom-select">
-                  <option selected>Seleccione el horario</option>
-                  <option value="mañana">mañana</option>
-                  <option value="tarde">tarde</option>
-                  <option value="noche">noche</option>
-                </select>
-              </div>
+           
               <div class="form-group col-md-12">
                 <label for="evaluation">Evaluacion</label>
                 <select id="evaluation" name="moduleData[evaluation]" class="custom-select">
@@ -146,7 +138,7 @@
         {data:'fullname',name:'fullname'},
         {data:'nameDiplomat',name:'nameDiplomat'},
         {data:'nameModule',name:'nameModule'},   
-        {data:'moduleTurn',name:'moduleTurn'},
+//{data:'moduleTurn',name:'moduleTurn'},
         {data:'group',name:'group'},
         {data:'classRoom',name:'classRoom'},
         {data:'startDate',name:'startDate'}

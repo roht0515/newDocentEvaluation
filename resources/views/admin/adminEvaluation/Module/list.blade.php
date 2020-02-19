@@ -18,6 +18,10 @@
               <th name="idDiplomat">Nombre Diplomado</th>
               <th name="idModule">Nombre modulo</th>
               <th name="turn">Turno</th>
+              <th name="group">Grupo</th>
+              <th name="classRoom">Aula</th>
+              <th name="startDate">Fecha de inicio</th>
+
             </tr>
           </thead>
           <tbody>
@@ -60,25 +64,18 @@
                   @endforeach
                 </select>
               </div>
+                <input type="hidden" value="{{$id}}" name="moduleData[diplomat]">
+              
               <div class="form-group col-md-6">
-                <label for="diplomat">Diplomados</label>
-                <select id="diplomat" name="moduleData[diplomat]" class="custom-select">
-                  <option selected>Seleccione el diplomado</option>
-                  @foreach ($diplomats as $diplomat)
-                  <option value="{{ $diplomat['id'] }}">{{ $diplomat['name'] }}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="form-group col-md-4">
                 <label for="moduleName">nombre modulo</label>
                 <input type="text" id="moduleName" name="moduleData[moduleName]" class="form-control" id="inputName">
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-6">
                 <label for="moduleNumber">numero modulo</label>
                 <input type="text" id="number" name="moduleData[moduleNumber]" class="form-control"
                   id="inputModuleNumber">
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-6">
                 <label for="turn">turno</label>
                 <select id="turn" name="moduleData[turn]" class="custom-select">
                   <option selected>Seleccione el horario</option>
@@ -145,8 +142,14 @@
       ajax:url,
       columns:
       [
+        {data:'nroModule',name:'nroModule'},
         {data:'fullname',name:'fullname'},
-        {data:'nameDiplomat',name:'nameDiplomat'}
+        {data:'nameDiplomat',name:'nameDiplomat'},
+        {data:'nameModule',name:'nameModule'},   
+        {data:'moduleTurn',name:'moduleTurn'},
+        {data:'group',name:'group'},
+        {data:'classRoom',name:'classRoom'},
+        {data:'startDate',name:'startDate'}
       ]
     }) 
     $('#saveModule').click(function (e)

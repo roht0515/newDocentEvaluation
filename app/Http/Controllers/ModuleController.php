@@ -47,7 +47,7 @@ class ModuleController extends Controller
             $data = DB::table('professor')
                 ->join('module', 'professor.id', '=', 'module.idProfessor')
                 ->join('diplomat', 'module.idDiplomat', '=', 'diplomat.id')
-                ->select([DB::raw('CONCAT(professor.name," ",professor.lastname) as fullname'), 'diplomat.name as nameDiplomat', 'module.name as nameModule', 'module.number', 'module.group', 'module.classroomNumber', 'module.turn', 'module.startDate'])
+                ->select([DB::raw('CONCAT(professor.name," ",professor.lastname) as fullname'), 'diplomat.name as nameDiplomat', 'module.name as nameModule', 'module.number as nroModule', 'module.group as group', 'module.classroomNumber as classRoom', 'module.turn as moduleTurn', 'module.startDate as startDate'])
                 ->where('module.idDiplomat', '=', $id)
                 ->get();
             return DataTables::of($data)

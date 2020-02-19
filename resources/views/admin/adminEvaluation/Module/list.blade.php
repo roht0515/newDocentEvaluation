@@ -8,6 +8,7 @@
   <div class="col-12">
     <div class="card">
       <h3>Diplomado: {{$name}}</h3>
+      <input type="hidden" id="idDiplomat" value="{{$id}}">
       <div class="card-body table-responsive">
         <table class="dataTable table table-bordered table-hover" id="moduleTable">
           <thead>
@@ -100,17 +101,17 @@
               <div class="form-group col-md-6">
 
                 <label for="StartDate">fecha de inicio</label>
-                <input type="date" id="startDate" name="moduleData[startDate]" class="form-control" >
+                <input type="date" id="startDate" name="moduleData[startDate]" class="form-control">
 
               </div>
               <div class="form-group col-md-6">
                 <label for="endDate">fecha de finalizacion</label>
-                <input type="date" id="endDate" name="moduleData[endDate]" class="form-control" >
+                <input type="date" id="endDate" name="moduleData[endDate]" class="form-control">
 
               </div>
               <div class="form-group col-md-6">
                 <label for="group">Grupo: </label>
-                <input type="text" id="group" name="moduleData[group]" class="form-control" >
+                <input type="text" id="group" name="moduleData[group]" class="form-control">
               </div>
               <div class="form-group col-md-6">
                 <label for="classroomNumber">Aula: </label>
@@ -135,7 +136,19 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
+    var idDiplomat=document.getElementById('idDiplomat').value;
+    var url='{{route("modules.listDate","")}}';
+    url+=`/${idDiplomat}`;
+    var table=$('.dataTable').DataTable({
+      serverside:true,
+      processing:true,
+      ajax:url,
+      columns:
+      [
+        {data:'fullname',name:'fullname'},
+        {data:'nameDiplomat',name:'nameDiplomat'}
+      ]
+    })
 
 
   /*  var idCategory=document.getElementById('idCategory').value;

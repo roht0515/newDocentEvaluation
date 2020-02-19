@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Module;
 use App\Diplomat;
 use App\Student;
+use App\Professor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
@@ -37,6 +38,19 @@ class ModuleController extends Controller
                     $row = $row->id;
                     return $row;
                 })
+                ->make(true);
+        }
+    }
+    public function listModuleDate(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $data = DB::table('professor')
+                ->join('module', 'professor.id', '=', 'module.idProfessor')
+                ->join('diplomat', 'module.idDiplomat', '=', 'diplomat.id')
+                ->select([DB::raw('CONCAT(professor.name," ",professor.lastname) as fullname'), 'diplomat.name as nameDiplomat', 'module.name as nameModule', 'module.number', 'module.group', 'module.classroomNumber', 'module.turn', 'module.startDate'])
+                ->where('module.idDiplomat', '=', $id)
+                ->get();
+            return DataTables::of($data)
                 ->make(true);
         }
     }

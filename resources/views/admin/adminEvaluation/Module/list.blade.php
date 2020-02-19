@@ -148,25 +148,7 @@
         {data:'fullname',name:'fullname'},
         {data:'nameDiplomat',name:'nameDiplomat'}
       ]
-    })
-
-
-  /*  var idCategory=document.getElementById('idCategory').value;
-    var url = '{{ route("questions.list","") }}';
-        url+=`/${idCategory}`;
-    //ver los datos de las preguntas
-    var table=$('.dataTable').DataTable({
-        serverside:true,
-        processing:true,
-        ajax:url,
-        columns:[
-            {data:'text',name:'text'},
-            {data:'DT_RowId',name:'DT_RowId',visible:false}
-        ]
-    });
-*/
-    
-  
+    }) 
     $('#saveModule').click(function (e)
     {
         e.preventDefault();
@@ -177,6 +159,7 @@
           dataType: 'json',
           success: function (data) {
             console.log('Success:', data);
+            table.ajax.reload();
             $('#moduleRegister').trigger("reset");
               $('#modalmodule').modal('hide');
 

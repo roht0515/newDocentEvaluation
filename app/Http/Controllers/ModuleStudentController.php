@@ -42,7 +42,7 @@ class ModuleStudentController extends Controller
     {
         //
         if ($request->ajax()) {
-            $data = Module::where('id', '=', $idModulo)->first();
+
             $modulestudent = new ModuleStudent();
             $modulestudent->idModule = $idModulo;
             $modulestudent->idStudent = $request->idStudent;

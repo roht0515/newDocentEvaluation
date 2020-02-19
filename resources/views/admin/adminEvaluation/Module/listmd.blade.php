@@ -92,10 +92,11 @@
     $('#SaveStudent').click(function (e)
     {
             e.preventDefault();
-            //registrar Modulo Estudainte
+            //registrar Modulo Estudiante
             var idStudent=document.getElementById('idStudent').value;
             var url = '{{ route("moduleStudent.store","") }}';
                     url+=`/${id}`;
+            //registrar modulo estudiante
             $.ajax({
                 type: "POST",
                 url: url,
@@ -104,10 +105,19 @@
                 dataType: "JSON",
                 success: function (response) {
                     $('#modalModuleStudent').modal("hide");
-                },
-                error:function (response)
-                {
-                    console.log("No se logro registrar");
+                }
+            });
+            //REGISTRAR DIPLOMADO STUDENT
+            var urlS = '{{ route("diplomatStudent.store","") }}';
+            urlS+=`/${id}`;
+            $.ajax({
+                type: "POST",
+                url: urlS,
+                data: 
+                {idStudent:idStudent},
+                dataType: "JOSN",
+                success: function (response) {
+                    $('#modlModuleStudent').modal("hide");
                 }
             });
     })

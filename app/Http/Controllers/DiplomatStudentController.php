@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Diplomat;
+use App\Student;
+use App\DiplomatStudent;
+use App\Module;
+use DB;
+use DateTime;
+use Validator;
 use Illuminate\Http\Request;
 
 class DiplomatStudentController extends Controller
@@ -32,9 +39,17 @@ class DiplomatStudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $idModule)
     {
         //
+        if ($request->ajax()) {
+            $id = Module::where('id', '=', $idModule)->first();
+            $diplomatstudent = new DiplomatStudent();
+            $diplomatstudent->idDiplomat = $id->idDiplomat;
+            $diplomatstudent->idStudent = $request->idStudent;
+            $diplomatstudent->saveOrFail();
+            return response()->json(['success' => 'Estudiante registrado en el Diplomado']);
+        }
     }
 
     /**

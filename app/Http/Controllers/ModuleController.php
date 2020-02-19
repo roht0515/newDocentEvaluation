@@ -47,7 +47,7 @@ class ModuleController extends Controller
             $data = DB::table('professor')
                 ->join('module', 'professor.id', '=', 'module.idProfessor')
                 ->join('diplomat', 'module.idDiplomat', '=', 'diplomat.id')
-                ->select([DB::raw('CONCAT(professor.name," ",professor.lastname) as fullname'), 'diplomat.name as nameDiplomat', 'module.name as nameModule', 'module.number as nroModule', 'module.group as group', 'module.classroomNumber as classRoom', 'module.turn as moduleTurn', 'module.startDate as startDate'])
+                ->select([DB::raw('CONCAT(professor.name," ",professor.lastname) as fullname'), 'diplomat.name as nameDiplomat', 'module.name as nameModule', 'module.number as nroModule', 'module.group as group', 'module.classroomNumber as classRoom', 'module.startDate as startDate'])
                 ->where('module.idDiplomat', '=', $id)
                 ->get();
             return DataTables::of($data)
@@ -135,13 +135,13 @@ class ModuleController extends Controller
             $module->idDiplomat = $moduleData["diplomat"];
             $module->name = $moduleData["moduleName"];
             $module->number = $moduleData["moduleNumber"];
-            $module->turn = $moduleData["turn"];
+         // $module->turn = $moduleData["turn"];
             $module->startDate = $moduleData["startDate"];
             $module->endDate = $moduleData["endDate"];
             $module->group = $moduleData["group"];
             $module->classroomNumber = $moduleData["classroomNumber"];
-            $turn = $moduleData["turn"];
-            if ($turn == "mañana") {
+         //   $turn = $moduleData["turn"];
+         /*   if ($turn == "mañana") {
                 $module->startTime = "08:45:00";
                 $module->endTime =  "12:15:00";
             } else if ($turn == "tarde") {
@@ -150,7 +150,7 @@ class ModuleController extends Controller
             } else if ($turn == "noche") {
                 $module->startTime = '19:00:00';
                 $module->endTime = '22:00:00';
-            }
+            }*/
             $module->saveOrFail();
             return response()->json(['sucess' => 'Modulo Registrado']);
         }

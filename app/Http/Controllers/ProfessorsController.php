@@ -135,4 +135,9 @@ class ProfessorsController extends Controller
     {
         //
     }
+    //Funciones para Professor
+    public function indexProfessor()
+    {
+        return view('Professor.index');
+    }
 }

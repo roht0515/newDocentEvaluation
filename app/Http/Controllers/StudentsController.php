@@ -136,4 +136,9 @@ class StudentsController extends Controller
     {
         //
     }
+    //VISTA PARA ESTUDAINTES
+    public function indexStudent()
+    {
+        return view('Student.index');
+    }
 }

@@ -79,6 +79,13 @@ Route::get('module/listDate/{id}', 'ModuleController@listModuleDate')->name('mod
 Route::post('moduleStudent/Register/{id}', 'ModuleStudentController@store')->name('moduleStudent.store');
 //Diplomados en Estudaintes
 Route::post('diplomatStudent/Register/{id}', 'DiplomatStudentController@store')->name('diplomatStudent.store');
+
+//RUTAS PROFESSOR
+Route::get('professor', 'ProfessorsController@indexProfessor')->name('professor.mainIndex');
+//Rutas Estudainte
+route::get('student', 'StudentsController@indexStudent')->name('student.mainIndex');
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

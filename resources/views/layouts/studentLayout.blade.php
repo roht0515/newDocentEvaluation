@@ -38,10 +38,10 @@
           <!-- Left navbar links -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a href="index3.html" class="nav-link">Inicio</a>
+              <a href="{{route('student.mainIndex')}}" class="nav-link">Inicio</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">Evaluacion Docente</a>
+              <a href="{{route('student.evaluation')}}" class="nav-link">Evaluacion Docente</a>
             </li>
 
           </ul>

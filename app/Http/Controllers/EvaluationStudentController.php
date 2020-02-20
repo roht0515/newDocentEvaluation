@@ -2,26 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\EvaluationModule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Student;
-use App\Module;
-use App\ModuleStudent;
+use App\Evaluation;
 use App\EvaluationStudent;
-use DB;
 use DateTime;
-use Validator;
+use DataTables;
 
-class ModuleStudentController extends Controller
+class EvaluationStudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $id)
     {
         //
+        if ($request->ajax()) {
+            $data = DB::table('question')
+                ->join('category', 'question.idCategory', '=', 'category.id')
+                ->join('evaluationcategory', 'evaluationcategory.idCategory', '=', 'category.id')
+                ->join('evaluation', 'evaluationcategory.idEvaluation', '=', 'evaluation.id')
+                ->join('evaluationmodule', 'evaluationmodule.idEvaluation', '=', 'evaluation.id')
+                ->join('module', 'evaluationmodule.idModule', '=', 'module.id')
+                ->join('modulestudent', 'module.id', '=', 'modulestudent.idModule')
+                ->join('student', 'modulestudent.idStudent', '=', 'student.id')
+                ->select(['question.text as pregunta'])
+                ->where('student.id', '=', $id);
+            return DataTables::of($data)
+                ->make(true);
+        }
     }
 
     /**
@@ -40,23 +52,9 @@ class ModuleStudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $idModulo)
+    public function store(Request $request)
     {
         //
-        if ($request->ajax()) {
-            $module = EvaluationModule::where('idModule', '=', $idModulo)->first();
-            //registrar el estudiante al modulo
-            $modulestudent = new ModuleStudent();
-            $modulestudent->idModule = $idModulo;
-            $modulestudent->idStudent = $request->idStudent;
-            $modulestudent->saveOrFail();
-            //registrar al estudainte para dar la evaluacion
-            $evaluationstudent = new EvaluationStudent();
-            $evaluationstudent->idEvaluation = $module->idEvaluation;
-            $evaluationstudent->idStudent = $request->idStudent;
-            $evaluationstudent->saveOrFail();
-            return response()->json(['success' => 'Estudiante registrado en el modulo']);
-        }
     }
 
     /**

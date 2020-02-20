@@ -141,4 +141,8 @@ class StudentsController extends Controller
     {
         return view('Student.index');
     }
+    public function showEvaluation()
+    {
+        return view('Student.evaluation');
+    }
 }

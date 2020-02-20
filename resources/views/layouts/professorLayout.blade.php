@@ -7,7 +7,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   @section('meta')
   @show
-  <title>AdminLTE 3 | Top Navigation</title>
+  <title>UPDS</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
@@ -21,7 +21,7 @@
   <div class="wrapper">
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+    <nav class="main-header navbar navbar-expand-md navbar-dark ">
       <div class="container">
         <a href="../../index3.html" class="navbar-brand">
           <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
@@ -38,7 +38,7 @@
           <!-- Left navbar links -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a href="index3.html" class="nav-link">Lista EStudiantes</a>
+              <a href="index3.html" class="nav-link">Lista Estudiantes</a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">Historial</a>
@@ -99,8 +99,16 @@
 
 
       <!-- Main content -->
-      @yield('content')
-      <!-- /.content -->
+      <div class="content">
+        <div class="container">
+          <div class="row">
+            @yield('content')
+          </div>
+          <!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+        
+        <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 

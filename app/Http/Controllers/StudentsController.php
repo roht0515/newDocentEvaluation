@@ -65,7 +65,7 @@ class StudentsController extends Controller
             }
             $password = strtoupper(substr($request->name, 0, 1)) . substr(strval($request->ci), 0, 3) . substr($request->lastname, 0, 2); //crear contraseña
             $user->username = $username;
-            $user->password = $password;
+            $user->password = Hash::make($password);
             $user->role = 'Estudiante';
             $user->email = $request->email;
             $user->email_verified_at = $now;

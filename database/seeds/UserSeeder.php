@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'id' => 1,
             'username' => 'Admnistrador',
-            'password' => 'Administrador',
+            'password' => Hash::make('Administrador'),
             'role' => 'Administrador',
             'email' => 'Administrador@hotmail.com',
             'email_verified_at' => $now
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'id' => 2,
             'username' => 'AdmnistradorSecretaria',
-            'password' => 'AdministradorSecretaria',
+            'password' => Hash::make('AdministradorSecretaria'),
             'role' => 'Administrado Secretariar',
             'email' => 'AdministradorSecretaria@hotmail.com',
             'email_verified_at' => $now
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'id' => 3,
             'username' => 'AdmnistradorEvaluacion',
-            'password' => 'AdministradorEvaluacion',
+            'password' => Hash::make('AdministradorEvaluacion'),
             'role' => 'Administrador Evaluacion',
             'email' => 'AdministradorEvaluacion@hotmail.com',
             'email_verified_at' => $now
@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'id' => 4,
             'username' => 'ProfessorAriel',
-            'password' => 'ProfessorAriel',
+            'password' => Hash::make('ProfessorAriel'),
             'role' => 'Professor',
             'email' => 'Ariel@hotmail.com',
             'email_verified_at' => $now
@@ -54,7 +54,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'id' => 5,
             'username' => 'ProfessroBrenda',
-            'password' => 'ProfessorBrenda',
+            'password' => Hash::make('ProfessorBrenda'),
             'role' => 'Professor',
             'email' => 'Brenda@hotmail.com',
             'email_verified_at' => $now
@@ -63,7 +63,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'id' => 6,
             'username' => 'StudentOliver',
-            'password' => 'StudentOliver',
+            'password' => Hash::make('StudentOliver'),
             'role' => 'Student',
             'email' => 'Oliver@hotmail.com',
             'email_verified_at' => $now
@@ -71,7 +71,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'id' => 7,
             'username' => 'StudentAlisson',
-            'password' => 'StudentAlisson',
+            'password' => Hash::make('StudentAlisson'),
             'role' => 'Student',
             'email' => 'Alisson@hotmail.com',
             'email_verified_at' => $now

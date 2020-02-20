@@ -18,7 +18,6 @@ class CreateQuestionstudentTable extends Migration
             $table->bigInteger('idEvaluationStudent')->unsigned();
             $table->bigInteger('idQuestion')->unsigned();
             $table->integer('score');
-            $table->dateTime('dateResolved');
             $table->timestamps();
             $table->foreign('idEvaluationStudent')->references('id')->on('evaluationstudent');
             $table->foreign('idQuestion')->references('id')->on('question');

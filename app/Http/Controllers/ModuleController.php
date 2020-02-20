@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Module;
 use App\Diplomat;
+use App\EvaluationModule;
 use App\Student;
 use App\Professor;
 use Illuminate\Http\Request;
@@ -123,35 +124,27 @@ class ModuleController extends Controller
 
     public function createModule(Request $request)
     {
-
         if ($request->ajax()) {
-            //  dd($request->all());
-
+            $evaluationmodule = new EvaluationModule();
 
             $moduleData = $request->moduleData;
-
             $module = new Module;
             $module->idProfessor = $moduleData["docente"];
             $module->idDiplomat = $moduleData["diplomat"];
             $module->name = $moduleData["moduleName"];
             $module->number = $moduleData["moduleNumber"];
-         // $module->turn = $moduleData["turn"];
             $module->startDate = $moduleData["startDate"];
             $module->endDate = $moduleData["endDate"];
             $module->group = $moduleData["group"];
             $module->classroomNumber = $moduleData["classroomNumber"];
-         //   $turn = $moduleData["turn"];
-         /*   if ($turn == "mañana") {
-                $module->startTime = "08:45:00";
-                $module->endTime =  "12:15:00";
-            } else if ($turn == "tarde") {
-                $module->startTime = '15:15:00';
-                $module->endTime = '18:15:00';
-            } else if ($turn == "noche") {
-                $module->startTime = '19:00:00';
-                $module->endTime = '22:00:00';
-            }*/
             $module->saveOrFail();
+
+            $data = Module::all();
+            $idmodule = $data->last()->id;
+            $evaluationmodule->idModule = $idmodule;
+            $evaluationmodule->idEvaluation = $moduleData["evaluation"];
+            $evaluationmodule->saveOrFail();
+
             return response()->json(['sucess' => 'Modulo Registrado']);
         }
     }

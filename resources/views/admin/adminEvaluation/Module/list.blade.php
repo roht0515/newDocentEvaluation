@@ -17,7 +17,7 @@
               <th name="idProfessor">nombre docente</th>
               <th name="idDiplomat">Nombre Diplomado</th>
               <th name="idModule">Nombre modulo</th>
-              
+
               <th name="group">Grupo</th>
               <th name="classRoom">Aula</th>
               <th name="startDate">Fecha de inicio</th>
@@ -60,7 +60,7 @@
                 <select id="docente" name="moduleData[docente]" class="custom-select">
                   <option selected>Seleccione el docente</option>
                   @foreach ($professors as $professor)
-                  <option value="{{ $professor['idUser'] }}">{{ $professor['name'] }}</option>
+                  <option value="{{ $professor['id'] }}">{{ $professor['name'] }}</option>
                   @endforeach
                 </select>
               </div>
@@ -75,7 +75,7 @@
                 <input type="text" id="number" name="moduleData[moduleNumber]" class="form-control"
                   id="inputModuleNumber">
               </div>
-           
+
               <div class="form-group col-md-12">
                 <label for="evaluation">Evaluacion</label>
                 <select id="evaluation" name="moduleData[evaluation]" class="custom-select">

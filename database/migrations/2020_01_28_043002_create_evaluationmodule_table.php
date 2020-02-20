@@ -16,7 +16,7 @@ class CreateEvaluationmoduleTable extends Migration
         Schema::create('evaluationmodule', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('idEvaluation')->unsigned();
-            $table->bigInteger('idModule')->unsigned();
+            $table->bigInteger('idModule')->unsigned()->unique();
             $table->timestamps();
             $table->foreign('idEvaluation')->references('id')->on('evaluation');
             $table->foreign('idModule')->references('id')->on('module');

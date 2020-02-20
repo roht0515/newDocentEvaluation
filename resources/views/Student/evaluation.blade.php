@@ -3,80 +3,44 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
-<div class="col-12">
-    <br>
-    <div class="card">
-        <div class="card-header ">
-          <h3 class="card-title">Lista estudiantes</h3>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body table-responsive">
+                <table class="dataTable table table-bordered table-hover" id="questionTable">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Puntaje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <!-- /.card-header -->
-        <div class="card-body p-0">
-          <table class="datatable table table-hover text-nowrap ">
-            <thead>
-              <tr>
-                <th style="width: 10px">#</th>
-                <th>Nombre</th>
-                <th style="width: 20px">Realizado</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1.</td>
-                <td>Update software</td>
-                <td>
-                  <div class="progress progress-xs">
-                    <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                  </div>
-                </td>
-                <td><span class="badge bg-danger">55%</span></td>
-              </tr>
-              <tr>
-                <td>2.</td>
-                <td>Clean database</td>
-                <td>
-                  <div class="progress progress-xs">
-                    <div class="progress-bar bg-warning" style="width: 70%"></div>
-                  </div>
-                </td>
-                <td><span class="badge bg-warning">70%</span></td>
-              </tr>
-              <tr>
-                <td>3.</td>
-                <td>Cron job running</td>
-                <td>
-                  <div class="progress progress-xs progress-striped active">
-                    <div class="progress-bar bg-primary" style="width: 30%"></div>
-                  </div>
-                </td>
-                <td><span class="badge bg-primary">30%</span></td>
-              </tr>
-              <tr>
-                <td>4.</td>
-                <td>Fix and squish bugs</td>
-                <td>
-                  <div class="progress progress-xs progress-striped active">
-                    <div class="progress-bar bg-success" style="width: 90%"></div>
-                  </div>
-                </td>
-                <td><span class="badge bg-success">90%</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
+    </div>
 </div>
 @endsection
 @section('script')
 <script>
     $(document).ready(function ()
 {
-    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    var url;
+    var table=$('.dataTable').DataTable({
+      serverside:true,
+      processing:true,
+      ajax:url,
+      columns:
+      [
+          
+      ]
+  });
 })
 </script>
 @endsection

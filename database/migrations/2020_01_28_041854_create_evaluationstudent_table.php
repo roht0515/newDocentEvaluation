@@ -18,7 +18,8 @@ class CreateEvaluationstudentTable extends Migration
             $table->bigInteger('idEvaluation')->unsigned();
             $table->bigInteger('idStudent')->unsigned();
             $table->boolean('resolved')->default(0);
-            $table->bigInteger('score');
+            $table->bigInteger('score')->nullable();
+            $table->dateTime('dateResolved')->nullable();
             $table->timestamps();
             $table->foreign('idEvaluation')->references('id')->on('evaluation');
             $table->foreign('idStudent')->references('id')->on('student');

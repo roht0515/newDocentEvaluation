@@ -21,9 +21,7 @@ Route::get('/login', function () {
 });
 
 //Admin
-Route::get('/admin', function () {
-    return view('admin.admin');
-});
+Route::get('/admin','HomeController@admin')->name('admin');
 //Rutas de Administrador Users
 Route::get('users/list', 'UsersController@index')->name('users.list'); //ver lista de usaurios
 Route::post('users/store', 'UsersController@store')->name('users.store'); //registrar registors

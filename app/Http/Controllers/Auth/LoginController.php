@@ -40,7 +40,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout');
         
     }
     public function username()
@@ -48,17 +48,23 @@ class LoginController extends Controller
         return 'username';
     }
 
-    public function login(){
+    public function login(Request $request){
 
-        $credentials= $this->validate(request(),[
+        $credentials= $this->validate($request,[
 
-            'email'=>'required|string',
+            'username'=>'required|string',
             'password'=>'required|string'
         ]);
 
         if(Auth::attempt($credentials))
         {
-            return 'has iniciado correctamente';
+            if (auth()->user()->role == 'Administrador') {
+                $this->redirectTo = '/admin';
+            } else if (auth()->user()->role == 'Professor') {
+                $this->redirectTo = '/home';
+            } else if (auth()->user()->role == 'Administrador Evaluacion') {
+                $this->redirectTo = '/admin/module';
+            }
         }
         else{
 

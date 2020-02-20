@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Route;
 
 class LoginController extends Controller
 {
@@ -31,7 +32,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
    
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
@@ -59,11 +60,15 @@ class LoginController extends Controller
         if(Auth::attempt($credentials))
         {
             if (auth()->user()->role == 'Administrador') {
-                $this->redirectTo = '/admin';
+                return redirect('admin');
             } else if (auth()->user()->role == 'Professor') {
-                $this->redirectTo = '/home';
+                return redirect('professor');
             } else if (auth()->user()->role == 'Administrador Evaluacion') {
-                $this->redirectTo = '/admin/module';
+                return redirect('admin');
+            }
+              else if(auth()->user()->role =='Student')
+            {
+                return redirect('student');
             }
         }
         else{

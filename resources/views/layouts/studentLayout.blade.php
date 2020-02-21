@@ -7,7 +7,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   @section('meta')
   @show
-  <title>AdminLTE 3 | Top Navigation</title>
+  <title>UPDS</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
@@ -103,7 +103,15 @@
 
 
       <!-- Main content -->
-      @yield('content')
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          @yield('content')
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+      
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->

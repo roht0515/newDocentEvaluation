@@ -38,7 +38,7 @@
           <!-- Left navbar links -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a href="index3.html" class="nav-link">Lista EStudiantes</a>
+              <a href="index3.html" class="nav-link">Lista Estudiantes</a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">Historial</a>

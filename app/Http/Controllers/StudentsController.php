@@ -145,4 +145,20 @@ class StudentsController extends Controller
     {
         return view('Student.evaluation');
     }
+    public function listModules($id)
+    {
+
+        $idStudent = Student::where('idUser', '=', $id)->first();
+        $date = DB::table('student')
+            ->join('modulestudent', 'student.id', '=', 'modulestudent.idStudent')
+            ->join('module', 'modulestudent.idModule', '=', 'module.id')
+            ->join('diplomat', 'module.idDiplomat', '=', 'diplomat.id')
+            ->join('evaluationmodule', 'module.id', '=', 'evaluationmodule.idModule')
+            ->join('evaluation', 'evaluationmodule.idEvaluation', '=', 'evaluation.id')
+            ->select(['module.number', 'module.name', 'diplomat.name as DiplomatName', 'evaluation.startDate'])
+            ->where('modulestudent.idStudent', '=', $idStudent->id)
+            ->get();
+        return DataTables::of($date)
+            ->make(true);
+    }
 }

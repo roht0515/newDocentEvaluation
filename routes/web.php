@@ -80,6 +80,9 @@ Route::post('diplomatStudent/Register/{id}', 'DiplomatStudentController@store')-
 
 //RUTAS PROFESSOR
 Route::get('professor', 'ProfessorsController@indexProfessor')->name('professor.mainIndex');
+Route::get('professor/list', 'ProfessorsController@studentsList')->name('professor.students');
+Route::get('professor/history', 'ProfessorsController@studentsHistory')->name('professor.history');
+
 //Rutas Estudainte
 Route::get('student', 'StudentsController@indexStudent')->name('student.mainIndex');
 Route::get('student/Evaluation', 'StudentsController@showEvaluation')->name('student.evaluation');

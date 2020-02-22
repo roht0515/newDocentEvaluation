@@ -140,4 +140,13 @@ class ProfessorsController extends Controller
     {
         return view('Professor.index');
     }
+    public function studentsList(){
+       
+        return view('Professor.studentsList');
+
+    }
+    public function studentsHistory(){
+
+        return view('Professor.list');
+    }
 }

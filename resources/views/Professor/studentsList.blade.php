@@ -3,8 +3,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
-
-bienvenido al portal 
+lista de estudiantes
 @endsection
 @section('script')
 <script>

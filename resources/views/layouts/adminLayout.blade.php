@@ -73,11 +73,15 @@
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="fas fa-power-off"></i>
           </a>
-          <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-sign-out-alt mr-2"></i> Logout
-            </a>
+          <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">          
+            <a class="dropdown-item" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();">
+                         <i class="fas fa-sign-out-alt mr-2"></i>  {{ __('Logout') }}
+         </a>
+         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+             @csrf
+         </form>
           </div>
         </li>
       </ul>
@@ -102,7 +106,7 @@
             <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Nombre usuario</a>
+            <a href="#" class="d-block">{{ auth()->user()->username}}</a>
           </div>
         </div>
 

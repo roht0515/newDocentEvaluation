@@ -142,11 +142,18 @@ class ProfessorsController extends Controller
     }
     public function studentsList(){
        
-        return view('Professor.studentsList');
+        return view('Professor.list');
+     
 
     }
     public function studentsHistory(){
+        return view('Professor.studentsList');
+     
+    }
 
-        return view('Professor.list');
+    public function studentsEvaluation(){
+
+        
+
     }
 }

@@ -114,69 +114,73 @@
 
             <li class="nav-header">MENU</li>
             <!-- /.Vicerrector evaluacion docente -->
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Diplomados
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{route('diplomats.list')}}" class="nav-link">
-                    <i class="fas fa-align-left nav-icon"></i>
-                    <p>Lista</p>
-                  </a>
-                  <a href="{{route('modules.index')}}" class="nav-link">
-                    <i class="fas fa-align-left nav-icon"></i>
-                    <p>Modulos</p>
-                  </a>
-                  <a href="{{route('professors.list')}}" class="nav-link">
-                    <i class="fas fa-user-friends nav-icon"></i>
-                    <p>Docentes</p>
-                  </a>
-                  <a href="{{route('students.list')}}" class="nav-link">
-                    <i class="fas fa-user-friends nav-icon"></i>
-                    <p>Estudiantes</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
+           @if (auth()->user()->role=="Administrador Evaluacion")
+               
+           <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Diplomados
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('diplomats.list')}}" class="nav-link">
+                  <i class="fas fa-align-left nav-icon"></i>
+                  <p>Lista</p>
+                </a>
+                <a href="{{route('modules.index')}}" class="nav-link">
+                  <i class="fas fa-align-left nav-icon"></i>
+                  <p>Modulos</p>
+                </a>
+                <a href="{{route('professors.list')}}" class="nav-link">
+                  <i class="fas fa-user-friends nav-icon"></i>
+                  <p>Docentes</p>
+                </a>
+                <a href="{{route('students.list')}}" class="nav-link">
+                  <i class="fas fa-user-friends nav-icon"></i>
+                  <p>Estudiantes</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  Evaluaciones
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{route('evaluations.list')}}" class="nav-link">
-                    <i class="fas fa-file nav-icon"></i>
-                    <p>Evaluacion</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{route('categories.list')}}" class="nav-link">
-                    <i class="fas fa-clone nav-icon"></i>
-                    <p>Categorias</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Evaluaciones
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('evaluations.list')}}" class="nav-link">
+                  <i class="fas fa-file nav-icon"></i>
+                  <p>Evaluacion</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('categories.list')}}" class="nav-link">
+                  <i class="fas fa-clone nav-icon"></i>
+                  <p>Categorias</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
-            <li class="nav-item">
-              <a href="" class="nav-link">
-                <i class="nav-icon fas fa-database"></i>
-                <p>
-                  Historial
-                </p>
-              </a>
-            </li>
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-database"></i>
+              <p>
+                Historial
+              </p>
+            </a>
+          </li>
+           @endif
             <!-- /.Secretario Gral -->
+            @if (auth()->user()->role=="Administrador Secretaria")
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
@@ -204,7 +208,9 @@
                 </li>
               </ul>
             </li>
-            <!-- /.Administrador -->
+            @endif
+            @if (auth()->user()->role =="Administrador")
+                  <!-- /.Administrador -->
             <li class="nav-item">
               <a href="{{ route('users.list') }}" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
@@ -212,7 +218,9 @@
                   Usuarios
                 </p>
               </a>
-            </li>
+            </li> 
+            @endif
+         
           </ul>
         </nav>
         <!-- /.sidebar-menu -->

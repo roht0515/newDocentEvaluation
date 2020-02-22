@@ -113,7 +113,7 @@
                with font-awesome or any other icon font library -->
 
             <li class="nav-header">MENU</li>
-            <!-- /.Vicerrector -->
+            <!-- /.Vicerrector evaluacion docente -->
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-book"></i>

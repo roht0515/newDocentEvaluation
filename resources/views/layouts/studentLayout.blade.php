@@ -15,6 +15,10 @@
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -87,7 +91,7 @@
                 <a href="#" class="dropdown-item">
                   <i class="fas fa-sign-out-alt mr-2"></i> Logout
                 </a>
-                
+
               </div>
             </li>
             <li class="nav-item">
@@ -103,15 +107,15 @@
 
 
       <!-- Main content -->
-    <div class="content">
-      <div class="container">
-        <div class="row">
-          @yield('content')
-        </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-      
+      <div class="content">
+        <div class="container">
+          <div class="row">
+            @yield('content')
+          </div>
+          <!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -146,6 +150,11 @@
   <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- AdminLTE App -->
   <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+  <script src="  https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
   @section('script')
   @show
 </body>

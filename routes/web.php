@@ -21,7 +21,7 @@ Route::get('/login', function () {
 });
 
 //Admin
-Route::get('/admin','HomeController@admin')->name('admin');
+Route::get('/admin', 'HomeController@admin')->name('admin');
 //Rutas de Administrador Users
 Route::get('users/list', 'UsersController@index')->name('users.list'); //ver lista de usaurios
 Route::post('users/store', 'UsersController@store')->name('users.store'); //registrar registors
@@ -83,7 +83,7 @@ Route::get('professor', 'ProfessorsController@indexProfessor')->name('professor.
 //Rutas Estudainte
 Route::get('student', 'StudentsController@indexStudent')->name('student.mainIndex');
 Route::get('student/Evaluation', 'StudentsController@showEvaluation')->name('student.evaluation');
-
+Route::get('student/EvaluationModule/{id}', 'StudentsController@listModules')->name('student.listModule');
 
 Auth::routes();
 

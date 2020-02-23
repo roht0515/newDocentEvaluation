@@ -15,7 +15,15 @@
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
+  <style>
+    .navbar-upds{
+      background-color: #0f4a7d !important;
+      
+    }
+    .nav-link:hover{
+      color: #ffffff !important;
+    }
+  </style>
 
 </head>
 
@@ -26,7 +34,7 @@
     <nav class="main-header navbar navbar-expand-md navbar-dark ">
       <div class="container">
         <a href="{{route('professor.mainIndex')}}" class="navbar-brand">
-          <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+          <img src="{{ asset('images/icons/isologo-blanco.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
           <span class="brand-text font-weight-light">Portal UPDS</span>
         </a>

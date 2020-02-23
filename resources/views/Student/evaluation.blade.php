@@ -34,21 +34,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    var id = document.getElementById("idUser").value;
-    var url = '{{ route("student.listModule","") }}';
-    url+=`/${id}`;
-    var table=$('.dataTable').DataTable({
-        serverside:true,
-        processing:true,
-        ajax:url,
-        columns:
-        [
-            {data:'number',name:'number'},
-            {data:'name',name:'name'},
-            {data:'DiplomatName',name:'DiplomatName'},
-            {data:'startDate',name:'startDate'}
-        ]        
-    });
+   
 })
 </script>
 @endsection

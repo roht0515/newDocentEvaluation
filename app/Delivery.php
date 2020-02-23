@@ -3,18 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Secretary;
 use App\Certificate;
 use App\Accredited;
+use App\User;
 
 class Delivery extends Model
 {
     //
     protected $table = 'delivery';
 
-    public function Secretary()
+    public function Users()
     {
-        return $this->belongsTo(Secretary::class, 'idSecretary', 'id');
+        return $this->belongsTo(User::class, 'idSecretary', 'id');
     }
     public function Certificate()
     {

@@ -20,7 +20,7 @@ class CreateDeliveryTable extends Migration
             $table->dateTime('deliveryDate');
             $table->boolean('recivedTrained')->default(0);
             $table->timestamps();
-            $table->foreign('idSecretary')->references('id')->on('secretary');
+            $table->foreign('idSecretary')->references('id')->on('users');
             $table->foreign('idCertificate')->references('id')->on('certificate');
         });
     }

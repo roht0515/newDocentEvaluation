@@ -12,9 +12,9 @@ class EvaluationStudent extends Model
     //
     protected $table = 'evaluationstudent';
 
-    public function Evaluation()
+    public function EvaluationModule()
     {
-        return $this->belongsTo(Evaluation::class, 'idEvaluation', 'id');
+        return $this->belongsTo(EvaluationModule::class, 'idEvaluationModule', 'id');
     }
     public function Student()
     {

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateEvaluationstudentTable extends Migration
 {
@@ -15,13 +15,13 @@ class CreateEvaluationstudentTable extends Migration
     {
         Schema::create('evaluationstudent', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('idEvaluation')->unsigned();
+            $table->bigInteger('idEvaluationModule')->unsigned();
             $table->bigInteger('idStudent')->unsigned();
             $table->boolean('resolved')->default(0);
             $table->bigInteger('score')->nullable();
             $table->dateTime('dateResolved')->nullable();
             $table->timestamps();
-            $table->foreign('idEvaluation')->references('id')->on('evaluation');
+            $table->foreign('idEvaluationModule')->references('id')->on('evaluationmodule');
             $table->foreign('idStudent')->references('id')->on('student');
         });
     }

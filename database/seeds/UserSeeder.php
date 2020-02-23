@@ -28,15 +28,15 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => 2,
-            'username' => 'AdmnistradorSecretaria',
+            'username' => 'AdministradorSecretaria',
             'password' => Hash::make('AdministradorSecretaria'),
-            'role' => 'Administrado Secretariar',
+            'role' => 'Administrador Secretaria',
             'email' => 'AdministradorSecretaria@hotmail.com',
             'email_verified_at' => $now
         ]);
         DB::table('users')->insert([
             'id' => 3,
-            'username' => 'AdmnistradorEvaluacion',
+            'username' => 'AdministradorEvaluacion',
             'password' => Hash::make('AdministradorEvaluacion'),
             'role' => 'Administrador Evaluacion',
             'email' => 'AdministradorEvaluacion@hotmail.com',

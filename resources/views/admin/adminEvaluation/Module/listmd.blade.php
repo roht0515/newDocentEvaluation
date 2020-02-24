@@ -7,6 +7,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body table-responsive">
+                <div class="row">
+                    <div class="col-6">
+                        <h1 class="m-0 text-dark">Modulos</h1>
+                    </div>
+                    
+                </div>
+                <br>
                 <table class="dataTable table table-bordered table-hover" id="modulesTable">
                     <thead>
                         <tr>
@@ -36,16 +43,20 @@
             </div>
             <div class="modal-body">
 
-                <div class="form-group">
+                <div class="form-group row">
+                    <div class="col-12">
+                    <div class="col-12">
                     <label for="name">Estudiantes: </label>
-                    <div class="col-sm-12">
-                        <select name="idStudent" id="idStudent">
+                    </div>
+                    <div class="col-6">
+                        <select class="form-control" name="idStudent" id="idStudent">
                             <option value="0">Seleccione Estudiante</option>
                             @foreach ($students as $student)
                             <option name="{{$student->name}} {{$student->lastname}}" id="{{$student->id}}"
                                 value="{{$student->id}}">{{$student->name}} {{$student->lastname}}</option>
                             @endforeach
                         </select>
+                    </div>
                     </div>
                 </div>
 

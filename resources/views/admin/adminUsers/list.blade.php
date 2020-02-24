@@ -7,6 +7,20 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body table-responsive">
+                <div class="row">
+                    <div class="col-6">
+                        <h1 class="m-0 text-dark">Usuarios</h1>
+                    </div>
+                    <div class="col-6">
+                        {{-- Registrar Estidiante --}}
+                        <ol  class=" float-sm-right">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaluser">
+                                Registrar Usuario
+                            </button>
+                        </ol>
+                    </div>
+                </div>
+                <br>
                 <table class="dataTable table table-bordered table-hover" id="usertable">
                     <thead>
                         <tr>
@@ -24,9 +38,7 @@
     </div>
 </div>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaluser">
-    Registrar Usuario
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="modaluser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

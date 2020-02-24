@@ -3,15 +3,37 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
-<h3 class="text-center">{{$name}}</h3>
-<h3 class="px-5"> Categorias Asignadas: </h3>
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-12">
+          <h1 class="text-center">
+            {{$name}}
+          </h1>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+</section>
+<h3 class="px-5">  </h3>
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body table-responsive">
-                <input type="hidden" id="idEvaluation" name="{{$id}}" value="{{$id}}">
-                {{-- ESTE ES EL ID DE LA EVALUACION --}}
-
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="m-0 text-dark">Categorias Asignadas:</h3>
+                        <input type="hidden" id="idEvaluation" name="{{$id}}" value="{{$id}}">
+                        {{-- ESTE ES EL ID DE LA EVALUACION --}}
+                    </div>
+                    <div class="col-6">
+                        <ol class="float-sm-right">
+                            <button id="showCategories" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaluser">
+                                Asignar Categorias
+                            </button>
+                        </ol>
+                    </div>
+                </div>
+                <br>
                 <table class="dataTable table table-bordered table-hover" id="evaluationTable">
                     <thead>
                         <tr>
@@ -25,9 +47,7 @@
         </div>
     </div>
 </div>
-<button id="showCategories" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaluser">
-    Asignar Categorias
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="modaluser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -41,7 +61,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <select name="name" id="cbcategory">
+                <div class="row">
+                <div class="col-6">
+                <select class="form-control" name="name" id="cbcategory">
                     {{-- AQUI SE LLENARAN LAS CAEGORIAS --}}
                     <option value="">Seleccione Categoria</option>
                     @foreach ($categories as $category)
@@ -49,13 +71,17 @@
                         {{$category->name}}</option>
                     @endforeach
                 </select>
+                </div>
+                </div>
                 {{-- AQUI SE VAN A VER LAS PREGUNTAS DE ESA CATEGORIA --}}
-                <div>
+                <div class="row">
+                    <div class="col-12">
                     <h5>Preguntas de la Categoria</h5>
                     {{-- ESTE UL ES TODAS LAS PREGUNTAS QUE SE CAMBIARAN MEDIANTE EL ONCHANGE DEL SELECT --}}
                     <ul id="questions">
 
                     </ul>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

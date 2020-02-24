@@ -23,6 +23,14 @@
     .nav-link:hover{
       color: #ffffff !important;
     }
+    .carousel-inner img {
+      width: 100%;
+      max-height: 200px;
+    }
+
+    .carousel-inner{
+      height: 200px;
+    }
   </style>
 
 </head>
@@ -31,7 +39,7 @@
   <div class="wrapper">
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand-md navbar-dark ">
+    <nav class="main-header navbar navbar-expand-md navbar-dark navbar-upds">
       <div class="container">
         <a href="{{route('professor.mainIndex')}}" class="navbar-brand">
           <img src="{{ asset('images/icons/isologo-blanco.png') }}" alt="AdminLTE Logo"

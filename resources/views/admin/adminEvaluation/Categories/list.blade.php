@@ -9,15 +9,16 @@
     <div class="card">
       <div class="card-body table-responsive">
         <div class="row">
-          <div class="col-10">
-              <h1 class="m-0 text-dark">categorias</h1>
+          <div class="col-6">
+              <h1 class="m-0 text-dark">Categorias</h1>
           </div>
-          <div class="col-2">
+          <div class="col-6">
               {{-- Registrar solo Categorias --}}
+            <ol class="float-sm-right">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalcategory">
                  Registrar Categorias
             </button>
-
+          </ol>
           </div>
       </div>
       <br>

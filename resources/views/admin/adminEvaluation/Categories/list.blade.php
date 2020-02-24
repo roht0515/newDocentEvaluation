@@ -10,18 +10,18 @@
       <div class="card-body table-responsive">
         <div class="row">
           <div class="col-6">
-              <h1 class="m-0 text-dark">Categorias</h1>
+            <h1 class="m-0 text-dark">Categorias</h1>
           </div>
           <div class="col-6">
-              {{-- Registrar solo Categorias --}}
+            {{-- Registrar solo Categorias --}}
             <ol class="float-sm-right">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalcategory">
-                 Registrar Categorias
-            </button>
-          </ol>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalcategory">
+                Registrar Categorias
+              </button>
+            </ol>
           </div>
-      </div>
-      <br>
+        </div>
+        <br>
         <table class="dataTable table table-bordered table-hover" id="categoryTable">
           <thead>
             <tr>
@@ -45,7 +45,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Registrar Usuario</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Registrar Categoria</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

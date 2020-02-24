@@ -5,7 +5,7 @@
 @section('content')
 <!-- datatable con categorias boton de registro -->
 <div class="row">
-    
+
     <div class="col-12">
         <div class="card">
             <div class="card-body table-responsive">
@@ -15,10 +15,11 @@
                     </div>
                     <div class="col-6">
                         {{-- Registrar DIplomado --}}
-                        <ol  class=" float-sm-right">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaldiplomat">
-                            Registrar Diplomado
-                        </button>
+                        <ol class=" float-sm-right">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#modaldiplomat">
+                                Registrar Diplomado
+                            </button>
                         </ol>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
                     <div class="form-group">
                         <label for="name">Nombre: </label>
                         <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId"
-                            placeholder="Ingrese nombre de Categoria">
+                            placeholder="Ingrese nombre del Diplomado">
                     </div>
                     <div class="form-group">
                         <label for="version">Version: </label>

@@ -18,9 +18,6 @@
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalevaluation">
                 Registrar Evaluaciones
               </button>
-              <a href="" id="assingCategory" type="button" class="btn btn-primary">
-                Asignar Categorias
-              </a>
             </ol>
           </div>
         </div>
@@ -47,7 +44,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Registrar Usuario</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Registrar Evaluacion</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

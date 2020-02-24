@@ -11,7 +11,7 @@
                     <div class="col-6">
                         <h1 class="m-0 text-dark">Modulos</h1>
                     </div>
-                    
+
                 </div>
                 <br>
                 <table class="dataTable table table-bordered table-hover" id="modulesTable">
@@ -36,27 +36,26 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Registrar Alumno</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Estudiante</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-
                 <div class="form-group row">
                     <div class="col-12">
-                    <div class="col-12">
-                    <label for="name">Estudiantes: </label>
-                    </div>
-                    <div class="col-6">
-                        <select class="form-control" name="idStudent" id="idStudent">
-                            <option value="0">Seleccione Estudiante</option>
-                            @foreach ($students as $student)
-                            <option name="{{$student->name}} {{$student->lastname}}" id="{{$student->id}}"
-                                value="{{$student->id}}">{{$student->name}} {{$student->lastname}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                        <div class="col-12">
+                            <label for="name">Estudiantes: </label>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control" name="idStudent" id="idStudent">
+                                <option value="0">Seleccione Estudiante</option>
+                                @foreach ($students as $student)
+                                <option name="{{$student->name}} {{$student->lastname}}" id="{{$student->id}}"
+                                    value="{{$student->id}}">{{$student->name}} {{$student->lastname}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
 

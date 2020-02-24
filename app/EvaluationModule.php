@@ -20,4 +20,8 @@ class EvaluationModule extends Model
     {
         return $this->belongsTo(Evaluation::class, 'idEvaluation', 'id');
     }
+    public function EvaluationStudent()
+    {
+        return $this->hasMany(EvaluationStudent::class, 'idEvaluationModule', 'id');
+    }
 }

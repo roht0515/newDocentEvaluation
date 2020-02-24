@@ -6,9 +6,21 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <h3>Categoria: {{$name}}</h3>
-            <input type="hidden" id="idCategory" name="{{$id}}" value="{{$id}}">
             <div class="card-body table-responsive">
+                <div class="row">
+                    <div class="col-6">
+                        <h3>Categoria: {{$name}}</h3>
+                        <input type="hidden" id="idCategory" name="{{$id}}" value="{{$id}}">
+                    </div>
+                    <div class="col-6">
+                        <ol class="float-sm-right">
+                            {{-- Registrar solo Categorias --}}
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalquestion">
+                                Registrar Preguntas
+                            </button>   
+                        </ol>
+                    </div>
+                </div>
                 <table class="dataTable table table-bordered table-hover" id="questionTable">
                     <thead>
                         <tr>
@@ -23,10 +35,7 @@
         </div>
     </div>
 </div>
-{{-- Registrar solo Categorias --}}
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalquestion">
-    Registrar Preguntas
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="modalquestion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

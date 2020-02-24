@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-6">
                         {{-- Registrar Estidiante --}}
-                        <ol  class=" float-sm-right">
+                        <ol class=" float-sm-right">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaluser">
                                 Registrar Usuario
                             </button>
@@ -53,20 +53,20 @@
             </div>
             <div class="modal-body">
                 <form id="userForm" name="userForm" class="form-horizontal" method="POST"
-                    action="{{route('users.store')}}">
+                    action="{{route('users.store')}}" autocomplete="off">
                     @csrf
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label">Username</label>
                         <div class="col-sm-12">
                             <input type="text" class="form-control" id="username" name="username"
-                                placeholder="Enter Name" value="" maxlength="50" required="">
+                                placeholder="Ingrese su Username" value="" maxlength="50" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-sm-2 control-label">Password</label>
                         <div class="col-sm-12">
                             <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Enter Password" value="" maxlength="50" required="">
+                                placeholder="Ingrese su contraseña" value="" maxlength="50" required="">
                         </div>
                     </div>
                     <div class="form-group">
@@ -85,8 +85,8 @@
                     <div class="form-group">
                         <label for="email" class="col-sm-2 control-label">E-mail</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter E-mail"
-                                value="" maxlength="50" required="">
+                            <input type="text" class="form-control" id="email" name="email"
+                                placeholder="Ingrese su Correo Electronico" value="" maxlength="50" required="">
                         </div>
                     </div>
                     <div class="col-sm-offset-2 col-sm-10">

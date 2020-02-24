@@ -52,7 +52,7 @@ class ModuleStudentController extends Controller
             $modulestudent->saveOrFail();
             //registrar al estudainte para dar la evaluacion
             $evaluationstudent = new EvaluationStudent();
-            $evaluationstudent->idEvaluation = $module->idEvaluation;
+            $evaluationstudent->idEvaluationModule = $module->id;
             $evaluationstudent->idStudent = $request->idStudent;
             $evaluationstudent->saveOrFail();
             return response()->json(['success' => 'Estudiante registrado en el modulo']);

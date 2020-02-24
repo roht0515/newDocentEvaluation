@@ -58,8 +58,6 @@ class EvaluationsController extends Controller
             //obetener los valors
             $evaluation->name = $request->name;
             $evaluation->version = $request->version;
-            $evaluation->startDate = $request->startDate;
-            $evaluation->endDate = $request->endDate;
             $evaluation->saveOrFail();
             return response()->json(["sucess" => 'Evaluacion Registrada']);
         }

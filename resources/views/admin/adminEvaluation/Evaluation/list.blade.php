@@ -10,10 +10,10 @@
       <div class="card-body table-responsive">
         <div class="row">
           <div class="col-8">
-              <h1 class="m-0 text-dark">Evaluaciones</h1>
+            <h1 class="m-0 text-dark">Evaluaciones</h1>
           </div>
           <div class="col-4">
-              {{-- Registrar solo Evaluations --}}
+            {{-- Registrar solo Evaluations --}}
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalevaluation">
               Registrar Evaluaciones
             </button>
@@ -21,15 +21,13 @@
               Asignar Categorias
             </a>
           </div>
-      </div>
-      <br>
+        </div>
+        <br>
         <table class="dataTable table table-bordered table-hover" id="evaluationTable">
           <thead>
             <tr>
               <th>Nombre</th>
               <th>Version</th>
-              <th>Fecha de Inicio</th>
-              <th>Fecha de Termino</th>
               <th>id</th>
             </tr>
           </thead>
@@ -69,16 +67,6 @@
             <input type="number" class="form-control" name="version" id="version" aria-describedby="helpId"
               placeholder="Ingresar Version">
           </div>
-          <div class="form-group">
-            <label for="startDate">Fecha de Inicio</label>
-            <input type="date" class="form-control" name="startDate" id="startDate" aria-describedby="helpId"
-              placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="endDate">Fecha Final</label>
-            <input type="date" class="form-control" name="endDate" id="endDate" aria-describedby="helpId"
-              placeholder="">
-          </div>
           <button id="saveEvaluation" type="submit" class="btn btn-primary">Registrar Evaluacion</button>
         </form>
       </div>
@@ -103,8 +91,6 @@
         [
             {data:'name',name:'name'},
             {data:'version',name:'version'},
-            {data:'startDate',name:'startDate'},
-            {data:'endDate',name:'endDate'},
             {data:'DT_RowId',name:'DT_RowId',visible:false}
         ]        
     });

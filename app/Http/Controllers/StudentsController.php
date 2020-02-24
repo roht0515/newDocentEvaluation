@@ -143,8 +143,6 @@ class StudentsController extends Controller
     }
     public function showEvaluation()
     {
-        return view('Student.evaluation');
+        return view('Student.list');
     }
-    public function listModules($id)
-    { }
 }

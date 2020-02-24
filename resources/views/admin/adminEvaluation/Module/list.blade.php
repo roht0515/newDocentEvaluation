@@ -55,7 +55,7 @@
           @csrf
           <div class="container">
             <div class="form-row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-12">
                 <label for="docentes">Docentes</label>
                 <select id="docente" name="moduleData[docente]" class="custom-select">
                   <option selected>Seleccione el docente</option>
@@ -67,11 +67,11 @@
               <input type="hidden" value="{{$id}}" name="moduleData[diplomat]">
 
               <div class="form-group col-md-6">
-                <label for="moduleName">nombre modulo</label>
+                <label for="moduleName">Nombre modulo</label>
                 <input type="text" id="moduleName" name="moduleData[moduleName]" class="form-control" id="inputName">
               </div>
               <div class="form-group col-md-6">
-                <label for="moduleNumber">numero modulo</label>
+                <label for="moduleNumber">Numero modulo</label>
                 <input type="text" id="number" name="moduleData[moduleNumber]" class="form-control"
                   id="inputModuleNumber">
               </div>
@@ -86,17 +86,28 @@
 
                 </select>
               </div>
-
+              <div class="form-group col-md-12">
+                <h5>Fechas de Evaluacion</h5>
+              </div>
               <div class="form-group col-md-6">
-
-                <label for="StartDate">fecha de inicio</label>
-                <input type="date" id="startDate" name="moduleData[startDate]" class="form-control">
+                <label for="StartDate">Fecha de Inicio: </label>
+                <input type="date" id="startDateEvaluation" name="moduleData[startDateEvaluation]" class="form-control">
 
               </div>
               <div class="form-group col-md-6">
-                <label for="endDate">fecha de finalizacion</label>
+                <label for="endDate">Fecha de Finalizacion: </label>
+                <input type="date" id="endDateEvaluation" name="moduleData[endDateEvaluation]" class="form-control">
+              </div>
+              <div class="form-group col-md-12">
+                <h5>Fecha del Modulo</h5>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="StartDate">Fecha de Inicio: </label>
+                <input type="date" id="startDate" name="moduleData[startDate]" class="form-control">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="endDate">Fecha de Finalizacion: </label>
                 <input type="date" id="endDate" name="moduleData[endDate]" class="form-control">
-
               </div>
               <div class="form-group col-md-6">
                 <label for="group">Grupo: </label>

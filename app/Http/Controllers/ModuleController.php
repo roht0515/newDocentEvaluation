@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Module;
 use App\Diplomat;
 use App\EvaluationModule;
+use App\EvaluationStudent;
 use App\Student;
 use App\Professor;
 use Illuminate\Http\Request;
@@ -143,7 +144,12 @@ class ModuleController extends Controller
             $idmodule = $data->last()->id;
             $evaluationmodule->idModule = $idmodule;
             $evaluationmodule->idEvaluation = $moduleData["evaluation"];
+            $evaluationmodule->startDate = $moduleData["startDateEvaluation"];
+            $evaluationmodule->endDate = $moduleData["endDateEvaluation"];
             $evaluationmodule->saveOrFail();
+
+
+
 
             return response()->json(['sucess' => 'Modulo Registrado']);
         }

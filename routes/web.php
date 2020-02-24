@@ -84,10 +84,11 @@ Route::get('professor/list', 'ProfessorsController@studentsList')->name('profess
 Route::get('professor/history', 'ProfessorsController@studentsHistory')->name('professor.history');
 
 //Rutas Estudainte
-Route::get('student', 'StudentsController@indexStudent')->name('student.mainIndex');
-Route::get('student/Evaluation', 'StudentsController@showEvaluation')->name('student.evaluation');
-Route::get('student/EvaluationModule/{id}', 'StudentsController@listModules')->name('student.listModule');
-
+Route::get('student', 'StudentsController@indexStudent')->name('student.mainIndex'); //retornar al inicio
+Route::get('student/Modules/{id}', 'EvaluationStudentController@listModule')->name('student.module'); //obtener todos los modulos el cual esta registrado el estudainte
+Route::get('student/Evaluation/{id}', 'EvaluationStudentController@getEvaluation')->name('student.getEvaluation');
+Route::get('student/Questions/{id}', 'EvaluationStudentController@listQuestions')->name('student.questions');
+Route::post('student/registerEvaluation', 'EvaluationStudentController@store')->name('evaluationStudent.store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

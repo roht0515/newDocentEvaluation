@@ -8,13 +8,14 @@
         <div class="card">
             <div class="card-body table-responsive">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-6">
                         <h1 class="m-0 text-dark">Estudiantes</h1>
                     </div>
-                    <div class="col-2">
+                    <div class="col-6">
                         {{-- Registrar Estidiante --}}
+                        <ol  class=" float-sm-right">
                         <a class="btn btn-primary" href="{{route('students.register')}}" role="button">Registrar Estudiante</a>
-
+                        </ol>
                     </div>
                 </div>
                 <br>

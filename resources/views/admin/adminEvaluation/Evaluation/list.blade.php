@@ -9,17 +9,19 @@
     <div class="card">
       <div class="card-body table-responsive">
         <div class="row">
-          <div class="col-8">
+          <div class="col-6">
             <h1 class="m-0 text-dark">Evaluaciones</h1>
           </div>
-          <div class="col-4">
+          <div class="col-6">
             {{-- Registrar solo Evaluations --}}
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalevaluation">
-              Registrar Evaluaciones
-            </button>
-            <a href="" id="assingCategory" type="button" class="btn btn-primary">
-              Asignar Categorias
-            </a>
+            <ol class="float-sm-right">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalevaluation">
+                Registrar Evaluaciones
+              </button>
+              <a href="" id="assingCategory" type="button" class="btn btn-primary">
+                Asignar Categorias
+              </a>
+            </ol>
           </div>
         </div>
         <br>
@@ -38,10 +40,7 @@
     </div>
   </div>
 </div>
-{{-- Registrar solo Evaluations --}}
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalevaluation">
-  Registrar Evaluaciones
-</button>
+
 <!-- Modal -->
 <div class="modal fade" id="modalevaluation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">

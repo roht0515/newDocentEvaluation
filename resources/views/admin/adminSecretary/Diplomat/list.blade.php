@@ -8,11 +8,13 @@
         <div class="card">
             <div class="card-body table-responsive">
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-sm-6">
                         <h1 class="m-0 text-dark">Diplomas</h1>
                     </div>
-                    <div class="col-3">
+                    <div class="col-sm-6">
+                      <ol class=" float-sm-right">
                         <a href="{{route('certificates.registerdiplomat')}}" class="btn btn-primary">Registrar Estudiante Capacitado</a>
+                      </ol>
                     </div>
                 </div>
                 <br>

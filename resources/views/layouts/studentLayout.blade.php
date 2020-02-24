@@ -18,6 +18,15 @@
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <style>
+    .navbar-upds{
+      background-color: #0f4a7d !important;
+      
+    }
+    .nav-link:hover{
+      color: #ffffff !important;
+    }
+  </style>
 
 </head>
 
@@ -25,11 +34,11 @@
   <div class="wrapper">
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+    <nav class="main-header navbar navbar-expand-md navbar-dark navbar-upds">
       <div class="container">
         <a href="../../index3.html" class="navbar-brand">
-          <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
+          <img src="{{ asset('images/icons/isologo-blanco.png') }}" alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: 1">
           <span class="brand-text font-weight-light">Portal UPDS</span>
         </a>
 
@@ -57,7 +66,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">3</span>
+                
               </a>
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <span class="dropdown-header">15 Notifications</span>

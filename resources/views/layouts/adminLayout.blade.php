@@ -33,6 +33,19 @@
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+  
+  <style>
+  .navbar-upds{
+    background-color: #0f4a7d !important;
+    
+  }
+  .user-panel{
+    border-bottom:1px solid #C6C6C6 !important;
+  }
+  .brand-link{
+    border-bottom:1px solid #C6C6C6 !important;
+  }
+  </style>
 
   @section('style')
 
@@ -77,7 +90,7 @@
             <a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">
-                         <i class="fas fa-sign-out-alt mr-2"></i>  {{ __('Logout') }}
+                         <i class="fas fa-sign-out-alt mr-2"></i>{{ __('Logout') }}
          </a>
          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
              @csrf
@@ -90,10 +103,10 @@
 
     <!-- Main Sidebar Contain -->
 
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-dark-primary navbar-upds elevation-4">
       <!-- Brand Logo -->
       <a href="{{url('/admin')}}" class="brand-link">
-        <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+        <img src="{{ asset('images/icons/isologo-blanco.png') }}" alt="AdminLTE Logo"
           class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Administrador</span>
       </a>
@@ -234,7 +247,14 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-      @yield('content')
+      <section class="content"> 
+        <div class="container-fluid">
+
+            @yield('content')
+
+        </div>
+      </section>
+      
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">

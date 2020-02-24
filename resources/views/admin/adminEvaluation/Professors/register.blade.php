@@ -9,46 +9,55 @@
         <div class="card">
             <div class="card-body table-responsive">
                 <h3>Datos Personales del Docente</h3>
-                <div class="form-group">
+                <div class="form-group row">
+                    <div class="col-12 col-md-6">
                     <label for="ci">Carnet de Identidad: </label>
                     <input type="text" class="form-control" name="ci" id="ci" aria-describedby="helpId"
                         placeholder="Ingrese Carnet de Identidad">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="name">Nombre Completo: </label>
+                <div class="form-group row">
+                    <div class="col-12 col-md-6">
+                    <label for="name">Nombre: </label>
                     <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId"
                         placeholder="Ingrese nombres completos">
-                </div>
-                <div class="form-group">
-                    <label for="lastname">Apellido Completo: </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                    <label for="lastname">Apellido: </label>
                     <input type="text" class="form-control" name="lastname" id="lastname" aria-describedby="helpId"
                         placeholder="Ingrese apellidos completos">
+                    </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group row">
+                    <div class="col-12 col-md-6">
                     <label for="email">Correo Electronico: </label>
                     <input type="email" class="form-control" name="email" id="email" aria-describedby="helpId"
                         placeholder="Correo Electronico">
-                </div>
-                <div class="form-group">
+                    </div>
+                    <div class="col-12 col-md-6">
                     <label for="phone">Celular: </label>
                     <input type="text" class="form-control" name="phone" id="phone" aria-describedby="helpId"
                         placeholder="Ingrese su numero de celular">
+                    </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group row">
+                    <div class="col-12 col-md-6">
                     <label for="address">Direccion: </label>
                     <input type="text" class="form-control" name="address" id="address" aria-describedby="helpId"
                         placeholder="Ingrese la direccion de Domicilio">
-                </div>
-                <div class="form-group">
+                    </div>
+                    <div class="col-12 col-md-6">
                     <label for="startDate">Fecha de Inicio: </label>
                     <input type="date" class="form-control" name="startDate" id="StartDate" aria-describedby="helpId">
+                    </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group row">
+                    <div class="col-12 col-md-6">
                     <label for="career">Carrera Profesional: </label>
                     <input type="text" class="form-control" name="career" id="career" aria-describedby="helpId"
                         placeholder="Ingrese la carrera del Docente">
-                </div>
-                <div class="form-group">
+                    </div>
+                    <div class="col-12 col-md-6">
                     <label for="turn">Turnos: </label>
                     <select class="form-control" name="turn" id="turn">
                         <option value="0">Seleccione Turno</option>
@@ -56,6 +65,7 @@
                         <option name="turn" value="Tarde">Tarde</option>
                         <option name="turn" value="Noche">Noche</option>
                     </select>
+                    </div>
                 </div>
                 <button id="saveDate" type="submit" class="btn btn-primary">Registrar Docente</button>
             </div>

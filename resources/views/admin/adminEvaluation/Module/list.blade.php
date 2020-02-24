@@ -7,9 +7,22 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
-      <h3>Diplomado: {{$name}}</h3>
-      <input type="hidden" id="idDiplomat" value="{{$id}}">
+      
       <div class="card-body table-responsive">
+        <div class="row">
+          <div class="col-6">
+            <h3>Diplomado: {{$name}}</h3>
+            <input type="hidden" id="idDiplomat" value="{{$id}}">
+          </div>
+          <div class="col-6">
+            <ol class="float-sm-right">
+              {{-- Registrar solo Modulos --}}
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalmodule">
+                Registrar Modulo
+              </button>
+            </ol>
+          </div>
+        </div>
         <table class="dataTable table table-bordered table-hover" id="moduleTable">
           <thead>
             <tr>
@@ -32,10 +45,6 @@
   </div>
 </div>
 
-{{-- Registrar solo Modulos --}}
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalmodule">
-  Registrar Modulo
-</button>
 
 
 

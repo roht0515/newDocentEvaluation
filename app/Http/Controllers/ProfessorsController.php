@@ -151,9 +151,19 @@ class ProfessorsController extends Controller
      
     }
 
-    public function studentsEvaluation(){
+    public function studentsEvaluation(Request $request){
 
-        
+        if ($request->ajax()) {
+       
+            $data = DB::table('')
+            ->join('evaluation','','=','')
+            ->join('student','','=','')
+            ->select()
+            ->where()
+            ->get();
+            return DataTables::of($data)
+            ->make(true);
+        }
 
     }
 }

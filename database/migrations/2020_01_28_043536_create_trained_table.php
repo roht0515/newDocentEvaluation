@@ -20,6 +20,7 @@ class CreateTrainedTable extends Migration
             $table->string('lastname');
             $table->string('career');
             $table->string('email');
+            $table->integer('phone');
             $table->timestamps();
         });
     }

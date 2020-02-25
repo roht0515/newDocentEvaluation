@@ -51,19 +51,23 @@
       </div>
       <div class="modal-body">
         <form id="evaluationForm" name="evaluationForm" class="form-horizontal" method="POST"
-          action="{{route('evaluations.store')}}">
+          action="{{route('evaluations.store')}}" autocomplete="off">
           @csrf
           <div class="form-group">
             <label for="name">Nombre: </label>
             <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId"
               placeholder="Ingrese nombre de Evaluacion">
+            <div id="ValidateName" class="invalid-feedback">
+            </div>
           </div>
           <div class="form-group">
             <label for="version">Version: </label>
             <input type="number" class="form-control" name="version" id="version" aria-describedby="helpId"
               placeholder="Ingresar Version">
+            <div id="ValidateVersion" class="invalid-feedback">
+            </div>
           </div>
-          <button id="saveEvaluation" type="submit" class="btn btn-primary">Registrar Evaluacion</button>
+          <button type="submit" class="btn btn-primary">Registrar Evaluacion</button>
         </form>
       </div>
     </div>
@@ -90,23 +94,50 @@
             {data:'DT_RowId',name:'DT_RowId',visible:false}
         ]        
     });
-    $('#saveEvaluation').click(function (e)
+    //agregar y quitar clases para el control de los textobx
+        $(document).on("keyup", "input", function () {
+        if ($(this).val().length <= 0)
+        {
+            $(this).addClass('is-invalid');
+        }
+        else
+        {
+             $(this).removeClass("is-invalid");
+             $(this).addClass("is-valid");
+        }        
+    });
+    var form = document.getElementById('evaluationForm');
+    form.addEventListener("submit",function (event)
     {
-      e.preventDefault();
-
+      event.preventDefault();
+      event.stopPropagation();
       $.ajax({
         type: "POST",
         url: "{{route('evaluations.store')}}",
         data: $('#evaluationForm').serialize(),
         dataType: "JSON",
         success: function (data) {
+          table.ajax.reload();
           $('#evaluationForm').trigger('reset');
           $('#modalevaluation').modal('hide');
-          table.ajax.reload();
+          $("input").removeClass("is-invalid");
+          $("input").removeClass('is-valid');
         },
-        error: function(data)
+        error: function(error)
         {
-          console.log('Error',data);
+          if(error.responseJSON.hasOwnProperty('errors'))
+          {
+            if (error.responseJSON.errors.name)
+            {
+                 $('#name').addClass('is-invalid');
+                 $('#ValidateName').html(error.responseJSON.errors.name); 
+            }
+            if (error.responseJSON.errors.version)
+            {
+              $('#version').addClass('is-invalid');
+                 $('#ValidateVersion').html(error.responseJSON.errors.version); 
+            }
+          }
         }
       });
     })

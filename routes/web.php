@@ -31,15 +31,28 @@ Route::get('evaluation/index', 'EvaluationsController@index')->name('evaluations
 Route::post('evaluation/store', 'EvaluationsController@store')->name('evaluations.store'); //guardar datos de la evaluacion
 Route::Get('evaluation/{id}', 'EvaluationsController@get')->name('evaluations.get');
 //Certificates
-Route::get('certificate/list', 'CertificatesController@list')->name('certificates.list');
-Route::get('certificate/indexCertificate', 'CertificatesController@indexCertificate')->name('certificates.indexcertificate'); //obtener los datos de certificados
-Route::get('certificate/register', 'CertificatesController@createCertificate')->name('certificates.register');
-Route::post('certificate/store', 'CertificatesController@storeCertificate')->name('certificates.store');
-Route::get('certificate/listDiplomat', 'CertificatesController@listDiplomat')->name('certificates.listdiplomat');
-Route::get('certificate/indexDiplomat', 'CertificatesController@indexDiplomat')->name('certificates.indexdiplomat');
-Route::get('certificate/registerDiplomat', 'CertificatesController@createDiplomat')->name('certificates.registerdiplomat');
-Route::post('certificate/registerDiplomat', 'CertificatesController@storeDiplomat')->name('certificates.storediplomat');
-//Diplomados
+Route::get('certificates/list', 'CertificatesController@list')->name('certificates.list');
+Route::get('certificates/index', 'CertificatesController@indexCertificate')->name('certificates.indexcertificate'); //obtener los datos de certificados
+Route::get('certificates/register', 'CertificatesController@createCertificate')->name('certificates.register');
+Route::post('certificates/store', 'CertificatesController@storeCertificate')->name('certificates.store');
+Route::get('certificates/delivery/{id}', 'CertificatesController@getCertificate')->name('certificates.getCertificate');
+//Diplomas
+Route::get('Diplomas/list', 'CertificatesController@listDiplomat')->name('certificates.listdiplomat');
+Route::get('Diplomas/index', 'CertificatesController@indexDiplomat')->name('certificates.indexdiplomat');
+Route::get('Diplomas/register', 'CertificatesController@createDiplomat')->name('certificates.registerdiplomat');
+Route::post('Diplomas/register', 'CertificatesController@storeDiplomat')->name('certificates.storediplomat');
+Route::get('Diplomas/delivery/{id}', 'CertificatesController@getDiplomat')->name('certificates.getDiplomat');
+//Entregas
+//Ver Entregas Estudaintes
+Route::get('certificate/list/student', 'CertificatesController@HistoryCertificateStudent')->name('certificates.historyStudent');
+Route::get('diploma/list/student', 'CertificatesController@HistoryDiplomatStudent')->name('diplomats.historyStudent');
+//Tutores
+Route::get('certificate/list/tutor', 'CertificatesController@HistoryCertificateTutor')->name('certificates.historyTutor');
+Route::get('diploma/list/tutor', 'CertificatesController@HistoryDiplomatTutor')->name('diplomats.historyTutor');
+//Entregas de Certificado
+Route::post('Delivery/Certificate/store/Student', 'DeliveryController@storeStudent')->name('deliveryStudent.store');
+Route::post('Delivery/Certificate/store/Tutor', 'DeliveryController@storeTutor')->name('deliveryTutor.store');
+//Diplomados-Carreras
 Route::get('diplomat/index', 'DiplomatsController@index')->name('diplomats.list');
 Route::post('diplomat/store', 'DiplomatsController@store')->name('diplomats.store');
 Route::get('diplomat/{id}', 'DiplomatsController@get')->name('diplomats.get');

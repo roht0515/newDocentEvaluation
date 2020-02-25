@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateAccreditedTable extends Migration
 {
@@ -15,7 +15,6 @@ class CreateAccreditedTable extends Migration
     {
         Schema::create('accredited', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('idDelivery')->unsigned();
             $table->string('ci');
             $table->string('name');
             $table->string('lastname');
@@ -23,7 +22,6 @@ class CreateAccreditedTable extends Migration
             $table->bigInteger('phone')->nullable();
             $table->string('relationship');
             $table->timestamps();
-            $table->foreign('idDelivery')->references('id')->on('delivery');
         });
     }
 

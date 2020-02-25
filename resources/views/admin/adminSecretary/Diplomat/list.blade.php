@@ -8,23 +8,27 @@
         <div class="card">
             <div class="card-body table-responsive">
                 <div class="row">
+                    <input type="hidden" id="idSecretary" name="idSecretary" value="{{auth()->user()->id}}">
                     <div class="col-sm-6">
                         <h1 class="m-0 text-dark">Diplomas</h1>
                     </div>
                     <div class="col-sm-6">
-                      <ol class=" float-sm-right">
-                        <a href="{{route('certificates.registerdiplomat')}}" class="btn btn-primary">Registrar Estudiante Capacitado</a>
-                      </ol>
+                        <ol class=" float-sm-right">
+                            <a href="{{route('certificates.registerdiplomat')}}" class="btn btn-primary">Registrar
+                                Estudiante Capacitado</a>
+                        </ol>
                     </div>
                 </div>
                 <br>
                 <table class="dataTable table table-bordered table-hover" id="certificateTable">
                     <thead>
                         <tr>
-                            <th>Trained</th>
-                            <th>Nombre</th>
+                            <th>Nombre del Trained</th>
+                            <th>Certificado</th>
                             <th>Razon</th>
-                            <th>Entregado</th>
+                            <th>Estado</th>
+                            <th>Tipo de Entrega</th>
+                            <th>Tipo de Entrega</th>
                             <th>id</th>
                         </tr>
                     </thead>
@@ -56,10 +60,44 @@
                 {data:'fullname',name:'fullname'},  
                 {data:'Nombrecito',name:'certificate.name'},
                 {data:'reason',name:'certificate.reason'},
-                {data:'delivered',name:'certificate.delivered'},
-                {data:'idc',name:'certificate.id',visible:false}
-            ]       
+                {data:'Delivery',name:'Delivery'},
+                {data:'BtnStudent',name:'BtnStudent'},
+                {data:'BtnTutor',name:'BtnTutor'},
+                {data:'DT_RowId',name:'DT_RowId',visible:false}
+            ]    
     });
+    $(document).on("click","button",function (event)
+    {
+        var id = $(this).attr("id");
+        var tutor = $(this).text();
+        if (tutor == "Tutor")
+        {
+        }
+        else
+        {
+            var idSecretary=document.getElementById('idSecretary').value;
+            event.preventDefault();
+            event.stopPropagation();
+            //agregar
+            $.ajax({
+                type: "POST",
+                data:{
+                    id:id,
+                    idSecretary:idSecretary,
+                    _token: "{{ csrf_token() }}"
+                },
+                url: '{{route("deliveryStudent.store")}}',
+                dataType: "JSON",
+                success: function (response) {
+                    table.ajax.reload();
+                },
+                error:function(error)
+                {
+                    console.log(error);
+                }
+            });
+        }
+    })
 })
 </script>
 @endsection

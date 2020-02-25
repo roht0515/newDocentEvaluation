@@ -16,19 +16,21 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <style>
-    .navbar-upds{
+    .navbar-upds {
       background-color: #0f4a7d !important;
-      
+
     }
-    .nav-link:hover{
+
+    .nav-link:hover {
       color: #ffffff !important;
     }
+
     .carousel-inner img {
       width: 100%;
       max-height: 200px;
     }
 
-    .carousel-inner{
+    .carousel-inner {
       height: 200px;
     }
   </style>
@@ -101,10 +103,13 @@
                 <i class="fas fa-power-off"></i>
               </a>
               <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-
-                <a href="#" class="dropdown-item">
-                  <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                  <i class="fas fa-sign-out-alt mr-2"></i> {{ __('Logout') }}
                 </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+                </form>
               </div>
             </li>
           </ul>
@@ -125,8 +130,8 @@
           <!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
-        
-        <!-- /.content -->
+
+      <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
@@ -191,6 +196,9 @@
   <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{ asset('dist/js/demo.js') }}"></script>
+  {{-- Validaciones --}}
+  <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
   <!--CDNS A DESCARGART PERRO--->
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 

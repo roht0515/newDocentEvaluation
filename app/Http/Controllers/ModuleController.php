@@ -10,6 +10,7 @@ use App\Student;
 use App\Professor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\FormDiplomatModuleRequest;
 use DataTables;
 use DateTime;
 use Validator;
@@ -123,33 +124,28 @@ class ModuleController extends Controller
         //
     }
 
-    public function createModule(Request $request)
+    public function createModule(FormDiplomatModuleRequest $request)
     {
         if ($request->ajax()) {
             $evaluationmodule = new EvaluationModule();
-
-            $moduleData = $request->moduleData;
-            $module = new Module;
-            $module->idProfessor = $moduleData["docente"];
-            $module->idDiplomat = $moduleData["diplomat"];
-            $module->name = $moduleData["moduleName"];
-            $module->number = $moduleData["moduleNumber"];
-            $module->startDate = $moduleData["startDate"];
-            $module->endDate = $moduleData["endDate"];
-            $module->group = $moduleData["group"];
-            $module->classroomNumber = $moduleData["classroomNumber"];
+            $module = new Module();
+            $module->idProfessor = $request->professor;
+            $module->idDiplomat = $request->idDiplomat;
+            $module->name = $request->name;
+            $module->number = $request->number;
+            $module->startDate = $request->startDateModule;
+            $module->endDate = $request->endDateModule;
+            $module->group = $request->group;
+            $module->classroomNumber = $request->classroom;
             $module->saveOrFail();
 
             $data = Module::all();
             $idmodule = $data->last()->id;
             $evaluationmodule->idModule = $idmodule;
-            $evaluationmodule->idEvaluation = $moduleData["evaluation"];
-            $evaluationmodule->startDate = $moduleData["startDateEvaluation"];
-            $evaluationmodule->endDate = $moduleData["endDateEvaluation"];
+            $evaluationmodule->idEvaluation = $request->evaluation;
+            $evaluationmodule->startDate = $request->startDateEvaluation;
+            $evaluationmodule->endDate = $request->endDateEvaluation;
             $evaluationmodule->saveOrFail();
-
-
-
 
             return response()->json(['sucess' => 'Modulo Registrado']);
         }

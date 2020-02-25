@@ -52,14 +52,16 @@
       </div>
       <div class="modal-body">
         <form id="categoryForm" name="categoryForm" class="form-horizontal" method="POST"
-          action="{{route ('categories.store')}}">
+          action="{{route ('categories.store')}}" autocomplete="off">
           @csrf
           <div class="form-group">
             <label for="name">Nombre: </label>
             <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId"
               placeholder="Ingrese nombre de Categoria">
+            <div id="ValidateName" class="invalid-feedback">
+            </div>
           </div>
-          <button id="saveCategory" type="submit" class="btn btn-primary">Registrar Categoria</button>
+          <button type="submit" class="btn btn-primary">Registrar Categoria</button>
         </form>
       </div>
     </div>
@@ -86,33 +88,54 @@
             {data:'DT_RowId',name:'DT_RowId',visible:false}
         ]        
     });
-    //metodo post para registrar Categorias
-    $('#saveCategory').click(function (e) {
-        e.preventDefault();
+        //agregar y quitar clases para el control de los textobx
+        $(document).on("keyup", "input", function () {
+        if ($(this).val().length <= 0)
+        {
+            $(this).addClass('is-invalid');
+        }
+        else
+        {
+             $(this).removeClass("is-invalid");
+             $(this).addClass("is-valid");
+        }        
+    });
+    var form = document.getElementById('categoryForm');
+    form.addEventListener("submit",function (event)
+    {
+      event.preventDefault();
+      event.stopPropagation();
 
-        $.ajax({
+      $.ajax({
           data: $('#categoryForm').serialize(),
           url: "{{ route('categories.store') }}",
           type: "POST",
           dataType: 'json',
           success: function (data) {
-            console.log('Success:', data);
+            table.ajax.reload();
               $('#categoryForm').trigger("reset");
               $('#modalcategory').modal('hide');
-              table.ajax.reload();
+              $("input").removeClass("is-invalid");
+          $("input").removeClass('is-valid');
 
           },
-          error: function (data) {
-              console.log('Error:', data);
+          error: function (error) {
+            if(error.responseJSON.hasOwnProperty('errors'))
+            {
+              if (error.responseJSON.errors.name)
+              {
+                 $('#name').addClass('is-invalid');
+                 $('#ValidateName').html(error.responseJSON.errors.name); 
+              }
+            }
           }
       });
-    });
+    })
     //click de la tabla
     $('#categoryTable').on('click', 'tr', function () {
         var id = table.row(this).id();
         if (id)
         {
-            console.log(id);
             var url = '{{ route("categories.get","") }}';
             url+=`/${id}`;
             window.location.href=url;

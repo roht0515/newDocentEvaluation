@@ -6,6 +6,7 @@ use App\Student;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\FormStudentRequest;
 use DataTables;
 use DateTime;
 use Validator;
@@ -50,7 +51,7 @@ class StudentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormStudentRequest $request)
     {
         //registrar estudiante
         $now = new DateTime();
@@ -66,7 +67,7 @@ class StudentsController extends Controller
             $password = strtoupper(substr($request->name, 0, 1)) . substr(strval($request->ci), 0, 3) . substr($request->lastname, 0, 2); //crear contraseña
             $user->username = $username;
             $user->password = Hash::make($password);
-            $user->role = 'Estudiante';
+            $user->role = 'Student';
             $user->email = $request->email;
             $user->email_verified_at = $now;
             $user->saveOrFail();

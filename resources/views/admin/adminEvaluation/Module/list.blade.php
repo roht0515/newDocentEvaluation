@@ -60,75 +60,91 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="moduleRegister" method="POST" accion="{{ route('diplomatModule') }}">
+        <form id="moduleRegister" method="POST" accion="{{ route('diplomatModule') }}" autocomplete="off">
           @csrf
+          <input type="hidden" value="{{$id}}" id="idDplomat" name="idDiplomat">
           <div class="container">
             <div class="form-row">
               <div class="form-group col-md-12">
                 <label for="docentes">Docentes</label>
-                <select id="docente" name="moduleData[docente]" class="custom-select">
-                  <option selected>Seleccione el docente</option>
+                <select id="professor" name="professor" class="custom-select">
+                  <option value="0" selected>Seleccione el docente</option>
                   @foreach ($professors as $professor)
                   <option value="{{ $professor['id'] }}">{{ $professor['name'] }}</option>
                   @endforeach
                 </select>
+                <div id="ValidateProfessor" class="invalid-feedback">
+                </div>
               </div>
-              <input type="hidden" value="{{$id}}" name="moduleData[diplomat]">
-
               <div class="form-group col-md-6">
                 <label for="moduleName">Nombre modulo</label>
-                <input type="text" id="moduleName" name="moduleData[moduleName]" class="form-control" id="inputName">
+                <input type="text" id="moduleName" name="name" class="form-control" id="inputName">
+                <div id="ValidateName" class="invalid-feedback">
+                </div>
               </div>
               <div class="form-group col-md-6">
                 <label for="moduleNumber">Numero modulo</label>
-                <input type="text" id="number" name="moduleData[moduleNumber]" class="form-control"
-                  id="inputModuleNumber">
+                <input type="text" id="number" name="number" class="form-control" id="inputModuleNumber">
+                <div id="ValidateNumber" class="invalid-feedback">
+                </div>
               </div>
 
               <div class="form-group col-md-12">
                 <label for="evaluation">Evaluacion</label>
-                <select id="evaluation" name="moduleData[evaluation]" class="custom-select">
-                  <option selected>Seleccione la evaluacion</option>
+                <select id="evaluation" name="evaluation" class="custom-select">
+                  <option value="0" selected>Seleccione la evaluacion</option>
                   @foreach ($evaluations as $diplomat)
                   <option value="{{ $diplomat['id'] }}">{{ $diplomat['name'] }}</option>
                   @endforeach
-
                 </select>
+                <div id="ValidateEvaluation" class="invalid-feedback">
+                </div>
               </div>
               <div class="form-group col-md-12">
                 <h5>Fechas de Evaluacion</h5>
               </div>
               <div class="form-group col-md-6">
                 <label for="StartDate">Fecha de Inicio: </label>
-                <input type="date" id="startDateEvaluation" name="moduleData[startDateEvaluation]" class="form-control">
-
+                <input type="date" id="startDateEvaluation" name="startDateEvaluation" class="form-control">
+                <div id="ValidateStartDateEvaluation" class="invalid-feedback">
+                </div>
               </div>
               <div class="form-group col-md-6">
                 <label for="endDate">Fecha de Finalizacion: </label>
-                <input type="date" id="endDateEvaluation" name="moduleData[endDateEvaluation]" class="form-control">
+                <input type="date" id="endDateEvaluation" name="endDateEvaluation" class="form-control">
+                <div id="ValidateEndDateEvaluation" class="invalid-feedback">
+                </div>
               </div>
               <div class="form-group col-md-12">
                 <h5>Fecha del Modulo</h5>
               </div>
               <div class="form-group col-md-6">
                 <label for="StartDate">Fecha de Inicio: </label>
-                <input type="date" id="startDate" name="moduleData[startDate]" class="form-control">
+                <input type="date" id="startDateModule" name="startDateModule" class="form-control">
+                <div id="ValidateStartDateModule" class="invalid-feedback">
+                </div>
               </div>
               <div class="form-group col-md-6">
                 <label for="endDate">Fecha de Finalizacion: </label>
-                <input type="date" id="endDate" name="moduleData[endDate]" class="form-control">
+                <input type="date" id="endDateModule" name="endDateModule" class="form-control">
+                <div id="ValidateEndDateModule" class="invalid-feedback">
+                </div>
               </div>
               <div class="form-group col-md-6">
                 <label for="group">Grupo: </label>
-                <input type="text" id="group" name="moduleData[group]" class="form-control">
+                <input type="text" id="group" name="group" class="form-control">
+                <div id="ValidateGroup" class="invalid-feedback">
+                </div>
               </div>
               <div class="form-group col-md-6">
                 <label for="classroomNumber">Aula: </label>
-                <input type="text" id="classroomNumber" name="moduleData[classroomNumber]" class="form-control">
+                <input type="text" id="classroom" name="classroom" class="form-control">
+                <div id="ValidateClassroom" class="invalid-feedback">
+                </div>
               </div>
             </div>
           </div>
-          <button type="submit" id="saveModule" class="btn btn-primary">Registrar modulo</button>
+          <button type="submit" class="btn btn-primary">Registrar modulo</button>
         </form>
       </div>
     </div>
@@ -163,24 +179,190 @@
         {data:'classRoom',name:'classRoom'},
         {data:'startDate',name:'startDate'}
       ]
-    }) 
-    $('#saveModule').click(function (e)
+    })
+    //agregar y quitar clases inputs
+        $(document).on("keyup", "input", function () {
+        if ($(this).val().length <= 0)
+        {
+            $(this).addClass('is-invalid');
+        }
+        else
+        {
+             $(this).removeClass("is-invalid");
+             $(this).addClass("is-valid");
+        }
+    });
+    $('input[type=date]').change(function ()
     {
-        e.preventDefault();
-        $.ajax({
+      var now = new Date();
+      switch ($(this).attr('id')) {
+        case 'startDateEvaluation':
+        if ($(this).val() <= now.getDate())
+        {
+            $('#ValidateStartDateEvaluation').addClass('d-block');
+            $(this).addClass('is-invalid');
+        }
+        else
+        {
+            $(this).addClass('is-valid');
+            $('#ValidateStartDateEvaluation').removeClass('d-block');
+            $(this).removeClass('is-invalid');
+        }
+      break;
+      case 'endDateEvaluation':
+      if ($(this).val() < now.getDate() || $(this).val() < $('#startDateEvaluation').val())
+        {
+            $('#ValidateEndDateEvaluation').addClass('d-block');
+            $(this).addClass('is-invalid');
+        }
+        else
+        {
+            $(this).addClass('is-valid');
+            $('#ValidateEndDateEvaluation').removeClass('d-block');
+            $(this).removeClass('is-invalid');
+        }
+      break;
+      case 'startDateModule':
+      if ($(this).val() <= now.getDate())
+        {
+            $('#ValidateStartDateModule').addClass('d-block');
+            $(this).addClass('is-invalid');
+        }
+        else
+        {
+            $(this).addClass('is-valid');
+            $('#ValidateStartDateModule').removeClass('d-block');
+            $(this).removeClass('is-invalid');
+        }
+        break;
+      case 'endDateModule':
+      if ($(this).val() < now.getDate() || $(this).val() < $('#startDateModule').val())
+        {
+            $('#ValidateEndDateModule').addClass('d-block');
+            $(this).addClass('is-invalid');
+        }
+        else
+        {
+            $(this).addClass('is-valid');
+            $('#ValidateEndDateModule').removeClass('d-block');
+            $(this).removeClass('is-invalid');
+        }
+        break;
+      
+       
+      }
+    });
+    //selects
+    $(document).on("change","select",function ()
+    {
+        if ($(this).attr('id') == 'professor')
+        {
+            if ($(this).val() != 0 )
+            {
+                $('#ValidateProfessor').removeClass('d-block');
+                $(this).removeClass("is-invalid");
+                $(this).addClass("is-valid");
+            }
+            else
+            {
+                $('#ValidateProfessor').addClass('d-block');
+                $(this).addClass('is-invalid');
+            }
+        }
+        if ($(this).attr('id') == 'evaluation')
+        {
+          if ($(this).val() != 0 )
+            {
+                $('#ValidateEvaluation').removeClass('d-block');
+                $(this).removeClass("is-invalid");
+                $(this).addClass("is-valid");
+            }
+            else
+            {
+                $('#ValidateEvaluation').addClass('d-block');
+                $(this).addClass('is-invalid');
+            }
+        }
+
+    })
+    var form = document.getElementById('moduleRegister');
+    form.addEventListener("submit",function (event)
+    {
+      event.preventDefault();
+      event.stopPropagation();
+
+      $.ajax({
           data: $('#moduleRegister').serialize(),
           url: "{{ route('diplomatModule') }}",
           type: "POST",
           dataType: 'json',
           success: function (data) {
-            console.log('Success:', data);
-            table.ajax.reload();
-            $('#moduleRegister').trigger("reset");
+              table.ajax.reload();
+              $('#moduleRegister').trigger("reset");
               $('#modalmodule').modal('hide');
+              $("input").removeClass("is-invalid");
+              $("input").removeClass('is-valid');
 
           },
-          error: function (data) {
-              console.log('Error:', data);
+          error: function (error) {
+            if(error.responseJSON.hasOwnProperty('errors'))
+            {
+              if (error.responseJSON.errors.professor)
+              {
+                $('#ValidateProfessor').addClass('d-block');
+                $('#ValidateProfessor').html(error.responseJSON.errors.professor);
+              }
+              if(error.responseJSON.errors.name)
+              {
+                $('#moduleName').addClass('is-invalid');
+                $('#ValidateName').html(error.responseJSON.errors.name)
+              }
+              if(error.responseJSON.errors.number)
+              {
+                $('#number').addClass('is-invalid');
+                $('#ValidateNumber').html(error.responseJSON.errors.number)
+              }
+              if (error.responseJSON.errors.evaluation)
+              {
+                $('#ValidateEvaluation').addClass('d-block');
+                $('#ValidateEvaluation').html(error.responseJSON.errors.evaluation);
+              }
+              if (error.responseJSON.errors.startDateEvaluation)
+              {
+                  $('#startDateEvaluation').addClass('is-invalid');
+                  $('#ValidateStartDateEvaluation').addClass('d-block');
+                  $('#ValidateStartDateEvaluation').html(error.responseJSON.errors.startDateEvaluation);
+              }
+              if (error.responseJSON.errors.endDateEvaluation)
+              {
+                  $('#endDateEvaluation').addClass('is-invalid');
+                  $('#ValidateEndDateEvaluation').addClass('d-block');
+                  $('#ValidateEndDateEvaluation').html(error.responseJSON.errors.endDateEvaluation);
+              }
+              if (error.responseJSON.errors.startDateModule)
+              {
+                $('#startDateModule').addClass('is-invalid');
+                $('#ValidateStartDateModule').addClass('d-block');
+                $('#ValidateStartDateModule').html(error.responseJSON.errors.startDateModule);
+              }
+              if (error.responseJSON.errors.endDateModule)
+              {
+                $('#endDateModule').addClass('is-invalid');
+                $('#ValidateEndDateModule').addClass('d-block');
+                $('#ValidateEndDateModule').html(error.responseJSON.errors.endDateModule);
+              }
+              if (error.responseJSON.errors.group)
+              {
+                $('#group').addClass('is-invalid');
+                $('#ValidateGroup').html(error.responseJSON.errors.group);
+              }
+              if (error.responseJSON.errors.classroom)
+              {
+                $('#classroom').addClass('is-invalid');
+                $('#ValidateClassroom').html(error.responseJSON.errors.classroom);
+              }
+
+            }
           }
       });
     })

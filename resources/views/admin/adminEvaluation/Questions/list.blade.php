@@ -15,9 +15,10 @@
                     <div class="col-6">
                         <ol class="float-sm-right">
                             {{-- Registrar solo Categorias --}}
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalquestion">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#modalquestion">
                                 Registrar Preguntas
-                            </button>   
+                            </button>
                         </ol>
                     </div>
                 </div>
@@ -50,15 +51,19 @@
             </div>
             <div class="modal-body">
                 <form id="questionForm" name="questionForm" class="form-horizontal" method="POST"
-                    action="{{route('questions.store')}}">
+                    action="{{route('questions.store')}}" autocomplete="off">
                     @csrf
                     <input type="hidden" name="idCategory" id="idCategory" value="{{$id}}">
                     <div class="form-group">
                         <label for="text">Texto</label>
                         <input type="text" class="form-control" name="text" id="text" aria-describedby="helpId"
-                            placeholder="Ingrese nombre de Categoria">
+                            placeholder="Ingrese Pregunta">
+                        <div id="ValidateText" class="invalid-feedback">
+                        </div>
                     </div>
-                    <button id="saveQuestion" type="submit" class="btn btn-primary">Registrar Pregunta</button>
+                    <div class="form-group">
+                        <button id="saveQuestion" type="submit" class="btn btn-primary">Registrar Pregunta</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -111,9 +116,8 @@
                                 <div class="form-group">
                                     <label for="text">Texto: </label>
                                     <input type="text" class="form-control" name="text" aria-describedby="helpId">
-                                </div>
-                                <button id="updateQuestionBtn" type="submit" class="btn btn-primary">Guardar
-                                    Cambios</button>
+                                    <button type="submit" class="btn btn-primary">Guardar
+                                        Cambios</button>
                             </form>
                         </div>
                     </div>
@@ -145,27 +149,52 @@
             {data:'DT_RowId',name:'DT_RowId',visible:false}
         ]
     });
-    //registrar Pregunta
-    $('#saveQuestion').click(function (e)
+
+    //agregar y quitar clases para el control de los textobx
+    $(document).on("keyup", "input", function () {
+        if ($(this).val().length <= 0)
+        {
+            $(this).addClass('is-invalid');
+        }
+        else
+        {
+             $(this).removeClass("is-invalid");
+             $(this).addClass("is-valid");
+        }
+     });
+     
+    //registrar
+    var form = document.getElementById('questionForm');
+    form.addEventListener("submit",function (event)
     {
-        e.preventDefault();
+        event.preventDefault();
+        event.stopPropagation();
         $.ajax({
           data: $('#questionForm').serialize(),
           url: "{{ route('questions.store') }}",
           type: "POST",
           dataType: 'json',
           success: function (data) {
-            console.log('Success:', data);
+            table.ajax.reload();
               $('#questionForm').trigger("reset");
               $('#modalquestion').modal('hide');
-              table.ajax.reload();
+              $("input").removeClass("is-invalid");
+          $("input").removeClass('is-valid');
 
           },
-          error: function (data) {
-              console.log('Error:', data);
+          error: function (error) {
+            if(error.responseJSON.hasOwnProperty('errors'))
+          {
+            if (error.responseJSON.errors.text)
+            {
+                 $('#text').addClass('is-invalid');
+                 $('#ValidateText').html(error.responseJSON.errors.text); 
+            }
           }
-      });
+          }
+        });
     })
+    //registrar Pregunta
     //eliminar pregunta
     $('#deleteQuestion').click(function (e)
     {
@@ -174,7 +203,6 @@
         id = id.value;
         if (id)
         {
-            console.log(id);
             var url = '{{ route("questions.delete","") }}';
             url+=`/${id}`;
             $.ajax({
@@ -182,15 +210,10 @@
                 url: url,
                 dataType: "JSON",
                 success: function () {
-                    console.log("Pregunta Eliminada");
-                    $('#modalquestion').modal('hide');
                     table.ajax.reload();
+                    $('#modalquestion').modal('hide');
                 }
             });
-        }
-        else
-        {
-            console.log("No se logro eliminar la pregunta");
         }
         
     });
@@ -248,13 +271,9 @@
           type: "POST",
           dataType: "JSON",
             success: function (data) {
+                table.ajax.reload();
                 $('#updateQuestion').trigger("reset");
                 $('#detailquestionModal').modal('hide');
-                table.ajax.reload();
-            },
-            error: function(data)
-            {
-                console.log(error);
             }
         });
     });

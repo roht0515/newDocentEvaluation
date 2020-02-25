@@ -57,6 +57,7 @@ class TrainedsController extends Controller
             $trained->name = $request->name;
             $trained->lastname = $request->lastname;
             $trained->email = $request->email;
+            $trained->phone = $request->phone;
             $trained->saveOrFail();
             return response()->json(['success' => 'Estudiante registrado']);
         }

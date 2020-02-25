@@ -115,29 +115,31 @@
     //ver las categorias
     $('#cbcategory').on('change',function()
     {
-        $("#questions").empty();
-        let id = this.value;//en el cbcategory su value es el ID de la categoria
-        console.log(id);
-        var url = '{{ route("evaluationcategories.listQuestion","") }}';
-        url+=`/${id}`;
-        $.ajax({
-            type: "GET",
-            url: url,
-            dataType: "JSON",
-            success: function (response) {
-                for (let x = 0; x< response.length; x++) 
-               {
-                    var li = document.createElement("li");
-                    var text = document.createTextNode(response[x].text);
-                    li.appendChild(text);                               
-                    document.getElementById("questions").appendChild(li); 
-               }  
-            },
-            error:function()
-            {
-                console.log(error);
-            }
-        });
+        if ($(this).val() != 0)
+        {
+            $("#questions").empty();
+            let id = this.value;//en el cbcategory su value es el ID de la categoria
+            var url = '{{ route("evaluationcategories.listQuestion","") }}';
+            url+=`/${id}`;
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "JSON",
+                success: function (response) {
+                    for (let x = 0; x< response.length; x++) 
+                {
+                        var li = document.createElement("li");
+                        var text = document.createTextNode(response[x].text);
+                        li.appendChild(text);                               
+                        document.getElementById("questions").appendChild(li); 
+                }  
+                },
+                error:function()
+                {
+                    console.log(error);
+                }
+            });
+        }
     
     })
     //REGISTRAR EVALUACION Y CATEGORIA EN LA TABLA M-N
@@ -146,8 +148,6 @@
         e.preventDefault();
         let idCategory=document.getElementById('cbcategory').value; //obtenemos el id de la cateogria
         let idEvaluation={{$id}};//obtenemos el id de la evaluacion que estamos registrando sus categorias
-        console.log(idCategory);
-        console.log(idEvaluation);
         $.ajax({
             type: "POST",
             url: "{{route('evaluationcategories.store')}}",

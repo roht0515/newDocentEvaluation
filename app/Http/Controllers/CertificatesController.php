@@ -36,25 +36,11 @@ class CertificatesController extends Controller
             ->select([DB::raw('CONCAT(trained.name," ",trained.lastname) as fullname'), 'certificate.name as Nombrecito', 'certificate.reason', 'certificate.delivered', 'certificate.id as idc'])
             ->where('type', 'certificado');
         return DataTables::of($data)
-            ->addColumn('Delivery', function ($row) {
+            ->addColumn('Btns', function ($row) {
                 if ($row->delivered == false) {
-                    $row = '<h5 class="text-danger">No Entregado</h5>';
-                } else {
-                    $row = '<h5 class="text-success">Entregado</h5>';
-                }
-                return $row;
-            })
-            ->addColumn('BtnStudent', function ($row) {
-                if ($row->delivered == false) {
-                    $btn = '<button id="' . $row->idc . '" class="btn btn-primary">Estudiante</button>';
-                } else {
-                    $btn = '<h5 class="text-success">Entregado</h5>';
-                }
-                return $btn;
-            })
-            ->addColumn('BtnTutor', function ($row) {
-                if ($row->delivered == false) {
-                    $btn = '<a href="' . route('certificates.getCertificate', ["id" => $row->idc]) . '"><button class="btn btn-primary">Tutor</button></a>';
+                    $btn = '
+                    <button id="' . $row->idc . '" class="btn btn-primary">Estudiante</button>;
+                    <a href="' . route('certificates.getCertificate', ["id" => $row->idc]) . '"><button class="btn btn-primary">Tutor</button></a>';
                 } else {
                     $btn = '<h5 class="text-success">Entregado</h5>';
                 }
@@ -64,7 +50,7 @@ class CertificatesController extends Controller
                 $row = $row->idc;
                 return $row;
             })
-            ->rawColumns(['Delivery', 'BtnStudent', 'BtnTutor'])
+            ->rawColumns(['Btns'])
             ->make(true);
     }
     public function indexDiplomat()
@@ -73,27 +59,11 @@ class CertificatesController extends Controller
             ->select([DB::raw('CONCAT(trained.name," ",trained.lastname) as fullname'), 'certificate.name as Nombrecito', 'certificate.reason', 'certificate.delivered', 'certificate.id as idc'])
             ->where('type', 'diploma');
         return DataTables::of($data)
-            ->addColumn('Delivery', function ($row) {
+            ->addColumn('Btns', function ($row) {
                 if ($row->delivered == false) {
-                    $row = '<h5 class="text-danger">No Entregado</h5>';
-                } else {
-                    $row = '<h5 class="text-success">Entregado</h5>';
-                }
-                return $row;
-            })
-            ->addColumn('BtnStudent', function ($row) {
-                if ($row->delivered == false) {
-                    $btn = '<button id="' . $row->idc . '" class="btn btn-primary">Estudiante</button>';
-                } else {
-                    $btn = '<h5 class="text-success">Entregado</h5>';
-                }
-                return $btn;
-            })
-            ->addColumn('BtnTutor', function ($row) {
-                if ($row->delivered == false) {
-                    $btn = '<a href="' . route('certificates.getDiplomat', ["id" => $row->idc]) . '">
-                    <button class="btn btn-primary">Tutor</button>
-                    </a>';
+                    $btn = '
+                    <button id="' . $row->idc . '" class="btn btn-primary">Estudiante</button>;
+                    <a href="' . route('certificates.getCertificate', ["id" => $row->idc]) . '"><button class="btn btn-primary">Tutor</button></a>';
                 } else {
                     $btn = '<h5 class="text-success">Entregado</h5>';
                 }
@@ -103,7 +73,7 @@ class CertificatesController extends Controller
                 $row = $row->idc;
                 return $row;
             })
-            ->rawColumns(['Delivery', 'BtnStudent', 'BtnTutor'])
+            ->rawColumns(['Btns'])
             ->make(true);
     }
 

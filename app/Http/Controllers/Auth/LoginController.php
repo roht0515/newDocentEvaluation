@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Professor;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,7 +63,8 @@ class LoginController extends Controller
             if (auth()->user()->role == 'Administrador') {
                 return redirect()->route('admin');
             } else if (auth()->user()->role == 'Professor') {
-                return redirect()->route('professor.mainIndex');
+         
+                return redirect()->route('professor.mainIndex', compact('professor'));
             } else if (auth()->user()->role == 'Administrador Evaluacion') {
                 return redirect()->route('admin');
             }

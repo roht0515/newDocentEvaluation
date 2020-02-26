@@ -31,6 +31,8 @@
     </a>
   </div>
 </div>
+
+
 @endsection
 @section('script')
 <script>

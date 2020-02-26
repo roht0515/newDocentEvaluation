@@ -11,6 +11,7 @@
 |eqweqweqwe
 */
 
+use App\Http\Controllers\ProfessorsController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -108,6 +109,7 @@ Route::group(['prefix' => 'professor', 'middleware' => ['professor']], function 
 Route::get('home', 'ProfessorsController@indexProfessor')->name('professor.mainIndex');
 Route::get('list', 'ProfessorsController@studentsList')->name('professor.students');
 Route::get('history', 'ProfessorsController@studentsHistory')->name('professor.history');
+Route::get('listStudents/{id}', 'ProfessorsController@studentsEvaluation')->name('listStudents');
 });
 
 

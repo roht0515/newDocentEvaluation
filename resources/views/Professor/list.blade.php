@@ -4,6 +4,7 @@
 @endsection
 @section('content')
 
+<input type="hidden" id="idProfessor" value="{{auth()->user()->id}}" >
 <div class="col-12">
     <br>
     <div class="card">
@@ -12,7 +13,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
-          <table class="datatable table table-hover text-nowrap ">
+          <table class="dataTable table table-hover text-nowrap ">
             <thead class="bg-dark">
               <tr>
                 <th width="10%">#</th>
@@ -29,7 +30,6 @@
       </div>
 </div>
 
-
 @endsection
 @section('script')
 <script>
@@ -41,6 +41,22 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-})
+
+    var idProfessor=document.getElementById('idProfessor').value;
+
+    var url='{{route("listStudents","")}}';
+   // alert('id: '+idProfessor)
+    url+=`/${idProfessor}`;
+    var table=$('.dataTable').DataTable({
+      serverside:true,
+      processing:true,
+      ajax:url,
+      columns:[
+          {data:'module',name:'module'},
+          {data:'fullname',name:'fullname'},
+          {data:'resolved',name:'resolved'}
+      ]
+  });
+});
 </script>
 @endsection

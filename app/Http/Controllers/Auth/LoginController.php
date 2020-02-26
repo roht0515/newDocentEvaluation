@@ -60,18 +60,18 @@ class LoginController extends Controller
         if(Auth::attempt($credentials))
         {
             if (auth()->user()->role == 'Administrador') {
-                return redirect('admin');
+                return redirect()->route('admin');
             } else if (auth()->user()->role == 'Professor') {
-                return redirect('professor');
+                return redirect()->route('professor.mainIndex');
             } else if (auth()->user()->role == 'Administrador Evaluacion') {
-                return redirect('admin');
+                return redirect()->route('admin');
             }
             else if (auth()->user()->role == 'Administrador Secretaria') {
-                return redirect('admin');
+                return redirect()->route('admin');
             }
               else if(auth()->user()->role =='Student')
             {
-                return redirect('student');
+                return redirect()->route('student.mainIndex');
             }
         }
         else{

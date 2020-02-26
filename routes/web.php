@@ -18,10 +18,11 @@ Route::get('/', function () {
 //Login
 Route::get('/login', function () {
     return view('auth.login');
-});
+})->name('login');
 
 //Admin
-Route::get('/admin', 'HomeController@admin')->name('admin');
+Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
+Route::get('home', 'HomeController@admin')->name('admin');
 //Rutas de Administrador Users
 Route::get('users/list', 'UsersController@index')->name('users.list'); //ver lista de usaurios
 Route::post('users/store', 'UsersController@store')->name('users.store'); //registrar registors
@@ -91,17 +92,24 @@ Route::post('moduleStudent/Register/{id}', 'ModuleStudentController@store')->nam
 //Diplomados en Estudaintes
 Route::post('diplomatStudent/Register/{id}', 'DiplomatStudentController@store')->name('diplomatStudent.store');
 
+});
+
 //RUTAS PROFESSOR
-Route::get('professor', 'ProfessorsController@indexProfessor')->name('professor.mainIndex');
-Route::get('professor/list', 'ProfessorsController@studentsList')->name('professor.students');
-Route::get('professor/history', 'ProfessorsController@studentsHistory')->name('professor.history');
+Route::group(['prefix' => 'professor', 'middleware' => ['professor']], function () {
+Route::get('home', 'ProfessorsController@indexProfessor')->name('professor.mainIndex');
+Route::get('list', 'ProfessorsController@studentsList')->name('professor.students');
+Route::get('history', 'ProfessorsController@studentsHistory')->name('professor.history');
+});
+
 
 //Rutas Estudainte
-Route::get('student', 'StudentsController@indexStudent')->name('student.mainIndex'); //retornar al inicio
-Route::get('student/Modules/{id}', 'EvaluationStudentController@listModule')->name('student.module'); //obtener todos los modulos el cual esta registrado el estudainte
-Route::get('student/Evaluation/{id}', 'EvaluationStudentController@getEvaluation')->name('student.getEvaluation');
-Route::get('student/Questions/{id}', 'EvaluationStudentController@listQuestions')->name('student.questions');
-Route::post('student/registerEvaluation', 'EvaluationStudentController@store')->name('evaluationStudent.store');
+Route::group(['prefix' => 'student', 'middleware' => ['student']], function () {
+Route::get('home', 'StudentsController@indexStudent')->name('student.mainIndex'); //retornar al inicio
+Route::get('Modules/{id}', 'EvaluationStudentController@listModule')->name('student.module'); //obtener todos los modulos el cual esta registrado el estudainte
+Route::get('Evaluation/{id}', 'EvaluationStudentController@getEvaluation')->name('student.getEvaluation');
+Route::get('Questions/{id}', 'EvaluationStudentController@listQuestions')->name('student.questions');
+Route::post('registerEvaluation', 'EvaluationStudentController@store')->name('evaluationStudent.store');
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

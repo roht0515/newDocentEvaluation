@@ -25,6 +25,9 @@ Route::get('/denied', function () {
     return view('error.permissionError');
 })->name('permissionError');
 
+Route::get('/denied/login', function () {
+    return view('error.authenticated');
+})->name('authenticated');
 
 //Admin
 Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {

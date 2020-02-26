@@ -19,16 +19,12 @@ class EvaluationSeeder extends Seeder
         DB::table('evaluation')->insert([
             'id' => '1',
             'name' => 'Evaluacion Aviones',
-            'version' => '1',
-            'startDate' => $now,
-            'endDate' => $now
+            'version' => '1'
         ]);
         DB::table('evaluation')->insert([
             'id' => '2',
             'name' => 'Evaluacion Autos',
-            'version' => '1',
-            'startDate' => $now,
-            'endDate' => $now
+            'version' => '1'
         ]);
     }
 }

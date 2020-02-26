@@ -17,8 +17,6 @@ class CreateEvaluationTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->bigInteger('version');
-            $table->date('startDate');
-            $table->date('endDate');
             $table->timestamps();
         });
     }

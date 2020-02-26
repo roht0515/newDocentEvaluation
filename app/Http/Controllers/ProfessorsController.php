@@ -6,6 +6,7 @@ use App\Professor;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\FormDocentEvaluation;
 use DataTables;
 use DateTime;
 use DB;
@@ -49,11 +50,11 @@ class ProfessorsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormDocentEvaluation $request)
     {
         //
-        $now = new DateTime();
         if ($request->ajax()) {
+            $now = new DateTime();
             $user = new User();
             //guardar el usuario
             $pos = strpos($request->name, " "); //obtener si existe un espacio y obtener la posicion de ese espacio
@@ -65,7 +66,7 @@ class ProfessorsController extends Controller
             $password = strtoupper(substr($request->name, 0, 1)) . substr(strval($request->ci), 0, 3) . substr($request->lastname, 0, 2); //crear contraseña
             $user->username = $username;
             $user->password = Hash::make($password);
-            $user->role = 'Docente';
+            $user->role = 'Professor';
             $user->email = $request->email;
             $user->email_verified_at = $now;
             $user->saveOrFail();
@@ -86,7 +87,7 @@ class ProfessorsController extends Controller
             $professor->turn = $request->turn;
             $professor->saveOrFail();
 
-            return response()->json(['sucess' => 'Professor creado']);
+            return response()->json(['sucess' => 'Docente registrado correctamente']);
         }
         return view('admin.adminEvaluation.Professors.list');
     }
@@ -140,30 +141,29 @@ class ProfessorsController extends Controller
     {
         return view('Professor.index');
     }
-    public function studentsList(){
-       
+    public function studentsList()
+    {
+
         return view('Professor.list');
-     
-
     }
-    public function studentsHistory(){
+    public function studentsHistory()
+    {
         return view('Professor.studentsList');
-     
     }
 
-    public function studentsEvaluation(Request $request){
+    public function studentsEvaluation(Request $request)
+    {
 
         if ($request->ajax()) {
-       
-            $data = DB::table('')
-            ->join('evaluation','','=','')
-            ->join('student','','=','')
-            ->select()
-            ->where()
-            ->get();
-            return DataTables::of($data)
-            ->make(true);
-        }
 
+            $data = DB::table('')
+                ->join('evaluation', '', '=', '')
+                ->join('student', '', '=', '')
+                ->select()
+                ->where()
+                ->get();
+            return DataTables::of($data)
+                ->make(true);
+        }
     }
 }

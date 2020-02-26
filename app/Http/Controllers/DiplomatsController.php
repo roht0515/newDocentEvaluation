@@ -7,6 +7,7 @@ use App\Professor;
 use App\Evaluation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\FormDiplomatRequest;
 use DataTables;
 use DateTime;
 use Validator;
@@ -50,7 +51,7 @@ class DiplomatsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormDiplomatRequest $request)
     {
         //
         if ($request->ajax()) {
@@ -108,22 +109,19 @@ class DiplomatsController extends Controller
         //
     }
 
-    public function createModel(){
+    public function createModel()
+    { }
 
-
-
-    }
-
-    public function get($id){
+    public function get($id)
+    {
 
         $diplomats = Diplomat::all();
         $professors = Professor::all();
         $evaluations = Evaluation::all();
         $category = DB::table('diplomat')->where('id', '=', $id)->first();
-        return view('admin.adminEvaluation.Module.list',compact('diplomats','professors','evaluations'))->with([
+        return view('admin.adminEvaluation.Module.list', compact('diplomats', 'professors', 'evaluations'))->with([
             'id' => $category->id,
             'name' => $category->name
         ]);
-
     }
 }

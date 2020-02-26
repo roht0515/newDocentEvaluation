@@ -30,21 +30,25 @@
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  @section('styles')
 
+  @endsection
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-  
+
   <style>
-  .navbar-upds{
-    background-color: #0f4a7d !important;
-    
-  }
-  .user-panel{
-    border-bottom:1px solid #C6C6C6 !important;
-  }
-  .brand-link{
-    border-bottom:1px solid #C6C6C6 !important;
-  }
+    .navbar-upds {
+      background-color: #0f4a7d !important;
+
+    }
+
+    .user-panel {
+      border-bottom: 1px solid #C6C6C6 !important;
+    }
+
+    .brand-link {
+      border-bottom: 1px solid #C6C6C6 !important;
+    }
   </style>
 
   @section('style')
@@ -86,15 +90,14 @@
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="fas fa-power-off"></i>
           </a>
-          <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">          
-            <a class="dropdown-item" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
+          <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">
-                         <i class="fas fa-sign-out-alt mr-2"></i>{{ __('Logout') }}
-         </a>
-         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-             @csrf
-         </form>
+              <i class="fas fa-sign-out-alt mr-2"></i>{{ __('Logout') }}
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+            </form>
           </div>
         </li>
       </ul>
@@ -131,71 +134,71 @@
 
             <li class="nav-header">MENU</li>
             <!-- /.Vicerrector evaluacion docente -->
-           @if (auth()->user()->role=="Administrador Evaluacion")
-               
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Diplomados
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('diplomats.list')}}" class="nav-link">
-                  <i class="fas fa-align-left nav-icon"></i>
-                  <p>Lista</p>
-                </a>
-                <a href="{{route('modules.index')}}" class="nav-link">
-                  <i class="fas fa-align-left nav-icon"></i>
-                  <p>Modulos</p>
-                </a>
-                <a href="{{route('professors.list')}}" class="nav-link">
-                  <i class="fas fa-user-friends nav-icon"></i>
-                  <p>Docentes</p>
-                </a>
-                <a href="{{route('students.list')}}" class="nav-link">
-                  <i class="fas fa-user-friends nav-icon"></i>
-                  <p>Estudiantes</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+            @if (auth()->user()->role=="Administrador Evaluacion")
 
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Evaluaciones
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('evaluations.list')}}" class="nav-link">
-                  <i class="fas fa-file nav-icon"></i>
-                  <p>Evaluacion</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('categories.list')}}" class="nav-link">
-                  <i class="fas fa-clone nav-icon"></i>
-                  <p>Categorias</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Diplomados
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('diplomats.list')}}" class="nav-link">
+                    <i class="fas fa-align-left nav-icon"></i>
+                    <p>Lista</p>
+                  </a>
+                  <a href="{{route('modules.index')}}" class="nav-link">
+                    <i class="fas fa-align-left nav-icon"></i>
+                    <p>Modulos</p>
+                  </a>
+                  <a href="{{route('professors.list')}}" class="nav-link">
+                    <i class="fas fa-user-friends nav-icon"></i>
+                    <p>Docentes</p>
+                  </a>
+                  <a href="{{route('students.list')}}" class="nav-link">
+                    <i class="fas fa-user-friends nav-icon"></i>
+                    <p>Estudiantes</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-          <li class="nav-item">
-            <a href="" class="nav-link">
-              <i class="nav-icon fas fa-database"></i>
-              <p>
-                Historial
-              </p>
-            </a>
-          </li>
-           @endif
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Evaluaciones
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('evaluations.list')}}" class="nav-link">
+                    <i class="fas fa-file nav-icon"></i>
+                    <p>Evaluacion</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('categories.list')}}" class="nav-link">
+                    <i class="fas fa-clone nav-icon"></i>
+                    <p>Categorias</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="" class="nav-link">
+                <i class="nav-icon fas fa-database"></i>
+                <p>
+                  Historial
+                </p>
+              </a>
+            </li>
+            @endif
             <!-- /.Secretario Gral -->
             @if (auth()->user()->role=="Administrador Secretaria")
             <li class="nav-item has-treeview">
@@ -225,9 +228,52 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Entregados
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('certificates.historyStudent')}}" class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>
+                      Certificados-Estudiantes
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('certificates.historyTutor')}}" class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>
+                      Certificados-Tutor
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('diplomats.historyTutor')}}" class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>
+                      Diplomados-Tutor
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('diplomats.historyStudent')}}" class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>
+                      Diplomados-Estudiantes
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
             @endif
             @if (auth()->user()->role =="Administrador")
-                  <!-- /.Administrador -->
+            <!-- /.Administrador -->
             <li class="nav-item">
               <a href="{{ route('users.list') }}" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
@@ -235,9 +281,9 @@
                   Usuarios
                 </p>
               </a>
-            </li> 
+            </li>
             @endif
-         
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -247,14 +293,14 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-      <section class="content"> 
+      <section class="content">
         <div class="container-fluid">
 
-            @yield('content')
+          @yield('content')
 
         </div>
       </section>
-      
+
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
@@ -307,6 +353,9 @@
   <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{ asset('dist/js/demo.js') }}"></script>
+  {{-- Plugins Jquery validaciones --}}
+  <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
   <!--CDNS A DESCARGART PERRO--->
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 

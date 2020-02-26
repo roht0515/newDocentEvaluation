@@ -17,6 +17,8 @@ class CreateEvaluationmoduleTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('idEvaluation')->unsigned();
             $table->bigInteger('idModule')->unsigned()->unique();
+            $table->date('startDate');
+            $table->date('endDate');
             $table->timestamps();
             $table->foreign('idEvaluation')->references('id')->on('evaluation');
             $table->foreign('idModule')->references('id')->on('module');

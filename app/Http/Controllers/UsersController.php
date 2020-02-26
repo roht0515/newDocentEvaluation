@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\FormUserValidate;
 use DataTables;
-use DateTime;
-use Validator;
 use DB;
 
 class UsersController extends Controller
@@ -48,20 +47,19 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormUserValidate $request)
     {
         //guardar usuario
         if ($request->ajax()) {
-            //declarar el nuevo objeto
+
             $user = new User();
-            //insertar los datos
             $user->username = $request->username;
             $user->password = Hash::make($request->password);
             $user->role = $request->role;
             $user->email = $request->email;
-            //guardar los datos
             $user->saveOrFail();
-            return response()->json(['success' => 'Usuario guardado']);
+
+            return response()->json(['success' => 'Usuario Registrado']);
         }
     }
 

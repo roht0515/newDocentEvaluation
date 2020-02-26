@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-6">
                         {{-- Registrar Estidiante --}}
-                        <ol  class=" float-sm-right">
+                        <ol class=" float-sm-right">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaluser">
                                 Registrar Usuario
                             </button>
@@ -37,8 +37,6 @@
         </div>
     </div>
 </div>
-<!-- Button trigger modal -->
-
 
 <!-- Modal -->
 <div class="modal fade" id="modaluser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -53,44 +51,53 @@
             </div>
             <div class="modal-body">
                 <form id="userForm" name="userForm" class="form-horizontal" method="POST"
-                    action="{{route('users.store')}}">
+                    action="{{route('users.store')}}" autocomplete="off" novalidate>
                     @csrf
                     <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">Username</label>
+                        <label for="username" class="col-sm-2 control-label">Username</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="username" name="username"
-                                placeholder="Enter Name" value="" maxlength="50" required="">
+                            <input name="username" type="text" class="form-control " id="username"
+                                placeholder="Ingrese nombre de usuario">
+                            <div id="ValidateUser" class="invalid-feedback">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-sm-2 control-label">Password</label>
                         <div class="col-sm-12">
-                            <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Enter Password" value="" maxlength="50" required="">
+                            <input name="password" type="password" class="form-control" id="password"
+                                placeholder="Ingrese su contraseña">
+                            <div id="ValidatePassword" class="invalid-feedback">
+                            </div>
+
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="email" class="col-sm-2 control-label">Role</label>
                         <div class="col-sm-12">
-                            <select class="form-control" name="role">
-                                <option>Seleccione tipo de usuario</option>
-                                <option id="role" name="Administrador" value="Administrador">Administrador</option>
-                                <option id="role" name="Administrador Secretaria" value="Administrador Secretaria">
+                            <select class="form-control" name="role" id="role">
+                                <option value="0">Seleccione tipo de usuario</option>
+                                <option value="Administrador">Administrador</option>
+                                <option value="Administrador Secretaria">
                                     Administrador de Secretaria</option>
-                                <option id="role" name="Adminstrador Evaluacion" value="Administrador de Evaluacion">
+                                <option value="Administrador de Evaluacion">
                                     Administrador de Evaluacion</option>
                             </select>
+                            <div id="ValidateRole" class="invalid-feedback">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="email" class="col-sm-2 control-label">E-mail</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter E-mail"
-                                value="" maxlength="50" required="">
+                            <input name="email" type="text" class="form-control" id="email"
+                                placeholder="Ingrese su Correo Electronico">
+                            <div id="ValidateEmail" class="invalid-feedback">
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes
+                        <button type="submit" class="btn btn-primary">Registrar usuario
                         </button>
                     </div>
                 </form>
@@ -101,9 +108,9 @@
 @endsection
 <!--SECCION PÁRA CODIGO JS--->
 @section('script')
+{{-- AJAX --}}
 <script>
     $(document).ready(function (){
-   
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -134,27 +141,80 @@
                 }
             ]
     });
-    //modal de Usuario
-    $('#saveBtn').click(function (e) {
-        e.preventDefault();
-
-        $.ajax({
-          data: $('#userForm').serialize(),
-          url: "{{ route('users.store') }}",
-          type: "POST",
-          dataType: 'json',
-          success: function (data) {
-            console.log('Success:', data);
-              $('#userForm').trigger("reset");
-              $('#modaluser').modal('hide');
-              table.ajax.reload();
-
-          },
-          error: function (data) {
-              console.log('Error:', data);
-          }
-      });
+    //agregar y quitar clases
+    $(document).on("keyup", "input", function () {
+        if ($(this).val().length <= 0)
+        {
+            $(this).addClass('is-invalid');
+        }
+        else
+        {
+             $(this).removeClass("is-invalid");
+             $(this).addClass("is-valid");
+        }
     });
+    $(document).on("change","select",function ()
+    {
+        if ($(this).val() != 0 )
+        {
+            $('#ValidateRole').removeClass('d-block');
+             $(this).removeClass("is-invalid");
+             $(this).addClass("is-valid");
+        }
+        else
+        {
+            $('#ValidateRole').addClass('d-block');
+            $(this).addClass('is-invalid');
+        }
+    })
+    var form = document.getElementById('userForm');
+    form.addEventListener(
+        "submit",function (event)
+        {
+            $("input").removeClass("is-invalid");
+            event.preventDefault();
+            event.stopPropagation();
+            //ajax de registros
+            $.ajax({
+                data: $('#userForm').serialize(),
+                url: "{{ route('users.store') }}",
+                cache:false,
+                type: "POST",
+                dataType: 'json',
+                success: function (data) {
+                    $("input").removeClass("is-valid");
+                    $('#userForm').trigger("reset");
+                    $('#modaluser').modal('hide');
+                    table.ajax.reload();
+                },
+                error: function (error) {
+                         //valido que llegue errors
+                        if(error.responseJSON.hasOwnProperty('errors')){
+                            if(error.responseJSON.errors.username){
+                                $('#username').addClass('is-invalid');
+                                $('#ValidateUser').html(error.responseJSON.errors.username);
+                            }
+                            if(error.responseJSON.errors.password)
+                            {
+                                $('#password').addClass('is-invalid');
+                                $('#ValidatePassword').html(error.responseJSON.errors.password);
+                            }
+                            if(error.responseJSON.errors.role)
+                            {
+                                $('#ValidateRole').addClass('d-block');
+                                $('#ValidateRole').html(error.responseJSON.errors.role);
+                            }
+                            if (error.responseJSON.errors.email)
+                            {
+                                $('#email').addClass('is-invalid');
+                                $('#ValidateEmail').html(error.responseJSON.errors.email);
+                            }
+                        }
+                }
+            });
+            
+        }
+    );
 })
 </script>
 @endsection

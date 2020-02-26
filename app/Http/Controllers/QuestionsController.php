@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\FormQuestionRequest;
 use DataTables;
 use DateTime;
 use Validator;
@@ -49,7 +50,7 @@ class QuestionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormQuestionRequest $request)
     {
         //agregar nuevas preguntas
         if ($request->ajax()) {

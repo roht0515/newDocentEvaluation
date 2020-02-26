@@ -5,16 +5,16 @@
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-12">
-          <h1 class="text-center">
-            {{$name}}
-          </h1>
+        <div class="row mb-2">
+            <div class="col-sm-12">
+                <h1 class="text-center">
+                    {{$name}}
+                </h1>
+            </div>
         </div>
-      </div>
     </div><!-- /.container-fluid -->
 </section>
-<h3 class="px-5">  </h3>
+<h3 class="px-5"> </h3>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -27,7 +27,8 @@
                     </div>
                     <div class="col-6">
                         <ol class="float-sm-right">
-                            <button id="showCategories" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaluser">
+                            <button id="showCategories" type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#modaluser">
                                 Asignar Categorias
                             </button>
                         </ol>
@@ -62,30 +63,30 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                <div class="col-6">
-                <select class="form-control" name="name" id="cbcategory">
-                    {{-- AQUI SE LLENARAN LAS CAEGORIAS --}}
-                    <option value="">Seleccione Categoria</option>
-                    @foreach ($categories as $category)
-                    <option name="{{$category->id}}" id="{{$category->id}}" value="{{$category->id}}">
-                        {{$category->name}}</option>
-                    @endforeach
-                </select>
-                </div>
+                    <div class="col-6">
+                        <select class="form-control" name="name" id="cbcategory">
+                            {{-- AQUI SE LLENARAN LAS CAEGORIAS --}}
+                            <option value="">Seleccione Categoria</option>
+                            @foreach ($categories as $category)
+                            <option name="{{$category->id}}" id="{{$category->id}}" value="{{$category->id}}">
+                                {{$category->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 {{-- AQUI SE VAN A VER LAS PREGUNTAS DE ESA CATEGORIA --}}
                 <div class="row">
                     <div class="col-12">
-                    <h5>Preguntas de la Categoria</h5>
-                    {{-- ESTE UL ES TODAS LAS PREGUNTAS QUE SE CAMBIARAN MEDIANTE EL ONCHANGE DEL SELECT --}}
-                    <ul id="questions">
+                        <h5>Preguntas de la Categoria</h5>
+                        {{-- ESTE UL ES TODAS LAS PREGUNTAS QUE SE CAMBIARAN MEDIANTE EL ONCHANGE DEL SELECT --}}
+                        <ul id="questions">
 
-                    </ul>
+                        </ul>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="saveDate" type="submit" class="btn btn-primary">Asignar</button>
+                <button id="saveDate" type="submit" class="btn btn-primary">Asignar Categoria</button>
             </div>
         </div>
     </div>
@@ -114,29 +115,31 @@
     //ver las categorias
     $('#cbcategory').on('change',function()
     {
-        $("#questions").empty();
-        let id = this.value;//en el cbcategory su value es el ID de la categoria
-        console.log(id);
-        var url = '{{ route("evaluationcategories.listQuestion","") }}';
-        url+=`/${id}`;
-        $.ajax({
-            type: "GET",
-            url: url,
-            dataType: "JSON",
-            success: function (response) {
-                for (let x = 0; x< response.length; x++) 
-               {
-                    var li = document.createElement("li");
-                    var text = document.createTextNode(response[x].text);
-                    li.appendChild(text);                               
-                    document.getElementById("questions").appendChild(li); 
-               }  
-            },
-            error:function()
-            {
-                console.log(error);
-            }
-        });
+        if ($(this).val() != 0)
+        {
+            $("#questions").empty();
+            let id = this.value;//en el cbcategory su value es el ID de la categoria
+            var url = '{{ route("evaluationcategories.listQuestion","") }}';
+            url+=`/${id}`;
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "JSON",
+                success: function (response) {
+                    for (let x = 0; x< response.length; x++) 
+                {
+                        var li = document.createElement("li");
+                        var text = document.createTextNode(response[x].text);
+                        li.appendChild(text);                               
+                        document.getElementById("questions").appendChild(li); 
+                }  
+                },
+                error:function()
+                {
+                    console.log(error);
+                }
+            });
+        }
     
     })
     //REGISTRAR EVALUACION Y CATEGORIA EN LA TABLA M-N
@@ -145,8 +148,6 @@
         e.preventDefault();
         let idCategory=document.getElementById('cbcategory').value; //obtenemos el id de la cateogria
         let idEvaluation={{$id}};//obtenemos el id de la evaluacion que estamos registrando sus categorias
-        console.log(idCategory);
-        console.log(idEvaluation);
         $.ajax({
             type: "POST",
             url: "{{route('evaluationcategories.store')}}",

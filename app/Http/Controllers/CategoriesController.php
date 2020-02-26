@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\FormCategoriesRequest;
 use DataTables;
 use DateTime;
 use Validator;
@@ -47,7 +48,7 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormCategoriesRequest $request)
     {
         //agregar una nueva categoria
         $now = new DateTime();

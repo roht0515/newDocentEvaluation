@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'id' => 5,
-            'username' => 'ProfessroBrenda',
+            'username' => 'ProfessorBrenda',
             'password' => Hash::make('ProfessorBrenda'),
             'role' => 'Professor',
             'email' => 'Brenda@hotmail.com',

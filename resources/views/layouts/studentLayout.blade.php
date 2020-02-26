@@ -19,11 +19,12 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   <style>
-    .navbar-upds{
+    .navbar-upds {
       background-color: #0f4a7d !important;
-      
+
     }
-    .nav-link:hover{
+
+    .nav-link:hover {
       color: #ffffff !important;
     }
   </style>
@@ -54,7 +55,7 @@
               <a href="{{route('student.mainIndex')}}" class="nav-link">Inicio</a>
             </li>
             <li class="nav-item">
-              <a href="{{route('student.evaluation')}}" class="nav-link">Evaluacion Docente</a>
+              <a href="{{route('student.module',auth()->user()->id)}}" class="nav-link">Evaluacion Docente</a>
             </li>
 
           </ul>
@@ -66,7 +67,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
-                
+
               </a>
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <span class="dropdown-header">15 Notifications</span>
@@ -96,11 +97,13 @@
                 <i class="fas fa-power-off"></i>
               </a>
               <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-
-                <a href="#" class="dropdown-item">
-                  <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit();">
+                  <i class="fas fa-sign-out-alt mr-2"></i> {{ __('Logout') }}
                 </a>
-
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+                </form>
               </div>
             </li>
             <li class="nav-item">
@@ -159,7 +162,11 @@
   <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- AdminLTE App -->
   <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+  {{-- Validaciones --}}
+  <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
 
+  {{-- DataTables --}}
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
   <script src="  https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>

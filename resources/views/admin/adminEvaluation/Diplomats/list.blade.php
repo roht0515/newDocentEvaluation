@@ -5,7 +5,7 @@
 @section('content')
 <!-- datatable con categorias boton de registro -->
 <div class="row">
-    
+
     <div class="col-12">
         <div class="card">
             <div class="card-body table-responsive">
@@ -15,10 +15,11 @@
                     </div>
                     <div class="col-6">
                         {{-- Registrar DIplomado --}}
-                        <ol  class=" float-sm-right">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaldiplomat">
-                            Registrar Diplomado
-                        </button>
+                        <ol class=" float-sm-right">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#modaldiplomat">
+                                Registrar Diplomado
+                            </button>
                         </ol>
                     </div>
                 </div>
@@ -58,17 +59,23 @@
                     <div class="form-group">
                         <label for="name">Nombre: </label>
                         <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId"
-                            placeholder="Ingrese nombre de Categoria">
+                            placeholder="Ingrese nombre del Diplomado">
+                        <div id="ValidateName" class="invalid-feedback">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="version">Version: </label>
                         <input type="number" class="form-control" name="version" id="version">
+                        <div id="ValidateVersion" class="invalid-feedback">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="startDate">Fecha de Inicio</label>
-                        <input type="date" class="form-control" name="startDate" id="startDate">
+                        <input type="date" class="form-control" name="startDate" id="StartDate">
+                        <div id="ValidateStartDate" class="invalid-feedback">
+                        </div>
                     </div>
-                    <button id="saveDiplomat" type="submit" class="btn btn-primary">Registrar Diplomado</button>
+                    <button type="submit" class="btn btn-primary">Registrar Diplomado</button>
                 </form>
             </div>
         </div>
@@ -97,10 +104,41 @@
             {data:'DT_RowId',name:'DT_RowId',visible:false}
         ]        
     });
-    $('#saveDiplomat').click(function (e)
+    //agregar y quitar clases para el control de los textobx
+        $(document).on("keyup", "input", function () {
+        if ($(this).val().length <= 0)
+        {
+            $(this).addClass('is-invalid');
+        }
+        else
+        {
+             $(this).removeClass("is-invalid");
+             $(this).addClass("is-valid");
+        }        
+    });
+    $('#StartDate').change(function ()
     {
-        e.preventDefault();
+        var now = new Date();
+        
+        if ($(this).val() <= now.getDate())
+        {
+            $('#ValidateStartDate').addClass('d-block');
+            $(this).addClass('is-invalid');
+        }
+        else
+        {
+            $(this).addClass('is-valid');
+            $('#ValidateStartDate').removeClass('d-block');
+            $(this).removeClass('is-invalid');
+        }
+    })
+    var form = document.getElementById('diplomatForm');
+    form.addEventListener("submit",function (event)
+    {
+        event.preventDefault();
+        event.stopPropagation();
 
+        //agregar por ajax
         $.ajax({
             type: "POST",
             url: "{{route('diplomats.store')}}",
@@ -110,10 +148,33 @@
                 table.ajax.reload();
                 $('#diplomatForm').trigger('reset');
                 $('#modaldiplomat').modal('hide');
+                $("input").removeClass("is-invalid");
+                $("input").removeClass('is-valid');
+            },
+            error:function (error)
+            {
+                if(error.responseJSON.hasOwnProperty('errors'))
+                {
+                    if (error.responseJSON.errors.name)
+                    {
+                        $('#name').addClass('is-invalid');
+                        $('#ValidateName').html(error.responseJSON.errors.name); 
+                    }
+                    if (error.responseJSON.errors.version)
+                    {
+                        $('#version').addClass('is-invalid');
+                        $('#ValidateVersion').html(error.responseJSON.errors.version);
+                    }
+                    if (error.responseJSON.errors.startDate)
+                    {
+                        $('#StartDate').addClass('is-invalid');
+                        $('#ValidateStartDate').addClass('d-block');
+                        $('#ValidateStartDate').html(error.responseJSON.errors.startDate);
+                    }
+                }
             }
         });
     })
-
       //click de la tabla
       $('#diplomatTable').on('click', 'tr', function () {
         var id = table.row(this).id();

@@ -101,10 +101,14 @@
                 <i class="fas fa-power-off"></i>
               </a>
               <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-
-                <a href="#" class="dropdown-item">
-                  <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                </a>
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                          onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();">
+                         <i class="fas fa-sign-out-alt mr-2"></i>{{ __('Logout') }}
+                 </a>
+                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+              </form>
               </div>
             </li>
           </ul>

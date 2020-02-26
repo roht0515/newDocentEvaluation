@@ -20,6 +20,12 @@ Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
+//Error Routes
+Route::get('/denied', function () {
+    return view('error.permissionError');
+})->name('permissionError');
+
+
 //Admin
 Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
 Route::get('home', 'HomeController@admin')->name('admin');

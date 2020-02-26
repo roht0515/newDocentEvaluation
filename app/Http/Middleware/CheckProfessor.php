@@ -19,7 +19,7 @@ class CheckProfessor
             return $next($request);
         } else {
             if (!$request->ajax()) {
-                return redirect()->route('login');
+                return redirect()->route('permissionError');
             } else {
                 return response()->json(["status" => false, "msgError" => "Usted no tiene permiso!"]);
             }

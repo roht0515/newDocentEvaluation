@@ -79,49 +79,43 @@ class EvaluationStudentController extends Controller
             $data = Evaluation::join('evaluationcategory', 'evaluation.id', '=', 'evaluationcategory.idEvaluation')
                 ->join('category', 'evaluationcategory.idCategory', '=', 'category.id')
                 ->join('question', 'category.id', '=', 'question.idCategory')
-                ->select(['question.text', 'evaluation.id', 'question.id as idQ', 'question.idCategory'])
+                ->select(['question.text', 'question.id as idQ', 'question.idCategory'])
                 ->where('evaluation.id', '=', $evaluation->id)
                 ->get();
             return DataTables::of($data)
                 ->addColumn('p1', function ($row) {
                     $radio = '
-                    <div class="form-check">
-                    <input form="formEvaluationStudent"  type="radio" name="question' . $row->idQ . '" value="1" required>
-                  </div>
+                    <input class="required" form="formEvaluationStudent"  type="radio" name="question' . $row->idQ . '" value="1" required>
                     ';
                     return $radio;
                 })
                 ->addColumn('p2', function ($row) {
                     $radio = '
-                    <div class="form-check">
-                    <input form="formEvaluationStudent"  type="radio" name="question' . $row->idQ . '" value="2" required>
-                  </div>
+                    <input class="required" form="formEvaluationStudent"  type="radio" name="question' . $row->idQ . '" value="2" required>
                     ';
                     return $radio;
                 })
                 ->addColumn('p3', function ($row) {
                     $radio = '
-                    <div class="form-check">
-                    <input form="formEvaluationStudent"" type="radio" name="question' . $row->idQ . '" value="3" required>
-                  </div>
+                    <input class="required"form="formEvaluationStudent"" type="radio" name="question' . $row->idQ . '" value="3" required>
                     ';
                     return $radio;
                 })
                 ->addColumn('p4', function ($row) {
                     $radio = '
-                    <div class="form-check">
-                    <input form="formEvaluationStudent"  type="radio" name="question' . $row->idQ . '" value="4" required>
-                  </div>
+                    <input class="required" form="formEvaluationStudent"  type="radio" name="question' . $row->idQ . '" value="4" required>
                     ';
                     return $radio;
                 })
                 ->addColumn('p5', function ($row) {
                     $radio = '
-                    <div class="form-check">
-                    <input form="formEvaluationStudent"  type="radio" name="question' . $row->idQ . '" value="5" required>
-                  </div>
+                    <input class="required" form="formEvaluationStudent"  type="radio" name="question' . $row->idQ . '" value="5" required>
                     ';
                     return $radio;
+                })
+                ->addColumn('DT_RowId', function ($row) {
+                    $row = $row->idQ;
+                    return $row;
                 })
                 ->rawColumns(['p1', 'p2', 'p3', 'p4', 'p5'])
                 ->make(true);

@@ -18,6 +18,7 @@
                             <th class="text-center">Regular</th>
                             <th class="text-center">General</th>
                             <th class="text-center">Siempre</th>
+                            <th>IdQuestion</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,7 +45,10 @@
 @section('script')
 <script>
     $(document).ready(function ()
-{
+{    
+    function validarFormulario(){
+          $("#formEvaluationStudent").validate();
+    }
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -64,13 +68,18 @@
             {data:'p2',name:'p2',orderable: false, searchable: false},
             {data:'p3',name:'p3',orderable: false, searchable: false},
             {data:'p4',name:'p4',orderable: false, searchable: false},
-            {data:'p5',name:'p5',orderable: false, searchable: false}
+            {data:'p5',name:'p5',orderable: false, searchable: false},
+            {data:'DT_RowId',name:'DT_RowId',visible:false}
 
         ]
     });
-    $('#SaveDates').click(function (e)
+    var form = document.getElementById('formEvaluationStudent');
+    form.addEventListener("submit",function (event)
     {
-        var count = document.getElementById('count').value;
+        validarFormulario();
+        event.preventDefault();
+        event.stopPropagation();
+        var count = document.getElementById('questionsTable').rows.length;
         var t='question';
         var res=0;
         //recorrer el total de preguntas a tener
@@ -86,25 +95,26 @@
             }
             
         }
-        document.getElementById('score').value=res;
+        
+            document.getElementById('score').value=res;
+                $.ajax({
+                data: $('#formEvaluationStudent').serialize(),
+                url: "{{ route('evaluationStudent.store') }}",
+                type: "POST",
+                dataType: 'json',
+                success: function (data) {
+                    var url = "{{route('student.mainIndex')}}"
+                    window.location.href=url;
 
-        e.preventDefault();
-        $.ajax({
-          data: $('#formEvaluationStudent').serialize(),
-          url: "{{ route('evaluationStudent.store') }}",
-          type: "POST",
-          dataType: 'json',
-          success: function (data) {
-            var url = "{{route('student.mainIndex')}}"
-            window.location.href=url;
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        
 
-          },
-          error: function (data) {
-              console.log('Error:', data);
-          }
-      });
-       
-    })
+    });
+
    
 })
 </script>

@@ -26,8 +26,6 @@
                             <th>Nombre del Trained</th>
                             <th>Certificado</th>
                             <th>Razon</th>
-                            <th>Estado</th>
-                            <th>Tipo de Entrega</th>
                             <th>Tipo de Entrega</th>
                             <th>id</th>
                         </tr>
@@ -60,9 +58,7 @@
                 {data:'fullname',name:'fullname'},  
                 {data:'Nombrecito',name:'certificate.name'},
                 {data:'reason',name:'certificate.reason'},
-                {data:'Delivery',name:'Delivery'},
-                {data:'BtnStudent',name:'BtnStudent'},
-                {data:'BtnTutor',name:'BtnTutor'},
+                {data:'Btns',name:'Btns'},
                 {data:'DT_RowId',name:'DT_RowId',visible:false}
             ]    
     });

@@ -3,12 +3,10 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body ">
-                <form id="certificateForm" name="certificateForm" action="{{route('certificates.store')}}" method="post"
-                    autocomplete="off">
+<form id="certificateForm" name="certificateForm" action="{{route('certificates.store')}}" method="post" autocomplete="off">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body ">
                     @csrf
                     <h3>Datos del Estudiante Capacitado</h3>
                     <div class="form-group row">
@@ -52,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group-row">
+                    <div class="form-group row">
                         <div class="col-12 col-md-6">
                             <label for="career">Celular: </label>
                             <input type="text" class="form-control" name="phone" id="phone" aria-describedby="helpId"
@@ -80,11 +78,11 @@
                         <button type="submit" class="btn btn-primary">Registrar
                             Certificado</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+</form>
+            
 @endsection
 <!--SECCION PÁRA CODIGO JS--->
 @section('script')

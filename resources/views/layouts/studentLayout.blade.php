@@ -27,6 +27,17 @@
     .nav-link:hover {
       color: #ffffff !important;
     }
+    .carousel-inner img {
+      width: 100%;
+      max-height: 300px;
+    }
+
+    .carousel-inner {
+      height: 300px;
+    }
+    .callout.callout-info{
+      border-left-color:#0089FF !important;
+    }
   </style>
 
 </head>
@@ -37,7 +48,7 @@
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand-md navbar-dark navbar-upds">
       <div class="container">
-        <a href="../../index3.html" class="navbar-brand">
+        <a href="{{route('student.mainIndex')}}" class="navbar-brand">
           <img src="{{ asset('images/icons/isologo-blanco.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: 1">
           <span class="brand-text font-weight-light">Portal UPDS</span>
@@ -117,17 +128,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
-
-      <!-- Main content -->
-      <div class="content">
-        <div class="container">
-          <div class="row">
             @yield('content')
-          </div>
-          <!-- /.row -->
-        </div><!-- /.container-fluid -->
-      </div>
-
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -142,15 +143,7 @@
     </aside>
     <!-- /.control-sidebar -->
 
-    <!-- Main Footer -->
-    <footer class="main-footer">
-      <!-- To the right -->
-      <div class="float-right d-none d-sm-inline">
-        Anything you want
-      </div>
-      <!-- Default to the left -->
-      <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-    </footer>
+   
   </div>
   <!-- ./wrapper -->
 

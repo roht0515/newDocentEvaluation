@@ -18,20 +18,24 @@
   <style>
     .navbar-upds {
       background-color: #0f4a7d !important;
-
     }
-
+    .bg-dark{
+      background-color: #0f4a7d !important;
+    }
     .nav-link:hover {
       color: #ffffff !important;
     }
 
     .carousel-inner img {
       width: 100%;
-      max-height: 200px;
+      max-height: 300px;
     }
 
     .carousel-inner {
-      height: 200px;
+      height: 300px;
+    }
+    .callout.callout-info{
+      border-left-color:#0089FF !important;
     }
   </style>
 
@@ -122,14 +126,9 @@
 
 
       <!-- Main content -->
-      <div class="content">
-        <div class="container">
-          <div class="row">
+      
             @yield('content')
-          </div>
-          <!-- /.row -->
-        </div><!-- /.container-fluid -->
-      </div>
+          
 
       <!-- /.content -->
     </div>
@@ -144,16 +143,6 @@
       </div>
     </aside>
     <!-- /.control-sidebar -->
-
-    <!-- Main Footer -->
-    <footer class="main-footer">
-      <!-- To the right -->
-      <div class="float-right d-none d-sm-inline">
-        Anything you want
-      </div>
-      <!-- Default to the left -->
-      <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-    </footer>
   </div>
   <!-- ./wrapper -->
 

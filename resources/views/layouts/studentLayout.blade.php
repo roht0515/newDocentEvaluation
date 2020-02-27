@@ -29,14 +29,21 @@
     }
     .carousel-inner img {
       width: 100%;
-      max-height: 300px;
+      max-height: 450px;
+      margin-top: 20px;
     }
 
     .carousel-inner {
-      height: 300px;
+      height: 450px;
+      margin-top: 20px;
     }
     .callout.callout-info{
       border-left-color:#0089FF !important;
+    }
+    #questionsTable {
+        "paging":   false,
+        "ordering": false,
+        "info":     false
     }
   </style>
 

@@ -195,6 +195,8 @@
     $('input[type=date]').change(function ()
     {
       var now = new Date();
+      console.log(now.getDate());
+      console.log($(this).val());
       switch ($(this).attr('id')) {
         case 'startDateEvaluation':
         if ($(this).val() <= now.getDate())

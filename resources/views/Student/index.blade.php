@@ -15,13 +15,13 @@
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img class="d-block w-100" src="{{ asset('images/car1.jpeg') }}"  alt="First slide">
+                <img class="d-block w-100" src="{{ asset('images/car11.jpeg') }}"  alt="First slide">
               </div>
               <div class="carousel-item">
                 <img class="d-block w-100" src="{{ asset('images/car2.jpeg') }}" alt="Second slide">
               </div>
               <div class="carousel-item">
-                <img class="d-block w-100" src="{{ asset('images/car0.jpeg') }}" alt="Third slide">
+                <img class="d-block w-100" src="{{ asset('images/car00.jpeg') }}" alt="Third slide">
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

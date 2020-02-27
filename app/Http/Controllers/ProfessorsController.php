@@ -8,6 +8,7 @@ use App\EvaluationStudent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\FormDocentEvaluation;
+use App\Module;
 use DataTables;
 use DateTime;
 use DB;
@@ -157,14 +158,17 @@ class ProfessorsController extends Controller
     {      
         $ProfessorModule = Professor::where('idUser',$id)->first();
         $idProfessor = $ProfessorModule->id; 
+        $module = Module::where('idProfessor',$idProfessor)->first();
+        $idModuleStudent = $module->id;
+        
         if ($request->ajax()) {
 
-            $data = DB::table('evaluationstudent')
-                ->join('student', 'student.id','=','evaluationstudent.idStudent')
-                ->join('evaluationmodule','evaluationmodule.id','=','evaluationstudent.idEvaluationModule')
-                ->join('module','module.id','=','evaluationmodule.idModule')           
-                ->select([DB::raw('CONCAT(student.name," ",student.lastname) as fullname'),'evaluationstudent.id as module', 'resolved' ])
-                ->where('module.idProfessor','=',$idProfessor)
+            $data = DB::table('modulestudent')
+                ->join('student', 'student.id','=','modulestudent.idStudent')
+                ->join('module','module.id','=','modulestudent.idModule')    
+                ->join('evaluationstudent','evaluationstudent.idStudent','=','student.id')                      
+                ->select([DB::raw('CONCAT(student.name," ",student.lastname) as fullname'),'modulestudent.id as module', 'evaluationstudent.resolved as resolved' ])   
+                ->where('modulestudent.idModule','=',$idModuleStudent)
                 ->get();
             return DataTables::of($data)
                 ->make(true);

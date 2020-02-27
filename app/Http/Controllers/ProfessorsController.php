@@ -156,15 +156,16 @@ class ProfessorsController extends Controller
     }
 
     public function studentsEvaluation(Request $request,$id)
-    {      
+    {     
         $ProfessorModule = Professor::where('idUser',$id)->first();
         $idProfessor = $ProfessorModule->id; 
         $module = Module::where('idProfessor',$idProfessor)->first();
         $idModuleStudent = $module->id;
-        
+        $contador=0;
         if ($request->ajax()) {
-
+          
             $now = Carbon::now();
+            
             $now = $now->toDateString();
             $data = DB::table('modulestudent')
                 ->join('student', 'student.id','=','modulestudent.idStudent')
@@ -173,7 +174,7 @@ class ProfessorsController extends Controller
                 ->join('evaluationmodule','evaluationmodule.id','=','evaluationstudent.idEvaluationModule')                      
                 ->select([DB::raw('CONCAT(student.name," ",student.lastname) as fullname'),'modulestudent.id as module', 'evaluationstudent.resolved as resolved' ])   
                 ->where('modulestudent.idModule','=',$idModuleStudent)
-                ->where('evaluationmodule.startDate','<=',$now,'&&','evaluationmodule.endDate','>=',$now)
+                ->where('module.startDate','<=',$now,'&&','module.endDate','>=',$now)
                 
                 ->get();
             return DataTables::of($data)
@@ -187,6 +188,13 @@ class ProfessorsController extends Controller
                 }
                 return $row;
             })
+            ->addColumn('contador', function(){
+                global $contador;
+                $contador++;
+                return $contador;
+                
+            })
+                ->rawColumns(['contador'])
                 ->rawColumns(['buttons'])
                 ->make(true);
         }

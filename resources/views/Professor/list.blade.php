@@ -56,7 +56,7 @@
       processing:true,
       ajax:url,
       columns:[
-          {data:'module',name:'module'},
+          {data:'contador',name:'contador'},
           {data:'fullname',name:'fullname'},
           {data:'buttons',name:'buttons'}  
       ]

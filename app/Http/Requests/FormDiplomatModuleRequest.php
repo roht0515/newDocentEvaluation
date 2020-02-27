@@ -29,9 +29,9 @@ class FormDiplomatModuleRequest extends FormRequest
             'name' => 'required',
             'number' => 'required|integer|min:1',
             'evaluation' => 'required|not_in:o',
-            'startDateEvaluation' => 'required|date|after:yesterday',
+            'startDateEvaluation' => 'required|date|after_or_equal:yesterday',
             'endDateEvaluation' => 'required|date|after:startDateEvaluation',
-            'startDateModule' => 'required|date|after:yesterday',
+            'startDateModule' => 'required|date|after_or_equal:yesterday',
             'endDateModule' => 'required|date|after:startDateModule',
             'group' => 'required',
             'classroom' => 'required',
@@ -53,7 +53,7 @@ class FormDiplomatModuleRequest extends FormRequest
             //fecha de inicio de evaluacion
             'startDateEvaluation.required' => 'La :attribute es obligatoria',
             'startDateEvaluation.date' => 'Ingrese una :attribute valida',
-            'startDateEvaluation.after' => 'Seleccione una :attribute valida',
+            'startDateEvaluation.after_or_equal' => 'Seleccione una :attribute valida',
             //fecha final de evaluacion
             'endDateEvaluation.required' => 'La :attribute es obligatoria',
             'endDateEvaluation.date' => 'Ingrese una :attribute valida',
@@ -61,7 +61,7 @@ class FormDiplomatModuleRequest extends FormRequest
             //fecha de inicio modulo
             'startDateModule.required' => 'La :attribute es obligatoria',
             'startDateModule.date' => 'Ingrese una :attribute valida',
-            'startDateModule.after' => 'Seleccione una :attribute valida',
+            'startDateModule.after_or_equal' => 'Seleccione una :attribute valida',
             //fecha final del modulo
             'endDateModule.required' => 'La :attribute es obligatoria',
             'endDateModule.date' => 'Ingrese :attribute valida',

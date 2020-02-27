@@ -54,6 +54,10 @@
     var table=$('.dataTable').DataTable({
       serverside:true,
       processing:true,
+      paging:   false,
+        ordering: false,
+        info:     false,
+        searching:false,
       ajax:url,
       columns:[
           {data:'contador',name:'contador'},

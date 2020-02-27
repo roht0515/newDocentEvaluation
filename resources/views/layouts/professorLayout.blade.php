@@ -28,11 +28,13 @@
 
     .carousel-inner img {
       width: 100%;
-      max-height: 300px;
+      max-height: 450px;
+      margin-top: 20px;
     }
 
     .carousel-inner {
-      height: 300px;
+      height: 450px;
+      margin-top: 20px;
     }
     .callout.callout-info{
       border-left-color:#0089FF !important;
@@ -64,9 +66,9 @@
             <li class="nav-item">
               <a href="{{route('professor.students')}}" class="nav-link">Lista Estudiantes</a>
             </li>
-            <li class="nav-item">
+           <!-- <li class="nav-item">
               <a href="{{route('professor.history')}}" class="nav-link">Historial</a>
-            </li>
+            </li>-->
 
           </ul>
 

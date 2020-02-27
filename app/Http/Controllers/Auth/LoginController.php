@@ -64,7 +64,7 @@ class LoginController extends Controller
                 return redirect()->route('admin');
             } else if (auth()->user()->role == 'Professor') {
          
-                return redirect()->route('professor.mainIndex', compact('professor'));
+                return redirect()->route('professor.mainIndex');
             } else if (auth()->user()->role == 'Administrador Evaluacion') {
                 return redirect()->route('admin');
             }

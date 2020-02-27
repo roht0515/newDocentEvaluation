@@ -50,11 +50,13 @@ class Kernel extends HttpKernel
         'professor' => [
             \App\Http\Middleware\Authenticate::class,
             \App\Http\Middleware\CheckProfessor::class,
+        
         ],
 
         'student' => [
             \App\Http\Middleware\Authenticate::class,
             \App\Http\Middleware\CheckStudent::class,
+         
         ],
     ];
 

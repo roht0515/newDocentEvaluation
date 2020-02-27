@@ -11,7 +11,7 @@
 |eqweqweqwe
 */
 
-use App\Http\Controllers\ProfessorsController;
+//use App\Http\Controllers\ProfessorsController;
 
 Route::get('/', function () {
     return view('auth.login');

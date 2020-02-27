@@ -50,7 +50,6 @@
     var idProfessor=document.getElementById('idProfessor').value;
 
     var url='{{route("listStudents","")}}';
-   // alert('id: '+idProfessor)
     url+=`/${idProfessor}`;
     var table=$('.dataTable').DataTable({
       serverside:true,
@@ -60,6 +59,7 @@
           {data:'module',name:'module'},
           {data:'fullname',name:'fullname'},
           {data:'resolved',name:'resolved'}
+          
       ]
   });
 });

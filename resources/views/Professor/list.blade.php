@@ -58,7 +58,7 @@
       columns:[
           {data:'module',name:'module'},
           {data:'fullname',name:'fullname'},
-          {data:'resolved',name:'resolved'}  
+          {data:'buttons',name:'buttons'}  
       ]
      
   });

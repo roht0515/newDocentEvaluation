@@ -12,6 +12,7 @@ use App\Module;
 use DataTables;
 use DateTime;
 use DB;
+use Illuminate\Support\Carbon;
 use SebastianBergmann\Environment\Console;
 
 class ProfessorsController extends Controller
@@ -163,14 +164,30 @@ class ProfessorsController extends Controller
         
         if ($request->ajax()) {
 
+            $now = Carbon::now();
+            $now = $now->toDateString();
             $data = DB::table('modulestudent')
                 ->join('student', 'student.id','=','modulestudent.idStudent')
                 ->join('module','module.id','=','modulestudent.idModule')    
-                ->join('evaluationstudent','evaluationstudent.idStudent','=','student.id')                      
+                ->join('evaluationstudent','evaluationstudent.idStudent','=','student.id')
+                ->join('evaluationmodule','evaluationmodule.id','=','evaluationstudent.idEvaluationModule')                      
                 ->select([DB::raw('CONCAT(student.name," ",student.lastname) as fullname'),'modulestudent.id as module', 'evaluationstudent.resolved as resolved' ])   
                 ->where('modulestudent.idModule','=',$idModuleStudent)
+                ->where('evaluationmodule.startDate','<=',$now,'&&','evaluationmodule.endDate','>=',$now)
+                
                 ->get();
             return DataTables::of($data)
+            ->addColumn('buttons', function ($row) {
+               
+                if($row->resolved == true)
+                {
+                    $row = '<button type="button" class="btn btn-success disabled"><i class="fas fa-check-circle"></i> Calificado</button>';
+                }else{
+                    $row = '<button type="button" class="btn btn-danger disabled"><i class="fas fa-times-circle"></i> Pendiente</button>';
+                }
+                return $row;
+            })
+                ->rawColumns(['buttons'])
                 ->make(true);
         }
     }

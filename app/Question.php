@@ -15,8 +15,4 @@ class Question extends Model
     {
         return $this->belongsTo(Category::class, 'idCategory', 'id');
     }
-    public function QuestionStudent()
-    {
-        return $this->hasMany(QuestionStudent::class, 'idQuestion', 'id');
-    }
 }

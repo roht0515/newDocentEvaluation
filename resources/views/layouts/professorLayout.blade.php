@@ -13,15 +13,21 @@
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <style>
     .navbar-upds {
       background-color: #0f4a7d !important;
     }
-    .bg-dark{
+
+    .bg-dark {
       background-color: #0f4a7d !important;
     }
+
     .nav-link:hover {
       color: #ffffff !important;
     }
@@ -36,8 +42,9 @@
       height: 450px;
       margin-top: 20px;
     }
-    .callout.callout-info{
-      border-left-color:#0089FF !important;
+
+    .callout.callout-info {
+      border-left-color: #0089FF !important;
     }
   </style>
 
@@ -66,7 +73,7 @@
             <li class="nav-item">
               <a href="{{route('professor.students')}}" class="nav-link">Lista Estudiantes</a>
             </li>
-           <!-- <li class="nav-item">
+            <!-- <li class="nav-item">
               <a href="{{route('professor.history')}}" class="nav-link">Historial</a>
             </li>-->
 
@@ -131,9 +138,9 @@
 
 
       <!-- Main content -->
-      
-            @yield('content')
-          
+
+      @yield('content')
+
 
       <!-- /.content -->
     </div>
@@ -149,25 +156,32 @@
     </aside>
     <!-- /.control-sidebar -->
   </div>
- 
+
 
   <!-- REQUIRED SCRIPTS -->
 
-    <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-    {{-- Validaciones --}}
-    <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
-  
-    {{-- DataTables --}}
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-  
-    <script src="  https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-  
+  <!-- jQuery -->
+  <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <!-- AdminLTE App -->
+  <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+  {{-- Validaciones --}}
+  <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
+  {{-- Alertas --}}
+  <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+  <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+  {{-- DataTables --}}
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+  <script src="  https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+  <script>
+    window.location.hash="no-back-button";
+    window.location.hash="Again-No-back-button";//esta linea es necesaria para chrome
+    window.onhashchange=function(){window.location.hash="no-back-button";}
+  </script>
+
   @section('script')
   @show
 </body>

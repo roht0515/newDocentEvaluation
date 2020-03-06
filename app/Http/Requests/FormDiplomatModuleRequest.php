@@ -28,7 +28,6 @@ class FormDiplomatModuleRequest extends FormRequest
             'professor' => 'required|not_in:0',
             'name' => 'required',
             'number' => 'required|integer|min:1',
-            'evaluation' => 'required|not_in:o',
             'startDateEvaluation' => 'required|date|after_or_equal:yesterday',
             'endDateEvaluation' => 'required|date|after:startDateEvaluation',
             'startDateModule' => 'required|date|after_or_equal:yesterday',
@@ -47,9 +46,6 @@ class FormDiplomatModuleRequest extends FormRequest
             'name.required' => 'Ingrese el :attribute ',
             //muero
             'number.required' => 'Ingrese el :attribute',
-            //evaluacion
-            'evaluation.required' => 'Selccione una :attribute valida',
-            'evaluation.not_in' => 'Seleccione una :attribute valida',
             //fecha de inicio de evaluacion
             'startDateEvaluation.required' => 'La :attribute es obligatoria',
             'startDateEvaluation.date' => 'Ingrese una :attribute valida',
@@ -78,7 +74,6 @@ class FormDiplomatModuleRequest extends FormRequest
             'professor' => 'Docente',
             'name' => 'Nombre del Modulo',
             'number' => 'Numero de Modulo',
-            'evaluation' => 'Evaluacion Docente',
             'startDateEvaluation' => 'Fecha de Inicio de Evaluacion',
             'endDateEvaluation' => 'Fecha de Finalizacion de Evaluacion',
             'startDateModule' => 'Fecha de inicio de Modulo',

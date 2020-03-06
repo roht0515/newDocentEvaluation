@@ -13,6 +13,10 @@
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
@@ -27,6 +31,7 @@
     .nav-link:hover {
       color: #ffffff !important;
     }
+
     .carousel-inner img {
       width: 100%;
       max-height: 450px;
@@ -37,13 +42,15 @@
       height: 450px;
       margin-top: 20px;
     }
-    .callout.callout-info{
-      border-left-color:#0089FF !important;
+
+    .callout.callout-info {
+      border-left-color: #0089FF !important;
     }
+
     #questionsTable {
-        "paging":   false,
+      "paging": false,
         "ordering": false,
-        "info":     false
+        "info": false
     }
   </style>
 
@@ -135,7 +142,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
-            @yield('content')
+      @yield('content')
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -150,7 +157,7 @@
     </aside>
     <!-- /.control-sidebar -->
 
-   
+
   </div>
   <!-- ./wrapper -->
 
@@ -165,12 +172,18 @@
   {{-- Validaciones --}}
   <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
   <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
-
+  {{-- Alertas --}}
+  <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+  <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
   {{-- DataTables --}}
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
   <script src="  https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-
+  <script>
+    window.location.hash="no-back-button";
+    window.location.hash="Again-No-back-button";//esta linea es necesaria para chrome
+    window.onhashchange=function(){window.location.hash="no-back-button";}
+  </script>
   @section('script')
   @show
 </body>

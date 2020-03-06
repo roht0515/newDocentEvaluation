@@ -8,6 +8,7 @@ use App\Student;
 use App\Evaluation;
 use App\EvaluationStudent;
 use App\EvaluationModule;
+use App\evaluationstudentnotes;
 use App\Module;
 use App\ModuleStudent;
 use App\Question;
@@ -32,21 +33,18 @@ class EvaluationStudentController extends Controller
     {
         if ($request->ajax()) {
             $student = Student::where('idUser', '=', $id)->first();
-            $data = Student::join('modulestudent', 'student.id', '=', 'modulestudent.idStudent')
-                ->join('module', 'modulestudent.idModule', '=', 'module.id')
-                ->join('diplomat', 'module.idDiplomat', '=', 'diplomat.id')
-                ->join('evaluationmodule', 'module.id', '=', 'evaluationmodule.idModule')
-                ->join('evaluationstudent', 'evaluationmodule.id', '=', 'evaluationstudent.idEvaluationModule')
-                ->join('evaluation', 'evaluationmodule.idEvaluation', '=', 'evaluation.id')
-                ->select(['module.number', 'module.name as moduleName', 'diplomat.name as diplomatName', 'evaluationmodule.startDate as startDateEvaluation', 'evaluationmodule.endDate as endDateEvaluation', 'evaluation.id as idE', 'evaluationstudent.resolved'])
-                ->where('student.id', '=', $student->id)
-                ->get();
+            $data = ModuleStudent::join('module', 'modulestudent.idModule', '=', 'module.id')
+                ->join('evaluationstudent', 'modulestudent.id', '=', 'evaluationstudent.idModuleStudent')
+                ->join('evaluationdiplomat', 'module.idDiplomat', '=', 'evaluationdiplomat.id')
+                ->join('diplomat', 'evaluationdiplomat.id', '=', 'diplomat.id')
+                ->select(['module.number', 'module.name', 'diplomat.name as nameDiplomat', 'module.startDateEvaluation', 'module.endDateEvaluation', 'evaluationstudent.resolved', 'evaluationdiplomat.idEvaluation'])
+                ->where('modulestudent.idStudent', '=', $student->id);
             return DataTables::of($data)
                 ->addColumn('buttons', function ($row) {
                     $now = Carbon::now();
                     $now = $now->toDateString();
                     if ($now >= $row->startDateEvaluation && $now <= $row->endDateEvaluation && $row->resolved == false) {
-                        $row = '<a href="' . route('student.getEvaluation', ["id" => $row->idE]) . '"><button name="BH" type="button" class="btn btn-success" value="1">
+                        $row = '<a href="' . route('student.getEvaluation', ["id" => $row->idEvaluation]) . '"><button name="BH" type="button" class="btn btn-success" value="1">
                         Habilitado
                         </button></a>';
                     } else if ($row->resolved == true) {
@@ -61,55 +59,66 @@ class EvaluationStudentController extends Controller
         }
         return view('Student.list');
     }
+    //obtener obtener los datos de la evaluacion
     public function getEvaluation($id)
     {
-        $count = Question::count();
-        $evaluation = Evaluation::join('evaluationmodule', 'evaluation.id', '=', 'evaluationmodule.idEvaluation')
-            ->join('module', 'evaluationmodule.idModule', '=', 'module.id')
-            ->join('evaluationstudent', 'evaluationmodule.id', '=', 'evaluationstudent.idEvaluationModule')
-            ->join('student', 'evaluationstudent.idStudent', '=', 'student.id')
-            ->select(['student.id as idS', 'evaluation.id', 'evaluationmodule.id as idEM', 'module.name as ModuleName'])
-            ->where('evaluation.id', '=', $id)->first();
-        return view('Student.evaluation', compact('evaluation', 'count'));
+        $questioncount = Question::join('category', 'question.idCategory', '=', 'category.id')
+            ->join('evaluationcategory', 'category.id', '=', 'evaluationcategory.idCategory')
+            ->join('evaluation', 'evaluationcategory.idEvaluation', '=', 'evaluation.id')
+            ->join('evaluationdiplomat', 'evaluation.id', '=', 'evaluationdiplomat.idEvaluation')
+            ->distinct('question.text')->count('question.text');
+
+
+        $evaluation = Evaluation::join('evaluationdiplomat', 'evaluation.id', '=', 'evaluationdiplomat.idEvaluation')
+            ->join('module', 'evaluationdiplomat.id', '=', 'module.idDiplomat')
+            ->join('modulestudent', 'module.id', '=', 'modulestudent.idModule')
+            ->select(['evaluation.id as idE', 'modulestudent.id as idMS', 'module.name as ModuleName'])
+            ->where('evaluation.id', '=', $id)
+            ->first();
+        return view('Student.evaluation', compact('evaluation', 'questioncount'));
     }
     public function listQuestions(Request $request, $id)
     {
         if ($request->ajax()) {
             $evaluation = Evaluation::where('id', '=', $id)->first();
-            $data = Evaluation::join('evaluationcategory', 'evaluation.id', '=', 'evaluationcategory.idEvaluation')
-                ->join('category', 'evaluationcategory.idCategory', '=', 'category.id')
-                ->join('question', 'category.id', '=', 'question.idCategory')
-                ->select(['question.text', 'question.id as idQ', 'question.idCategory'])
+            $data = Question::join('category', 'question.idCategory', '=', 'category.id')
+                ->join('evaluationcategory', 'category.id', '=', 'evaluationcategory.idCategory')
+                ->join('evaluation', 'evaluationcategory.idEvaluation', '=', 'evaluation.id')
+                ->join('evaluationdiplomat', 'evaluation.id', '=', 'evaluationdiplomat.idEvaluation')
+                ->join('diplomat', 'evaluationdiplomat.idDiplomat', '=', 'diplomat.id')
+                ->join('module', 'evaluationdiplomat.id', '=', 'module.idDiplomat')
+                ->select(['question.text', 'question.id as idQ', 'question.idCategory as idC'])
                 ->where('evaluation.id', '=', $evaluation->id)
-                ->get();
+                ->orderBy('idC', 'asc');
             return DataTables::of($data)
-                ->addColumn('p1', function ($row) {
+                ->addColumn('nunca', function ($row) {
                     $radio = '
-                    <input class="required" form="formEvaluationStudent"  type="radio" name="question' . $row->idQ . '" value="1" required>
+                    <input class="require" form="formEvaluationStudent"  type="radio" name="' . $row->idQ . '" value="1" required>
                     ';
                     return $radio;
                 })
-                ->addColumn('p2', function ($row) {
+                ->addColumn('poco', function ($row) {
                     $radio = '
-                    <input class="required" form="formEvaluationStudent"  type="radio" name="question' . $row->idQ . '" value="2" required>
+                    <input class="require" form="formEvaluationStudent"  type="radio" name="' . $row->idQ . '" value="2" required>
                     ';
                     return $radio;
                 })
-                ->addColumn('p3', function ($row) {
+                ->addColumn('regular', function ($row) {
                     $radio = '
-                    <input class="required"form="formEvaluationStudent"" type="radio" name="question' . $row->idQ . '" value="3" required>
+                   
+                    <input class="require" form="formEvaluationStudent"" type="radio" name="' . $row->idQ . '" value="3" required>
                     ';
                     return $radio;
                 })
-                ->addColumn('p4', function ($row) {
+                ->addColumn('general', function ($row) {
                     $radio = '
-                    <input class="required" form="formEvaluationStudent"  type="radio" name="question' . $row->idQ . '" value="4" required>
+                    <input class="require" form="formEvaluationStudent"  type="radio" name="' . $row->idQ . '" value="4" required>
                     ';
                     return $radio;
                 })
-                ->addColumn('p5', function ($row) {
+                ->addColumn('siempre', function ($row) {
                     $radio = '
-                    <input class="required" form="formEvaluationStudent"  type="radio" name="question' . $row->idQ . '" value="5" required>
+                    <input class="require" form="formEvaluationStudent"  type="radio" name="' . $row->idQ . '" value="5" required>
                     ';
                     return $radio;
                 })
@@ -117,7 +126,7 @@ class EvaluationStudentController extends Controller
                     $row = $row->idQ;
                     return $row;
                 })
-                ->rawColumns(['p1', 'p2', 'p3', 'p4', 'p5'])
+                ->rawColumns(['nunca', 'poco', 'regular', 'general', 'siempre'])
                 ->make(true);
         }
     }
@@ -140,23 +149,30 @@ class EvaluationStudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //registrar el total de la nota de la evaluacion
         if ($request->ajax()) {
-            $now = new DateTime();
-            $evaluation = EvaluationStudent::where(
-                'idEvaluationModule',
-                '=',
-                $request->idEvaluationM,
-                'and',
-                'idStudent',
-                '=',
-                $request->idStudent
-            )->first();
+            $now = new Carbon();
+            $now = $now->toDateString();
+            $evaluation = EvaluationStudent::where('idModuleStudent', '=', $request->idModuleStudent)->first();
             $evaluation->score = $request->score;
             $evaluation->resolved = true;
             $evaluation->dateResolved = $now;
             $evaluation->SaveorFail();
+            //actualizar la nota del modulo
+            $module = ModuleStudent::where('id', '=', $request->idModuleStudent);
+            $data = Module::where('id', '=', $module->idModule);
+            $score = $data->score;
+            $score = $score + $request->score;
+            $data->score = $score;
+            $data->update();
             return response()->json(['success' => 'Evaluacion Terminada']);
+        }
+    }
+    public function storeNotes(Request $request)
+    {
+        if ($request->ajax()) {
+            $count = Question::Where();
+            $evsn = new evaluationstudentnotes();
         }
     }
 

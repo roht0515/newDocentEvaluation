@@ -28,7 +28,7 @@ class FormStudentRequest extends FormRequest
             'name' => 'required|regex:/^[\pL\s\-]+$/u',
             'lastname' => 'required|regex:/^[\pL\s\-]+$/u',
             'email' => 'required|email|unique:student',
-            'phone' => 'required|min:8|max:9',
+            'phone' => 'required|integer|min:8',
             'address' => 'required',
             'career' => 'required|regex:/^[\pL\s\-]+$/u',
             'turn' => 'required|not_in:0',
@@ -52,8 +52,8 @@ class FormStudentRequest extends FormRequest
             'email.unique' => 'Existe un docente con ese :attribute',
             //Validaciones de celular
             'phone.required' => 'El :attribute es obligatorio',
+            'phone.integer' => 'El :attribute no es valido',
             'phone.min' => 'El :attribute debe tener minimo 8 digitos',
-            'phone.max' => 'El :attribute debe tener maximo 8 digitos',
             //Validaciones de Direccion
             'address.required' => 'La :attribute es obligatorio',
             //Validaciones de carrera

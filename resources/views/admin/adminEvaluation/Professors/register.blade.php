@@ -146,6 +146,13 @@
             $(this).addClass('is-invalid');
         }
     })
+        //mensajes de confirmacion
+        const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
     var form = document.getElementById('professorForm');
     form.addEventListener("submit",function (event)
     {
@@ -158,7 +165,12 @@
             url: "{{route('professors.store')}}",
             type: "POST",
             dataType: "JSON",
+            cache:false,
             success: function (data) {
+                Toast.fire({
+                    type: 'success',
+                    title: 'Se registro correctamente el Docente.'
+              });
                 $('#professorForm').trigger('reset');
                 window.location.href="{{route('professors.list')}}";
             },

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Module;
 use App\Diplomat;
-use App\EvaluationModule;
+use App\EvaluationDiplomat;
 use App\EvaluationStudent;
 use App\Student;
 use App\Professor;
@@ -23,27 +23,7 @@ class ModuleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-        $students = Student::all();
-        return view('admin.adminEvaluation.Module.listmd', compact('students'));
-    }
-    public function listDiplomat(Request $request)
-    {
-        if ($request->ajax()) {
 
-            $data = DB::table('module')->join('diplomat', 'module.idDiplomat', '=', 'diplomat.id')
-                ->select(['module.id', 'module.number', 'module.name', 'diplomat.name as nameD', 'module.startDate'])
-                ->get();
-            return DataTables::of($data)
-                ->addColumn('DT_RowId', function ($row) {
-                    $row = $row->id;
-                    return $row;
-                })
-                ->make(true);
-        }
-    }
     public function listModuleDate(Request $request, $id)
     {
         if ($request->ajax()) {
@@ -127,26 +107,22 @@ class ModuleController extends Controller
     public function createModule(FormDiplomatModuleRequest $request)
     {
         if ($request->ajax()) {
-            $evaluationmodule = new EvaluationModule();
+
+            $id = EvaluationDiplomat::where('idDiplomat', '=', $request->idDiplomat)->first();
             $module = new Module();
             $module->idProfessor = $request->professor;
-            $module->idDiplomat = $request->idDiplomat;
+            $module->idDiplomat = $id->id;
             $module->name = $request->name;
             $module->number = $request->number;
+            //fechas del modulo
             $module->startDate = $request->startDateModule;
             $module->endDate = $request->endDateModule;
+            //fechas de evaluacion
+            $module->startDateEvaluation = $request->startDateEvaluation;
+            $module->endDateEvaluation = $request->endDateEvaluation;
             $module->group = $request->group;
             $module->classroomNumber = $request->classroom;
             $module->saveOrFail();
-
-            $data = Module::all();
-            $idmodule = $data->last()->id;
-            $evaluationmodule->idModule = $idmodule;
-            $evaluationmodule->idEvaluation = $request->evaluation;
-            $evaluationmodule->startDate = $request->startDateEvaluation;
-            $evaluationmodule->endDate = $request->endDateEvaluation;
-            $evaluationmodule->saveOrFail();
-
             return response()->json(['sucess' => 'Modulo Registrado']);
         }
     }

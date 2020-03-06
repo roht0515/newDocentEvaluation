@@ -21,11 +21,14 @@ class CreateModuleTable extends Migration
             $table->integer('number');
             $table->string('group');
             $table->string('classroomNumber');
-           // $table->string('turn');
+            // $table->string('turn');
             $table->date('startDate');
             $table->date('endDate');
-           // $table->time('startTime');
-           // $table->time('endTime');
+            $table->date('startDateEvaluation');
+            $table->date('endDateEvaluation');
+            $table->integer('score')->default(0);
+            // $table->time('startTime');
+            // $table->time('endTime');
             $table->timestamps();
             $table->foreign('idProfessor')->references('id')->on('professor');
             $table->foreign('idDiplomat')->references('id')->on('diplomat');

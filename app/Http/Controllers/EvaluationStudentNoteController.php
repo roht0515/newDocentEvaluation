@@ -2,41 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\EvaluationCategory;
-use App\Question;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use DataTables;
-use DateTime;
-use Validator;
+use App\ModuleStudent;
+use App\Question;
+use App\Student;
+use App\evaluationstudentnotes;
 use DB;
 
-class EvaluationCategoryController extends Controller
+class EvaluationStudentNoteController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $id)
+    public function index()
     {
         //
-        if ($request->ajax()) {
-            $data = DB::table('evaluationcategory')
-                ->join('category', 'evaluationcategory.idCategory', '=', 'category.id')
-                ->join('evaluation', 'evaluationcategory.idEvaluation', '=', 'evaluation.id')
-                ->select(['category.name as nameCategory'])
-                ->where('evaluationcategory.idEvaluation', '=', $id);
-            return DataTables::of($data)
-                ->make(true);
-        }
     }
-    public function listQuestion($id)
-    {
-        $data = Question::where('idCategory', '=', $id)->get();
-        return response()->json($data);
-    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -57,16 +41,23 @@ class EvaluationCategoryController extends Controller
     {
         //
         if ($request->ajax()) {
-            $data = EvaluationCategory::where('idCategory', '=', $request->idCategory)
-                ->where('idEvaluation', '=', $request->idEvaluation)->first();
-            if ($data == null) {
-                $evaluationcategory = new EvaluationCategory();
-                $evaluationcategory->idEvaluation = $request->idEvaluation;
-                $evaluationcategory->idCategory = $request->idCategory;
-                $evaluationcategory->saveOrFail();
-                return response()->json(['success', 'Se asigno correctamente la categoria']);
+            $question = Question::where('id', '=', $request->idQuestion)->first();
+            $modulestudent = $request->idModuleStudent;
+            $note = evaluationstudentnotes::where('idCategory', '=', $question->idCategory)
+                ->where('idModuleStudent', '=', $modulestudent)->first();
+            if ($note) {
+                $score = $note->score;
+                $score = $score + $request->scoreCategory;
+                $note->score = $score;
+                $note->update();
+                return response()->json(['Success' => 'Se actualizo el puntaje']);
             } else {
-                return response()->json(['error' => 'Error de asignacion']);
+                $data = new evaluationstudentnotes();
+                $data->idCategory = $question->idCategory;
+                $data->idModuleStudent = $modulestudent;
+                $data->score = $request->scoreCategory;
+                $data->save();
+                return response()->json(['Success' => 'Se registro la respuesta']);
             }
         }
     }

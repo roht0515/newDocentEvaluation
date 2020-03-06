@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateEvaluationmoduleTable extends Migration
+class CreateEvaluationdiplomatTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateEvaluationmoduleTable extends Migration
      */
     public function up()
     {
-        Schema::create('evaluationmodule', function (Blueprint $table) {
+        Schema::create('evaluationdiplomat', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('idEvaluation')->unsigned();
-            $table->bigInteger('idModule')->unsigned()->unique();
-            $table->date('startDate');
-            $table->date('endDate');
+            $table->bigInteger('idDiplomat')->unsigned();
             $table->timestamps();
             $table->foreign('idEvaluation')->references('id')->on('evaluation');
-            $table->foreign('idModule')->references('id')->on('module');
+            $table->foreign('idDiplomat')->references('id')->on('diplomat');
         });
     }
 
@@ -32,6 +30,6 @@ class CreateEvaluationmoduleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('evaluationmodule');
+        Schema::dropIfExists('evaluationdiplomat');
     }
 }

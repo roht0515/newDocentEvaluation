@@ -63,7 +63,7 @@ class CertificatesController extends Controller
                 if ($row->delivered == false) {
                     $btn = '
                     <button id="' . $row->idc . '" class="btn btn-primary">Estudiante</button>;
-                    <a href="' . route('certificates.getCertificate', ["id" => $row->idc]) . '"><button class="btn btn-primary">Tutor</button></a>';
+                    <a href="' . route('certificates.getDiplomat', ["id" => $row->idc]) . '"><button class="btn btn-primary">Tutor</button></a>';
                 } else {
                     $btn = '<h5 class="text-success">Entregado</h5>';
                 }
@@ -154,7 +154,7 @@ class CertificatesController extends Controller
             $certificate->saveOrFail();
             return response()->json(['sucess' => 'Diplomado Registrado']);
         }
-        return view('admin.adminSecretary.Certificate.list');
+        return view('admin.adminSecretary.Diplomat.list');
     }
     public function getCertificate($id)
     {

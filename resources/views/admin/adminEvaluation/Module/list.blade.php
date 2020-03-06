@@ -62,7 +62,7 @@
       <div class="modal-body">
         <form id="moduleRegister" method="POST" accion="{{ route('diplomatModule') }}" autocomplete="off">
           @csrf
-          <input type="hidden" value="{{$id}}" id="idDplomat" name="idDiplomat">
+          <input type="hidden" value="{{$id}}" id="idDiplomat" name="idDiplomat">
           <div class="container">
             <div class="form-row">
               <div class="form-group col-md-12">
@@ -70,7 +70,7 @@
                 <select id="professor" name="professor" class="custom-select">
                   <option value="0" selected>Seleccione el docente</option>
                   @foreach ($professors as $professor)
-                  <option value="{{ $professor['id'] }}">{{ $professor['name'] }}</option>
+                  <option value="{{ $professor['id'] }}">{{ $professor['name'] }} {{$professor['lastname']}}</option>
                   @endforeach
                 </select>
                 <div id="ValidateProfessor" class="invalid-feedback">
@@ -86,18 +86,6 @@
                 <label for="moduleNumber">Numero modulo</label>
                 <input type="text" id="number" name="number" class="form-control" id="inputModuleNumber">
                 <div id="ValidateNumber" class="invalid-feedback">
-                </div>
-              </div>
-
-              <div class="form-group col-md-12">
-                <label for="evaluation">Evaluacion</label>
-                <select id="evaluation" name="evaluation" class="custom-select">
-                  <option value="0" selected>Seleccione la evaluacion</option>
-                  @foreach ($evaluations as $diplomat)
-                  <option value="{{ $diplomat['id'] }}">{{ $diplomat['name'] }}</option>
-                  @endforeach
-                </select>
-                <div id="ValidateEvaluation" class="invalid-feedback">
                 </div>
               </div>
               <div class="form-group col-md-12">
@@ -161,6 +149,13 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    //mensajes de confirmacion
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
     var idDiplomat=document.getElementById('idDiplomat').value;
     var url='{{route("modules.listDate","")}}';
     url+=`/${idDiplomat}`;
@@ -195,8 +190,6 @@
     $('input[type=date]').change(function ()
     {
       var now = new Date();
-      console.log(now.getDate());
-      console.log($(this).val());
       switch ($(this).attr('id')) {
         case 'startDateEvaluation':
         if ($(this).val() <= now.getDate())
@@ -271,21 +264,6 @@
                 $(this).addClass('is-invalid');
             }
         }
-        if ($(this).attr('id') == 'evaluation')
-        {
-          if ($(this).val() != 0 )
-            {
-                $('#ValidateEvaluation').removeClass('d-block');
-                $(this).removeClass("is-invalid");
-                $(this).addClass("is-valid");
-            }
-            else
-            {
-                $('#ValidateEvaluation').addClass('d-block');
-                $(this).addClass('is-invalid');
-            }
-        }
-
     })
     var form = document.getElementById('moduleRegister');
     form.addEventListener("submit",function (event)
@@ -299,6 +277,10 @@
           type: "POST",
           dataType: 'json',
           success: function (data) {
+            Toast.fire({
+                    type: 'success',
+                    title: 'Se ha registrador correctamente el Modulo.'
+                });
               table.ajax.reload();
               $('#moduleRegister').trigger("reset");
               $('#modalmodule').modal('hide');
@@ -363,7 +345,6 @@
                 $('#classroom').addClass('is-invalid');
                 $('#ValidateClassroom').html(error.responseJSON.errors.classroom);
               }
-
             }
           }
       });

@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use App\Diplomat;
 use App\Professor;
 use App\Evaluation;
+use App\EvaluationDiplomat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\FormDiplomatRequest;
 use DataTables;
-use DateTime;
-use Validator;
 use DB;
 
 class DiplomatsController extends Controller
@@ -26,13 +25,17 @@ class DiplomatsController extends Controller
         if ($request->ajax()) {
             $data = Diplomat::latest()->get();
             return DataTables::of($data)
-                ->addColumn('DT_RowId', function ($row) {
-                    $row = $row->id;
-                    return $row;
+                ->addColumn('BtnModule', function ($row) {
+                    $btn = '<a href="' . route('diplomats.get', ["id" => $row->id]) . '">
+                            <button class="btn btn-success">Registrar Modulos</button>
+                            </a>';
+                    return $btn;
                 })
+                ->rawColumns(['BtnModule'])
                 ->make(true);
         }
-        return view('admin.adminEvaluation.Diplomats.list');
+        $evaluations = Evaluation::where('state', '=', true)->get();
+        return view('admin.adminEvaluation.Diplomats.list', compact('evaluations'));
     }
 
     /**
@@ -53,13 +56,21 @@ class DiplomatsController extends Controller
      */
     public function store(FormDiplomatRequest $request)
     {
-        //
+        //agregar datos
         if ($request->ajax()) {
+            //registrar el diplomado
             $diplomat = new Diplomat();
             $diplomat->name = $request->name;
             $diplomat->version = $request->version;
             $diplomat->startDate = $request->startDate;
             $diplomat->saveOrFail();
+            //registrar el evaluationdiplomat
+            $id = Diplomat::all();
+            $id = $id->last()->id;
+            $evaluationdiplomat = new EvaluationDiplomat();
+            $evaluationdiplomat->idDiplomat = $id;
+            $evaluationdiplomat->idEvaluation = $request->evaluation;
+            $evaluationdiplomat->saveOrFail();
             return response()->json(['sucess' => 'Diplomado Registrado']);
         }
     }

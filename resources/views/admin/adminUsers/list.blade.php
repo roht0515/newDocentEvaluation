@@ -77,11 +77,14 @@
                         <div class="col-sm-12">
                             <select class="form-control" name="role" id="role">
                                 <option value="0">Seleccione tipo de usuario</option>
-                                <option value="Administrador">Administrador</option>
+                                <option value="Administrador">Administrador de Usuarios</option>
                                 <option value="Administrador Secretaria">
                                     Administrador de Secretaria</option>
                                 <option value="Administrador de Evaluacion">
-                                    Administrador de Evaluacion</option>
+                                    Administrador de Evaluaciones</option>
+                                <option value="Administrador Activador">
+                                    Administrador de Estado-Evaluacion
+                                </option>
                             </select>
                             <div id="ValidateRole" class="invalid-feedback">
                             </div>
@@ -167,6 +170,13 @@
             $(this).addClass('is-invalid');
         }
     })
+        //mensajes de confirmacion
+        const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
     var form = document.getElementById('userForm');
     form.addEventListener(
         "submit",function (event)
@@ -182,6 +192,10 @@
                 type: "POST",
                 dataType: 'json',
                 success: function (data) {
+                    Toast.fire({
+                    type: 'success',
+                    title: 'Se ha registrador correctamente el Usuario.'
+                });
                     $("input").removeClass("is-valid");
                     $('#userForm').trigger("reset");
                     $('#modaluser').modal('hide');

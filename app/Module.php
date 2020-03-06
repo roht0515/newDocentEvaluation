@@ -20,10 +20,6 @@ class Module extends Model
     {
         return $this->belongsTo(Professor::class, 'idProfessor', 'id');
     }
-    public function EvaluationModule()
-    {
-        return $this->hasMany(EvaluationModule::class, 'idModule', 'id');
-    }
     public function ModuleStudent()
     {
         return $this->hasMany(ModuleStudent::class, 'idModule', 'id');

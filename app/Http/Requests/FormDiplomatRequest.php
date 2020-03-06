@@ -27,7 +27,8 @@ class FormDiplomatRequest extends FormRequest
             //
             'name' => 'required',
             'version' => 'required|integer|min:1',
-            'startDate' => 'required|date|after:yesterday',
+            'evaluation' => 'required|not_in:0',
+            'startDate' => 'required|date||after_or_equal:yesterday',
         ];
     }
     public function messages()
@@ -39,10 +40,14 @@ class FormDiplomatRequest extends FormRequest
             'version.required' => 'La :attribute es obligatorio',
             'version.integer' => 'La :attribute solo puede se numerica',
             'version.min' => 'La :attribute no puede ser negativa',
+            //evaluaciones
+            'evaluation.required' => 'Seleccione una :attribute obligatoria',
+            'evaluation.not_in' => 'Seleccione una :attribute valida',
             //Validar Fecha
             'startDate.required' => 'La :attribute es obligatorio',
             'startDate.date' => 'La :attribute debe ser valida',
-            'startDate.date' => 'La :attribute debe ser valida',
+            'startDate.after_or_equal' => 'La :attribute debe ser valida',
+
         ];
     }
     public function attributes()
@@ -50,6 +55,7 @@ class FormDiplomatRequest extends FormRequest
         return [
             'name' => 'Nombre Diplomado',
             'version' => 'Version del Diplomado',
+            'evaluation' => 'Evaluacion',
             'startDate' => 'Fecha de Inicio',
         ];
     }

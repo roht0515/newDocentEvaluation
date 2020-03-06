@@ -3,86 +3,87 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
-<form id="certificateForm" name="certificateForm" action="{{route('certificates.store')}}" method="post" autocomplete="off">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body ">
-                    @csrf
-                    <h3>Datos del Estudiante Capacitado</h3>
-                    <div class="form-group row">
-                        <div class="col-12 col-md-6">
-                            <label for="ci">Carnet de Identidad: </label>
-                            <input type="text" class="form-control" name="ci" id="ci" aria-describedby="helpId"
-                                placeholder="Carnet de Identidad">
-                            <div id="ValidateCi" class="invalid-feedback">
-                            </div>
+<form id="certificateForm" name="certificateForm" action="{{route('certificates.store')}}" method="post"
+    autocomplete="off">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body ">
+                @csrf
+                <h3>Datos del Estudiante Capacitado</h3>
+                <div class="form-group row">
+                    <div class="col-12 col-md-6">
+                        <label for="ci">Carnet de Identidad: </label>
+                        <input type="text" class="form-control" name="ci" id="ci" aria-describedby="helpId"
+                            placeholder="Carnet de Identidad">
+                        <div id="ValidateCi" class="invalid-feedback">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-12 col-md-6">
-                            <label for="name">Nombre: </label>
-                            <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId"
-                                placeholder="Nombre Completo">
-                            <div id="ValidateName" class="invalid-feedback">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label for="lastname">Apellido: </label>
-                            <input type="text" class="form-control" name="lastname" id="lastname"
-                                aria-describedby="helpId" placeholder="Apellidos Completos">
-                            <div id="ValidateLastName" class="invalid-feedback">
-                            </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 col-md-6">
+                        <label for="name">Nombre: </label>
+                        <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId"
+                            placeholder="Nombre Completo">
+                        <div id="ValidateName" class="invalid-feedback">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-12 col-md-6">
-                            <label for="career">Carrera: </label>
-                            <input type="text" class="form-control" name="career" id="career" aria-describedby="helpId"
-                                placeholder="Carrera Profesional">
-                            <div id="ValidateCareer" class="invalid-feedback">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label for="email">Correo Electronico: </label>
-                            <input type="email" class="form-control" name="email" id="email" aria-describedby="helpId"
-                                placeholder="Correo Electronico">
-                            <div id="ValidateEmail" class="invalid-feedback">
-                            </div>
+                    <div class="col-12 col-md-6">
+                        <label for="lastname">Apellido: </label>
+                        <input type="text" class="form-control" name="lastname" id="lastname" aria-describedby="helpId"
+                            placeholder="Apellidos Completos">
+                        <div id="ValidateLastName" class="invalid-feedback">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-12 col-md-6">
-                            <label for="career">Celular: </label>
-                            <input type="text" class="form-control" name="phone" id="phone" aria-describedby="helpId"
-                                placeholder="Numero de Celular">
-                            <div id="ValidatePhone" class="invalid-feedback">
-                            </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 col-md-6">
+                        <label for="career">Carrera: </label>
+                        <input type="text" class="form-control" name="career" id="career" aria-describedby="helpId"
+                            placeholder="Carrera Profesional">
+                        <div id="ValidateCareer" class="invalid-feedback">
                         </div>
                     </div>
-                    <h3>Datos del Certificado</h3>
-                    <div class="form-group">
-                        <label for="namec">Nombre: </label>
-                        <input type="text" class="form-control" name="nameCertificate" id="nameCertificate"
-                            aria-describedby="helpId" placeholder="Nombre del Certificado">
-                        <div id="ValidateNameCertificate" class="invalid-feedback">
+                    <div class="col-12 col-md-6">
+                        <label for="email">Correo Electronico: </label>
+                        <input type="email" class="form-control" name="email" id="email" aria-describedby="helpId"
+                            placeholder="Correo Electronico">
+                        <div id="ValidateEmail" class="invalid-feedback">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="reason">Motivo del Certificado: </label>
-                        <input type="text" class="form-control" name="reason" id="reason" aria-describedby="helpId"
-                            placeholder="Motivo">
-                        <div id="ValidateReason" class="invalid-feedback">
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 col-md-6">
+                        <label for="career">Celular: </label>
+                        <input type="text" class="form-control" name="phone" id="phone" aria-describedby="helpId"
+                            placeholder="Numero de Celular">
+                        <div id="ValidatePhone" class="invalid-feedback">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Registrar
-                            Certificado</button>
+                </div>
+                <h3>Datos del Certificado</h3>
+                <div class="form-group">
+                    <label for="namec">Nombre: </label>
+                    <input type="text" class="form-control" name="nameCertificate" id="nameCertificate"
+                        aria-describedby="helpId" placeholder="Nombre del Certificado">
+                    <div id="ValidateNameCertificate" class="invalid-feedback">
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Motivo del Certificado: </label>
+                    <input type="text" class="form-control" name="reason" id="reason" aria-describedby="helpId"
+                        placeholder="Motivo">
+                    <div id="ValidateReason" class="invalid-feedback">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Registrar
+                        Certificado</button>
                 </div>
             </div>
         </div>
+    </div>
 </form>
-            
+
 @endsection
 <!--SECCION PÁRA CODIGO JS--->
 @section('script')
@@ -106,6 +107,13 @@
              $(this).addClass("is-valid");
         }
     });
+    //mensajes de confirmacion
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
     var form = document.getElementById('certificateForm');
     form.addEventListener("submit",function (event)
     {
@@ -119,6 +127,10 @@
             data: $('#certificateForm').serialize(),
             dataType: "JSON",
             success: function (data) {
+                Toast.fire({
+                        type: 'success',
+                        title: 'Estudiante capacitado registrado exitosamente.'
+                });
                 $('#certificateForm').trigger('reset');
                 window.location.href="{{route('certificates.list')}}";
             },

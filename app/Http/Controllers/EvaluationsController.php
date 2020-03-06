@@ -117,4 +117,54 @@ class EvaluationsController extends Controller
     {
         //
     }
+    public function listState(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Evaluation::latest()->get();
+            return DataTables::of($data)
+                ->addColumn('State', function ($row) {
+                    if ($row->state == false) {
+                        $btn = '
+                        <a href="' . route('evaluations.getState', ["id" => $row->id]) . '">
+                        <button class="btn btn-info">Detalles</button>
+                        </a>';
+                    } else {
+                        $btn = '<h5 class="text-success">Habilitado</h5>';
+                    }
+                    return $btn;
+                })
+                ->rawColumns(['State'])
+                ->make(true);
+        }
+        return view('admin.adminActivate.Evaluations.list');
+    }
+    public function getEvaluationState($id)
+    {
+        $data = Evaluation::where('id', '=', $id)->first();
+        return view('admin.adminActivate.Evaluations.option', compact('data'));
+    }
+    //obtener los datos
+    public function getEvaluationsDates(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $data = Evaluation::join('evaluationcategory', 'evaluation.id', '=', 'evaluationcategory.idEvaluation')
+                ->join('category', 'evaluationcategory.idCategory', '=', 'category.id')
+                ->join('question', 'category.id', '=', 'question.idCategory')
+                ->select(['question.text', 'category.name'])
+                ->where('evaluation.id', '=', $id);
+            return DataTables::of($data)->make(true);
+        }
+    }
+    //activar la evaluacion
+    public function ChangeState(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->id;
+            $data = Evaluation::where('id', '=', $id)->first();
+            $data->state = true;
+            $data->saveOrFail();
+            return response()->json(['success' => 'Evaluacion Habilitada']);
+        }
+        return view('admin.adminActivate.Evaluations.option');
+    }
 }

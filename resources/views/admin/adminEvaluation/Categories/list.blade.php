@@ -88,7 +88,7 @@
             {data:'DT_RowId',name:'DT_RowId',visible:false}
         ]        
     });
-        //agregar y quitar clases para el control de los textobx
+  //agregar y quitar clases para el control de los textobx
         $(document).on("keyup", "input", function () {
         if ($(this).val().length <= 0)
         {
@@ -99,6 +99,13 @@
              $(this).removeClass("is-invalid");
              $(this).addClass("is-valid");
         }        
+    });
+    //mensajes de validacion
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
     });
     var form = document.getElementById('categoryForm');
     form.addEventListener("submit",function (event)
@@ -112,11 +119,15 @@
           type: "POST",
           dataType: 'json',
           success: function (data) {
+            Toast.fire({
+                    type: 'success',
+                    title: 'Se registro correctamente la Categoria.'
+              });
             table.ajax.reload();
               $('#categoryForm').trigger("reset");
               $('#modalcategory').modal('hide');
               $("input").removeClass("is-invalid");
-          $("input").removeClass('is-valid');
+            $("input").removeClass('is-valid');
 
           },
           error: function (error) {
@@ -131,7 +142,7 @@
           }
       });
     })
-    //click de la tabla
+    //agregar categorias
     $('#categoryTable').on('click', 'tr', function () {
         var id = table.row(this).id();
         if (id)

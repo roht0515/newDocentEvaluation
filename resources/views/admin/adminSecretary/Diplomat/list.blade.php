@@ -25,9 +25,8 @@
                         <tr>
                             <th>Nombre del Trained</th>
                             <th>Certificado</th>
-                            <th>Razon</th>
+                            <th>Motivo</th>
                             <th>Tipo de Entrega</th>
-                            <th>id</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,18 +57,21 @@
                 {data:'fullname',name:'fullname'},  
                 {data:'Nombrecito',name:'certificate.name'},
                 {data:'reason',name:'certificate.reason'},
-                {data:'Btns',name:'Btns'},
-                {data:'DT_RowId',name:'DT_RowId',visible:false}
+                {data:'Btns',name:'Btns'}
             ]    
+    });
+        //mensajes de confirmacion
+        const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
     });
     $(document).on("click","button",function (event)
     {
         var id = $(this).attr("id");
         var tutor = $(this).text();
-        if (tutor == "Tutor")
-        {
-        }
-        else
+        if(text != "Tutor")
         {
             var idSecretary=document.getElementById('idSecretary').value;
             event.preventDefault();
@@ -85,6 +87,10 @@
                 url: '{{route("deliveryStudent.store")}}',
                 dataType: "JSON",
                 success: function (response) {
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Entrega registrada correctamente.'
+                 });
                     table.ajax.reload();
                 },
                 error:function(error)

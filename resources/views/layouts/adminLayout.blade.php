@@ -28,6 +28,10 @@
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.css') }}">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   @section('styles')
@@ -70,19 +74,6 @@
           <a href="index3.html" class="nav-link">Inicio</a>
         </li>
       </ul>
-
-      <!-- SEARCH FORM -->
-      <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-navbar" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <!-- Notifications Dropdown Menu -->
@@ -147,19 +138,33 @@
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{route('diplomats.list')}}" class="nav-link">
-                    <i class="fas fa-align-left nav-icon"></i>
+
+                    <i class="fas fa-list-alt nav-icon"></i>
                     <p>Lista</p>
                   </a>
-                  <a href="{{route('modules.index')}}" class="nav-link">
+                  <a href="{{route('modulesStudent.list')}}" class="nav-link">
                     <i class="fas fa-align-left nav-icon"></i>
                     <p>Modulos</p>
                   </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-address-card"></i>
+                <p>
+                  Personal
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
                   <a href="{{route('professors.list')}}" class="nav-link">
-                    <i class="fas fa-user-friends nav-icon"></i>
+                    <i class="nav-icon fas fa-chalkboard-teacher"></i>
                     <p>Docentes</p>
                   </a>
                   <a href="{{route('students.list')}}" class="nav-link">
-                    <i class="fas fa-user-friends nav-icon"></i>
+                    <i class="nav-icon fas fa-users"></i>
                     <p>Estudiantes</p>
                   </a>
                 </li>
@@ -349,11 +354,19 @@
   {{-- Plugins Jquery validaciones --}}
   <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
   <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
+  {{-- Alertas --}}
+  <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+  <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
   <!--CDNS A DESCARGART PERRO--->
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
   <script src="  https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
+  <script>
+    window.location.hash="no-back-button";
+    window.location.hash="Again-No-back-button";//esta linea es necesaria para chrome
+    window.onhashchange=function(){window.location.hash="no-back-button";}
+  </script>
   @section('script')
   @show
 </body>

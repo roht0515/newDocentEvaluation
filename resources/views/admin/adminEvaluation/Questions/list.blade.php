@@ -162,7 +162,13 @@
              $(this).addClass("is-valid");
         }
      });
-     
+     //mensajes de validacion
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
     //registrar
     var form = document.getElementById('questionForm');
     form.addEventListener("submit",function (event)
@@ -174,12 +180,26 @@
           url: "{{ route('questions.store') }}",
           type: "POST",
           dataType: 'json',
-          success: function (data) {
-            table.ajax.reload();
-              $('#questionForm').trigger("reset");
-              $('#modalquestion').modal('hide');
-              $("input").removeClass("is-invalid");
-          $("input").removeClass('is-valid');
+          success: function (response) {
+            if(response.error == "Question Error")
+            {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Existe esa pregunta en la categori.'
+              });
+            }
+            else
+            {
+                Toast.fire({
+                    type: 'success',
+                    title: 'Se registro correctamente la pregunta.'
+              });
+                table.ajax.reload();
+                $('#questionForm').trigger("reset");
+                $('#modalquestion').modal('hide');
+                $("input").removeClass("is-invalid");
+                $("input").removeClass('is-valid');
+            }
 
           },
           error: function (error) {
@@ -197,7 +217,8 @@
     //registrar Pregunta
     //eliminar pregunta
     $('#deleteQuestion').click(function (e)
-    {
+    {   
+        e.stopPropagation();
         e.preventDefault();
         let id = document.getElementById('questionId');
         id = id.value;

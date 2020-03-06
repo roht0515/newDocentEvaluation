@@ -10,7 +10,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body table-responsive">
-                        <h3> Evaluacion Docente</h3>
+                        <h3> Evaluaciones Docente</h3>
                         <table class="dataTable table table-bordered table-hover" id="moduleTable">
                             <thead>
                                 <tr>
@@ -44,24 +44,19 @@
     var id = document.getElementById('idUser').value;
     var url = '{{ route("student.module","") }}';
     url+=`/${id}`;
-    var table=$('.dataTable').DataTable({
+    var table = $('.dataTable').DataTable({
         serverside:true,
         processing:true,
-        paging:   false,
-        ordering: false,
-        info:     false,
-        searching:false,
         ajax:url,
-        columns:
-        [
+        columns:[
             {data:'number',name:'number'},
-            {data:'moduleName',name:'moduleName'},
-            {data:'diplomatName',name:'diplomatName'},
+            {data:'name',name:'name'},
+            {data:'nameDiplomat',name:'nameDiplomat'},
             {data:'startDateEvaluation',name:'startDateEvaluation'},
             {data:'buttons',name:'buttons'}
-          
-        ]        
-    });
+
+        ]
+    })
 
    
 })

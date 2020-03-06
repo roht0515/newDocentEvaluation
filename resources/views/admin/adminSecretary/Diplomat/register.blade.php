@@ -106,6 +106,13 @@
              $(this).addClass("is-valid");
         }
     });
+    //mensajes de confirmacion
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
     var form = document.getElementById('diplomatForm');
     form.addEventListener("submit",function (event)
     {
@@ -118,6 +125,10 @@
             data: $('#diplomatForm').serialize(),
             dataType: "JSON",
             success: function (data) {
+                Toast.fire({
+                        type: 'success',
+                        title: 'Estudiante capacitado registrado exitosamente.'
+                });
                 $('#diplomatForm').trigger('reset');
                 window.location.href="{{route('certificates.listdiplomat')}}";
             },

@@ -15,14 +15,12 @@ class CreateEvaluationstudentTable extends Migration
     {
         Schema::create('evaluationstudent', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('idEvaluationModule')->unsigned();
-            $table->bigInteger('idStudent')->unsigned();
-            $table->boolean('resolved')->default(0);
-            $table->bigInteger('score')->nullable();
+            $table->bigInteger('idModuleStudent')->unsigned();
             $table->dateTime('dateResolved')->nullable();
+            $table->boolean('resolved')->default(0);
+            $table->integer('score')->default(0);
             $table->timestamps();
-            $table->foreign('idEvaluationModule')->references('id')->on('evaluationmodule');
-            $table->foreign('idStudent')->references('id')->on('student');
+            $table->foreign('idModuleStudent')->references('id')->on('modulestudent');
         });
     }
 

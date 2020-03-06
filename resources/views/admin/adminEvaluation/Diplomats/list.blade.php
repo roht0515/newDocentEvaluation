@@ -30,7 +30,7 @@
                             <th>Nombre</th>
                             <th>Version</th>
                             <th>Fecha de Inicio</th>
-                            <th>id</th>
+                            <th>Accion</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,7 +54,7 @@
             </div>
             <div class="modal-body">
                 <form id="diplomatForm" name="diplomatForm" class="form-horizontal" method="POST"
-                    action="{{route('diplomats.store')}}">
+                    action="{{route('diplomats.store')}}" autocomplete="off">
                     @csrf
                     <div class="form-group">
                         <label for="name">Nombre: </label>
@@ -75,7 +75,17 @@
                         <div id="ValidateStartDate" class="invalid-feedback">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Registrar Diplomado</button>
+                    <div class="form-group">
+                        <label for="idEvaluation">Evaluacion</label>
+                        <select name="evaluation" id="evaluation" class="form-control custom-select">
+                            <option value="0" selected>Seleccione la evaluacion</option>
+                            @foreach ($evaluations as $evaluation)
+                            <option value="{{ $evaluation['id'] }}">{{ $evaluation['name'] }}</option>
+                            @endforeach
+                        </select>
+                        <div id="ValidateEvaluation" class="invalid-feedback"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary swalDefaultSuccess">Registrar Diplomado</button>
                 </form>
             </div>
         </div>
@@ -91,6 +101,13 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+     //mensajes de confirmacion
+     const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
     //ver los datos de la categorias
     var table=$('.dataTable').DataTable({
         serverside:true,
@@ -101,11 +118,11 @@
             {data:'name',name:'name'},
             {data:'version',name:'version'},
             {data:'startDate',name:'startDate'},
-            {data:'DT_RowId',name:'DT_RowId',visible:false}
+            {data:'BtnModule',name:'BtnModule'}
         ]        
     });
     //agregar y quitar clases para el control de los textobx
-        $(document).on("keyup", "input", function () {
+    $(document).on("keyup", "input", function () {
         if ($(this).val().length <= 0)
         {
             $(this).addClass('is-invalid');
@@ -116,6 +133,7 @@
              $(this).addClass("is-valid");
         }        
     });
+    //cambio de fecha
     $('#StartDate').change(function ()
     {
         var now = new Date();
@@ -132,12 +150,27 @@
             $(this).removeClass('is-invalid');
         }
     })
+    //cambio del select
+    $('#idEvaluation').change(function ()
+    {
+        if ($(this).val() != 0)
+        {
+            $('#ValidateEvaluation').removeClass('d-block');
+            $(this).removeClass('is-invalid');
+            $(this).addClass('is-valid');
+        }
+        else
+        {
+            $('#ValidateEvaluation').addClass('d-block');
+            $(this).addClass('is-invalid');
+        }
+    })
     var form = document.getElementById('diplomatForm');
     form.addEventListener("submit",function (event)
     {
+        
         event.preventDefault();
         event.stopPropagation();
-
         //agregar por ajax
         $.ajax({
             type: "POST",
@@ -145,6 +178,10 @@
             data: $('#diplomatForm').serialize(),
             dataType: "JSON",
             success: function (data) {
+                Toast.fire({
+                    type: 'success',
+                    title: 'Se registro correctamente el Diplomado.'
+                });
                 table.ajax.reload();
                 $('#diplomatForm').trigger('reset');
                 $('#modaldiplomat').modal('hide');
@@ -153,6 +190,7 @@
             },
             error:function (error)
             {
+                console.log(error);
                 if(error.responseJSON.hasOwnProperty('errors'))
                 {
                     if (error.responseJSON.errors.name)
@@ -171,22 +209,16 @@
                         $('#ValidateStartDate').addClass('d-block');
                         $('#ValidateStartDate').html(error.responseJSON.errors.startDate);
                     }
+                    if(error.responseJSON.errors.evaluation)
+                    {
+                        $('#ValidateEvaluation').addClass('d-block');
+                        $('#ValidateEvaluation').html(error.responseJSON.errors.evaluation);
+                        
+                    }
                 }
             }
         });
     })
-      //click de la tabla
-      $('#diplomatTable').on('click', 'tr', function () {
-        var id = table.row(this).id();
-        if (id)
-        {
-            console.log(id);
-            var url = '{{ route("diplomats.get","") }}';
-            url+=`/${id}`;
-            window.location.href=url;
-        }
-        
-    });
 
 
 //final del document ready

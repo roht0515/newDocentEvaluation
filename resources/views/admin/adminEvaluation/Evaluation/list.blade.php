@@ -67,7 +67,7 @@
             <div id="ValidateVersion" class="invalid-feedback">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Registrar Evaluacion</button>
+          <button id="BtnRegister" type="submit" class="btn btn-primary">Registrar Evaluacion</button>
         </form>
       </div>
     </div>
@@ -106,6 +106,13 @@
              $(this).addClass("is-valid");
         }        
     });
+    //mensajes de confirmacion
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
     var form = document.getElementById('evaluationForm');
     form.addEventListener("submit",function (event)
     {
@@ -117,6 +124,10 @@
         data: $('#evaluationForm').serialize(),
         dataType: "JSON",
         success: function (data) {
+          Toast.fire({
+                    type: 'success',
+                    title: 'Se registro correctamente la Evaluacion.'
+          });
           table.ajax.reload();
           $('#evaluationForm').trigger('reset');
           $('#modalevaluation').modal('hide');
@@ -146,7 +157,6 @@
         var id = table.row(this).id();
         if (id)
         {
-            console.log(id);
             var url = '{{ route("evaluations.get","") }}';
             url+=`/${id}`;
             window.location.href=url;

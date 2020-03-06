@@ -54,12 +54,17 @@ class QuestionsController extends Controller
     {
         //agregar nuevas preguntas
         if ($request->ajax()) {
-            $question = new Question();
-            $question->idCategory = $request->idCategory;
-            $question->text = $request->text;
-            $question->saveOrFail();
-
-            return response()->json(['sucess' => 'Pregunta registrada']);
+            $data = Question::Where('idCategory', '=', $request->idCategory)
+                ->where('text', '=', $request->text)->first();
+            if ($data == null) {
+                $question = new Question();
+                $question->idCategory = $request->idCategory;
+                $question->text = $request->text;
+                $question->saveOrFail();
+                return response()->json(['success' => 'Add Question']);
+            } else {
+                return response()->json(['error' => 'Question Error']);
+            }
         }
     }
 

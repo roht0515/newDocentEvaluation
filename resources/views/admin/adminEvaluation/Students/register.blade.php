@@ -122,6 +122,13 @@
             $(this).addClass('is-invalid');
         }
     })
+    //mensajes de confirmacion
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
     var form = document.getElementById('studentForm');
     form.addEventListener("submit",function (event)
     {
@@ -134,6 +141,10 @@
             type: "POST",
             dataType: "JSON",
             success: function (data) {
+                Toast.fire({
+                    type: 'success',
+                    title: 'Se registro correctamente el Estudiante.'
+              });
                 $('#studentForm').trigger('reset');
                 window.location.href="{{route('students.list')}}";
             },

@@ -17,6 +17,7 @@ class CreateEvaluationTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->bigInteger('version');
+            $table->boolean('state')->default(0); // agregado para el supervisor 
             $table->timestamps();
         });
     }

@@ -6,24 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 use App\EvaluationModule;
 use App\EvaluationCategory;
 use App\StudentEvaluation;
+use App\EvaluationDiplomat;
 
 class Evaluation extends Model
 {
     //
     protected $table = 'evaluation';
-    //evaluaciones que mandara de cada modulo
-    public function EvaluationModule()
-    {
-        return $this->hasMany(EvaluationModule::class, 'idEvaluation', 'id');
-    }
     //Categorias que tendra la evaluacion
     public  function EvaluationCategory()
     {
         return $this->hasMany(EvaluationCategory::class, 'idEvaluation', 'id');
     }
-    //Estudiantes
-    public function EvaluationStudent()
+    //diplomados-evaluacion
+    public function EvaluationDiplomat()
     {
-        return $this->hasMany(StudentEvaluation::class, 'idEvaluation', 'id');
+        return $this->hasMany(EvaluationDiplomat::class, 'idEvaluation', 'id');
     }
 }

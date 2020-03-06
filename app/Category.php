@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Question;
 use App\EvaluationCategory;
+use App\evaluationstudentnotes;
 
 class Category extends Model
 {
@@ -18,5 +19,10 @@ class Category extends Model
     public function EvaluationCategory()
     {
         return $this->hasMany(EvaluationCategory::class, 'idCategory', 'id');
+    }
+    //total de la categoria que obtuvo en un modulo
+    public function EvaluationStudentNotes()
+    {
+        return $this->hasMany(EvaluationStudentNotes::class, 'idCategory', 'id');
     }
 }

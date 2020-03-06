@@ -28,7 +28,7 @@ class FormAccrediited extends FormRequest
             'name' => 'required|regex:/^[\pL\s\-]+$/u',
             'lastname' => 'required|regex:/^[\pL\s\-]+$/u',
             'email' => 'required|email',
-            'phone' => 'required|integer|min:8|max:9',
+            'phone' => 'required|integer|min:8',
             'relationship' => 'required',
         ];
     }
@@ -52,7 +52,6 @@ class FormAccrediited extends FormRequest
             'phone.required' => 'El :attribute es obligatorio',
             'phone.integer' => 'El :attribute no es valido',
             'phone.min' => 'El :attribute debe tener minimo 8 digitos',
-            'phone.max' => 'El :attribute debe tener maximo 8 digitos',
             //Validaciones de relacion
             'relationship.required' => 'Complete el campo de :attribute',
         ];

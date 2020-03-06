@@ -142,9 +142,17 @@
         }
     
     })
+    //mensajes de confirmacion
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
     //REGISTRAR EVALUACION Y CATEGORIA EN LA TABLA M-N
     $('#saveDate').click(function (e)
     {
+        e.stopPropagation();
         e.preventDefault();
         let idCategory=document.getElementById('cbcategory').value; //obtenemos el id de la cateogria
         let idEvaluation={{$id}};//obtenemos el id de la evaluacion que estamos registrando sus categorias
@@ -158,9 +166,23 @@
                     idEvaluation:idEvaluation
             },
             dataType: "JSON",
-            success: function (data) {
-                table.ajax.reload();
-                $('#modaluser').modal('hide');
+            success: function (response) {
+                if (response.error == 'Error de asignacion')
+                {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Esa categoria ya fue asignada.'
+                    });
+                }
+                else
+                {
+                    Toast.fire({
+                        type:'success',
+                        title:'Categoria asginada correctamente.'
+                    });
+                    table.ajax.reload();
+                    $('#modaluser').modal('hide');
+                }
             }
         });
     });

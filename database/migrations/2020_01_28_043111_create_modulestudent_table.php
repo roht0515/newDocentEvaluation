@@ -17,6 +17,7 @@ class CreateModulestudentTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('idModule')->unsigned();
             $table->bigInteger('idStudent')->unsigned();
+            $table->date('registerDate');
             $table->timestamps();
             $table->foreign('idModule')->references('id')->on('module');
             $table->foreign('idStudent')->references('id')->on('student');

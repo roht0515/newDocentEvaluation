@@ -29,7 +29,7 @@ class FormDiplomatSRequest extends FormRequest
             'lastname' => 'required|regex:/^[\pL\s\-]+$/u',
             'career' => 'required|regex:/^[\pL\s\-]+$/u',
             'email' => 'required|email',
-            'phone' => 'required|min:8|max:9',
+            'phone' => 'required|integer|min:8',
             'nameDiplomat' => 'required',
             'reason' => 'required',
         ];
@@ -48,7 +48,7 @@ class FormDiplomatSRequest extends FormRequest
             'email.email' => 'Ingrese un :attribute valido',
             'phone.required' => 'El :attribute es obligatorio',
             'phone.min' => 'El :attribute debe tener minimo 8 digitos',
-            'phone.max' => 'El :attribute debe tener maximo 8 digitos',
+            'phone.integer' => 'El :attribute no es valido',
             'nameDiplomat.required' => 'Ingrese el :attribute',
             'reason.required' => 'Ingrese la :attribute de entrega'
         ];

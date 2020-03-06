@@ -28,15 +28,15 @@
                         </table>
                     </div>
                 </div>
-                <form action="{{route('evaluationStudent.store')}}" id="formEvaluationStudent" name="formEvaluationStudent"
-                    method="post">
+                <form action="{{route('evaluationStudent.store')}}" id="formEvaluationStudent"
+                    name="formEvaluationStudent" method="post">
                     @csrf
-                    <input type="hidden" id="count" name="count" value="{{$count}}">
+                    {{-- Contador de preguntas --}}
+                    <input type="hidden" id="CountQuestion" name="CountQuestion" value="{{$questioncount}}">
                     {{-- DEBEMOS TENER 3 COLUMNAS PARA DIFRENCIA --}}
-                    <input type="hidden" id="idStudent" name="idStudent" value="{{$evaluation->idS}}">
-                    <input type="hidden" id="idEvaluationM" name="idEvaluationM" value="{{$evaluation->idEM}}">
+                    <input type="hidden" id="idModuleStudent" name="idModuleStudent" value="{{$evaluation->idMS}}">
                     {{-- PARA BUSCAR LA EVALUACION --}}
-                    <input type="hidden" id="idEvaluation" name="idEvaluation" value="{{$evaluation->id}}">
+                    <input type="hidden" id="idEvaluation" name="idEvaluation" value="{{$evaluation->idE}}">
                     <input type="hidden" id="score" name="score" value="">
                     <button id="SaveDates" class="btn btn-primary">Guardar Evaluacion</button>
                 </form>
@@ -71,58 +71,113 @@
         columns:
         [
             {data:'text',name:'text'},
-            {data:'p1',name:'p1',orderable: false, searchable: false},
-            {data:'p2',name:'p2',orderable: false, searchable: false},
-            {data:'p3',name:'p3',orderable: false, searchable: false},
-            {data:'p4',name:'p4',orderable: false, searchable: false},
-            {data:'p5',name:'p5',orderable: false, searchable: false},
+            {data:'nunca',name:'nuca',orderable: false, searchable: false},
+            {data:'poco',name:'poco',orderable: false, searchable: false},
+            {data:'regular',name:'regular',orderable: false, searchable: false},
+            {data:'general',name:'general',orderable: false, searchable: false},
+            {data:'siempre',name:'siempre',orderable: false, searchable: false},
             {data:'DT_RowId',name:'DT_RowId',visible:false}
 
         ]
     });
+    //mensajes de confirmacion
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+    var questionId = [];
+    var points = [];
     var form = document.getElementById('formEvaluationStudent');
     form.addEventListener("submit",function (event)
     {
+        var res=0;
         validarFormulario();
         event.preventDefault();
         event.stopPropagation();
         var count = document.getElementById('questionsTable').rows.length;
-        var t='question';
-        var res=0;
         //recorrer el total de preguntas a tener
-        for (var x=1;x<=count;x++) {
-            var question = document.getElementsByName(t+x);
+        for (var x=0;x<count;x++) 
+        {
+            var question=document.getElementsByName(x);
             //recorrer todos los radios si estan chequeados
-            for (var y=0;y<question.length;y++)
+           for (var y=0;y<question.length;y++)
             {
                 if (question[y].checked == true)
                 {
                     res = parseInt (res) + parseInt(question[y].value);
+                    //guardamos el id de la pregunta y el puntaje de cada pregunta
+                    questionId [x] = question[y].getAttribute('name');
+                    points[x] = question[y].value;
                 }
             }
             
         }
-        
-            document.getElementById('score').value=res;
+        //insertar categoria por categoria
+        var modulestudent=document.getElementById('idModuleStudent').value;
+        recursiveAjax(questionId,points,modulestudent,1);
+        //ejecutar el total
+        //agregar el res total a un input
+        document.getElementById('score').value=res;
+        res = 0;
+        });
+//funcion recursiva recibe el arreglo de los id de las preguntas 
+//los puntos y el modulo y la posicion en q se movera
+function recursiveAjax(questionId,points,modulestudent,pos)
+{
+    if (pos < questionId.length)
+    {
+
+        var idQuestion=questionId[pos];
+        var scoreCategory = points[pos];
+        $.ajax({
+        type: "POST",
+        url: "{{route('evaluationnotes.store')}}",
+        data: 
+        {
+            idQuestion:idQuestion,
+            idModuleStudent:modulestudent,
+            scoreCategory:scoreCategory,
+            _token: "{{ csrf_token() }}"
+
+         },
+        dataType: "JSON",
+        cache:false,
+        success: function (response) {
+            recursiveAjax(questionId,points,modulestudent,pos+1);
+            if (pos == questionId.length -1)
+            {
                 $.ajax({
                 data: $('#formEvaluationStudent').serialize(),
                 url: "{{ route('evaluationStudent.store') }}",
                 type: "POST",
                 dataType: 'json',
                 success: function (data) {
+                    Toast.fire({
+                    type: 'success',
+                    title: 'Evaluacion Completa.'
+                });
                     var url = "{{route('student.mainIndex')}}"
                     window.location.href=url;
+                    
 
                 },
                 error: function (data) {
                     console.log('Error:', data);
                 }
             });
-        
+            }
+        },
+        error:function(error)
+        {
+         console.log(error);
+        }
+        });
 
-    });
+    }
 
-   
+}
 })
 </script>
 @endsection
